@@ -1,10 +1,37 @@
-# 我的 nvim 配置
+# My nvim config
 <!-- vim-markdown-toc GFM -->
 
-* [vim-surround](#vim-surround)
+* [Applied Plugins](#applied-plugins)
+	* [Gruvbox (colorscheme)](#gruvbox-colorscheme)
+	* [Vimtex(for latex)](#vimtexfor-latex)
+	* [Latex-live-preview](#latex-live-preview)
+	* [Ultisnippets](#ultisnippets)
+	* [Vim-markdown](#vim-markdown)
+	* [MarkdownPreview](#markdownpreview)
+	* [Lightline](#lightline)
+	* [Coc.nvim (for completion)](#cocnvim-for-completion)
+	* [Vim-TableMode](#vim-tablemode)
+	* [vim-surround](#vim-surround)
+* [Custom keymaps](#custom-keymaps)
 
 <!-- vim-markdown-toc -->
-## vim-surround
+
+## Applied Plugins
+### Gruvbox (colorscheme)
+### Vimtex(for latex)
+### Latex-live-preview
+### Ultisnippets
+### Vim-markdown
+### MarkdownPreview
+
+### Lightline
+
+### Coc.nvim (for completion)
+
+### Vim-TableMode
+
+
+### vim-surround
 It's easiest to explain with examples.  Press `cs"'` inside
 
     "Hello world!"
@@ -58,3 +85,9 @@ currently seems underfilled in Vim land.  (As opposed to HTML/XML
 *inserting*, for which many plugins are available).  Adding, changing,
 and removing pairs of tags simultaneously is a breeze.
 
+## Custom keymaps
+
+| Key     | Map            |
+|---------|----------------|
+| ,r      | FileCompileRun |
+| <space> | za, Fold       |
