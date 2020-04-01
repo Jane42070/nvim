@@ -2,7 +2,7 @@
 <!-- vim-markdown-toc GFM -->
 
 * [Applied Plugins](#applied-plugins)
-	* [Gruvbox (colorscheme)](#gruvbox-colorscheme)
+	* [Vim-easy-align](#vim-easy-align)
 	* [Vimtex(for latex)](#vimtexfor-latex)
 	* [Latex-live-preview](#latex-live-preview)
 	* [Ultisnippets](#ultisnippets)
@@ -10,26 +10,45 @@
 	* [MarkdownPreview](#markdownpreview)
 	* [Lightline](#lightline)
 	* [Coc.nvim (for completion)](#cocnvim-for-completion)
-	* [Vim-TableMode](#vim-tablemode)
+	* [Vim-table-mode](#vim-table-mode)
 	* [vim-surround](#vim-surround)
 * [Custom keymaps](#custom-keymaps)
 
 <!-- vim-markdown-toc -->
 
 ## Applied Plugins
-### Gruvbox (colorscheme)
+### [Vim-easy-align](https://github.com/junegunn/vim-easy-align)
+![QuickStart](https://raw.githubusercontent.com/junegunn/i/master/easy-align/equals.gif)
+```vim
+" Start interactive EasyAlign in visual mode (e.g. vipga)
+xmap ga <Plug>(EasyAlign)
+
+" Start interactive EasyAlign for a motion/text object (e.g. gaip)
+nmap ga <Plug>(EasyAlign)
+```
+Then with the following lines of text,
+```
+apple   =red
+grass+=green
+sky-=   blue
+```
+try these commands:
+- `vipga=`
+	- `v`isual-select `i`nner `p`aragraph
+	- Start EasyAlign command (`ga`)
+	- Align around `=`
+- `gaip=`
+	- Start EasyAlign command (`ga`) for `i`nner `p`aragraph
+	- Align around `=`
+
 ### Vimtex(for latex)
 ### Latex-live-preview
 ### Ultisnippets
 ### Vim-markdown
 ### MarkdownPreview
-
 ### Lightline
-
 ### Coc.nvim (for completion)
-
-### Vim-TableMode
-
+### [Vim-table-mode](https://github.com/dhruvasagar/vim-table-mode)
 
 ### vim-surround
 It's easiest to explain with examples.  Press `cs"'` inside
