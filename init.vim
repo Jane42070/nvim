@@ -19,7 +19,7 @@ Plug 'wsdjeg/vim-chat'
 Plug 'tpope/vim-speeddating'
 " 增强.
 Plug 'tpope/vim-repeat'
-"CSV
+" CSV
 Plug 'chrisbra/csv.vim', {'for': 'csv'}
 " Vim-move
 Plug 'matze/vim-move'
@@ -50,8 +50,6 @@ Plug 'sheerun/vim-polyglot'
 Plug 'morhetz/gruvbox'
 " onedark theme
 Plug 'joshdick/onedark.vim'
-" snowy theme
-" Plug 'raphamorim/lucario'
 " iceberg theme
 Plug 'cocopon/iceberg.vim'
 Plug 'itchyny/lightline.vim'
@@ -61,15 +59,13 @@ Plug 'ryanoasis/vim-devicons'
 Plug 'mengelbrecht/lightline-bufferline'
 " Latex 插件
 Plug 'lervag/vimtex', {'for': 'tex'}
-" Python
-"Plug 'python-mode/python-mode', { 'for': 'python', 'branch': 'develop' }
 " Golang
 Plug 'fatih/vim-go', {'for': 'go', 'do': ':GoUpdateBinaries' }
 " markdown 语言插件
 Plug 'godlygeek/tabular'
 Plug 'mzlogin/vim-markdown-toc', {'for': 'markdown'}
 Plug 'plasticboy/vim-markdown', {'for': 'markdown'}
-Plug 'dhruvasagar/vim-table-mode', {'on': 'TableModeEnable'}
+Plug 'dhruvasagar/vim-table-mode' " {'on': 'TableModeEnable'}
 Plug 'iamcco/mathjax-support-for-mkdp', {'for': 'markdown'}
 Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app & yarn install'  }
 Plug 'junegunn/vim-easy-align', {'on': '<Plug>(EasyAlign)'}
@@ -86,46 +82,36 @@ call plug#end()
 """""""""""""""""""""""""""""""""""""
 "	      CUSTOM MY NVIM	     	"
 """""""""""""""""""""""""""""""""""""
-" 显示行号
-set number
-" 高亮当前行
-set cursorline
-" 设置空白字符的视觉提示
-set list listchars=extends:❯,precedes:❮,tab:▸\ ,trail:˽
-syntax on	" 语法高亮
-filetype plugin indent on " 根据文件类型自动处理缩进
-" 共享剪切板
-"set clipboard+=unnamed
+set number                                              " 显示行号
+set cursorline                                          " 高亮当前行
+set list listchars=extends:❯,precedes:❮,tab:▸\ ,trail:˽ " 设置空白字符的视觉提示
+syntax on                                               " 语法高亮
+filetype plugin indent on                               " 根据文件类型自动处理缩进
+" set clipboard+=unnamed                                " 共享剪切板
 filetype on
 set autochdir
-" 取消注释自动换行
-" set paste
-" 设置持久性撤销和重复
-set undofile
-" 大小写不敏感
-set ignorecase
-" 开启智能推测
-set smartcase
+set undofile                                            " 设置持久性撤销和重复
+set ignorecase                                          " 大小写不敏感
+set smartcase                                           " 开启智能推测
 set textwidth=80
-" 不对单词折行
-set linebreak
+set linebreak                                           " 不对单词折行
 set scrolloff=5
 set sidescrolloff=15
 set shiftwidth=4
 set tabstop=4
 set softtabstop=4
-set backspace=2		" 修正多数终端上 backspace 行为
-set cindent			" 设置 C 自动缩进
-set incsearch		" 输入字符串就显示匹配点
+set backspace=2                                         " 修正多数终端上 backspace 行为
+set cindent                                             " 设置 C 自动缩进
+set incsearch                                           " 输入字符串就显示匹配点
 set hlsearch
-set showmatch		" 显示匹配的括号
-set scrolloff=3     " 距离顶部和底部 3 行
-set encoding=utf-8  " 编码
-set fenc=utf-8      " 编码
-set mouse=a			" 启用鼠标
-set hlsearch        " 搜索高亮
-set autoindent		" 设置自动缩进
-set wrap			" 设置折叠
+set showmatch                                           " 显示匹配的括号
+set scrolloff=3                                         " 距离顶部和底部 3 行
+set encoding=utf-8                                      " 编码
+set fenc=utf-8                                          " 编码
+set mouse=a                                             " 启用鼠标
+set hlsearch                                            " 搜索高亮
+set autoindent                                          " 设置自动缩进
+set wrap                                                " 设置折叠
 set tags=./.tags;,.tags
 
 " Resize splits with arrow keys
@@ -199,10 +185,7 @@ function! s:check_back_space() abort
 endfunction
 
 let g:coc_snippet_next = '<tab>'
-" inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm() :
-                                           \"\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
 """""""""""""""""""""""""""""""""""""
-
 """""""""""""""""""""""""""""""""""""
 " leaderF
 " don't show the help in normal mode
@@ -246,7 +229,6 @@ function! s:cocActionsOpenFromSelected(type) abort
 endfunction
 xmap <silent> <leader>a :<C-u>execute 'CocCommand actions.open ' . visualmode()<CR>
 nmap <silent> <leader>a :<C-u>set operatorfunc=<SID>cocActionsOpenFromSelected<CR>g@
-
 """""""""""""""""""""""""""""""""""""
 
 """""""""""""""""""""""""""""""""""""
@@ -316,7 +298,7 @@ nmap <Leader>cr <Plug>(coc-calc-result-replace)
 
 """""""""""""""""""""""""""""""""""""
 " vim-move
-" let g:move_key_modifier = 'S'
+" let g:move_key_modifier = 'A'
 """""""""""""""""""""""""""""""""""""
 
 """""""""""""""""""""""""""""""""""""
@@ -328,14 +310,14 @@ nmap ga <Plug>(EasyAlign)
 """""""""""""""""""""""""""""""""""""
 " ranger
 let g:ranger_map_keys = 1
-let g:NERDTreeHijackNetrw = 0 "add this line if you use NERDTree
-let g:ranger_replace_netrw = 1 "open ranger when vim open a directory
+let g:NERDTreeHijackNetrw = 0  " add this line if you use NERDTree
+let g:ranger_replace_netrw = 1 " open ranger when vim open a directory
 """""""""""""""""""""""""""""""""""""
 
 """""""""""""""""""""""""""""""""""""
 " fzf.vim
 nmap <s-f> :FZF<cr>
-"let g:fzf_layout = { 'down': '~30%' }
+" let g:fzf_layout = { 'down': '~30%' }
 " [Buffers] Jump to the existing window if possible
 let g:fzf_buffers_jump = 1
 
@@ -522,20 +504,17 @@ map ,pd :PlugUpdate<CR>
 map ,pg :PlugUpgrade<CR>
 map ,pc :PlugClean<CR>
 map ,ps :PlugStatus<CR>
-"map ,r :source %<CR>
 " 新建标签页
 map tt :tabe<CR>
-"" 浏览标签页
-map <TAB><TAB> :tabnext<CR>
-map tc :tabclose<CR>
+" 浏览标签页
+" map <TAB><TAB> :tabnext<CR>
+" map tc :tabclose<CR>
 " 快捷缩进
 vnoremap < <v
 vnoremap > >v
 
 " 映射 jk 为<ESC>
 inoremap jk <ESC>
-inoremap wjk <ESC>:w<CR>
-inoremap wqjk <ESC>:wq<CR>
 
 " 使用 s + hjkl 在 nvim 中快速分屏
 map sl :set splitright<CR>:vsplit<CR>
@@ -685,8 +664,6 @@ function! StatusDiagnostic() abort
   return join(msgs, ' ') . ' ' . get(g:, 'coc_status', '')
 endfunction
 
-"set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}%{StatusDiagnostic()}
-
 " Mappings using CoCList:
 " Show all diagnostics.
 nnoremap <silent> <space>d  :<C-u>CocList diagnostics<cr>
@@ -708,8 +685,8 @@ nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
 
 """""""""""""""""""""""""""""""""""""
 " vim-calendar
-"let g:calendar_google_calendar = 1
-"let g:calendar_google_task = 1
+" let g:calendar_google_calendar = 1
+" let g:calendar_google_task = 1
 " Google-api
 map TL :Calendar -view=clock<CR>
 map TT :Calendar<CR>
@@ -757,10 +734,10 @@ inoreabbrev <expr> __
           \ <SID>isAtStartOfLine('__') ?
 
 " To get ReST-compatible tables use
-"let g:table_mode_corner_corner='+'
+" let g:table_mode_corner_corner='+'
 " For Markdown-compatible tables use
 let g:table_mode_corner='|'
-"let g:table_mode_header_fillchar='='
+" let g:table_mode_header_fillchar='='
 """""""""""""""""""""""""""""""""""""
 
 """""""""""""""""""""""""""""""""""""
@@ -871,9 +848,9 @@ endif
 " |____/|_|_| |_|_| |_| .__/ \___|\__|___/
 "                     |_|
 " better key bindings for UltiSnipsExpandTrigger
-let g:UltiSnipsExpandTrigger="<c-e>"
-let g:UltiSnipsJumpForwardTrigger="<c-j>"
-let g:UltiSnipsJumpBackwardTrigger="<c-k>"
+let g:UltiSnipsExpandTrigger="<TAB>"
+let g:UltiSnipsJumpForwardTrigger="<TAB>"
+let g:UltiSnipsJumpBackwardTrigger="<S-TAB>"
 let g:UltiSnipsEditSplit="vertical"
 """"""""""""""""""""""""""""""""""""""""""""""""""
 
