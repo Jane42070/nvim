@@ -1,4 +1,13 @@
-call plug#begin('~/.vim/plugged')
+"  __  __         _   _       _
+" |  \/  |_   _  | \ | |_   _(_)_ __ ___  _ __ ___
+" | |\/| | | | | |  \| \ \ / / | '_ ` _ \| '__/ __|
+" | |  | | |_| | | |\  |\ V /| | | | | | | | | (__
+" |_|  |_|\__, | |_| \_| \_/ |_|_| |_| |_|_|  \___|
+"         |___/
+" Jane
+" mail : jql1377219787@gmail.com
+
+call plug#begin('~/.config/nvim/plugged')
 " 撤销树 Gundo
 Plug 'sjl/gundo.vim', {'on': 'GundoToggle'}
 " A Vim Plugin for Lively Previewing LaTeX PDF Output
@@ -13,8 +22,8 @@ Plug 'jiangmiao/auto-pairs'
 Plug 'anyakichi/vim-surround'
 " 中文标准化排版
 Plug 'hotoo/pangu.vim'
-" QQ
-Plug 'wsdjeg/vim-chat'
+" Vim 多光标操作
+Plug 'terryma/vim-multiple-cursors'
 " 增强<C-A>/<C-X>
 Plug 'tpope/vim-speeddating'
 " 增强.
@@ -26,7 +35,7 @@ Plug 'matze/vim-move'
 " Calendar
 Plug 'itchyny/calendar.vim', {'on': 'Calendar'}
 " nvim startscreen --vim-startify
-Plug 'mhinz/vim-startify'
+" Plug 'mhinz/vim-startify'
 Plug 'majutsushi/tagbar', {'on': 'TagbarToggle'}
 Plug 'liuchengxu/vista.vim', {'on': 'Vista'}
 " Super searching
@@ -38,20 +47,18 @@ Plug 'itchyny/vim-cursorword'
 " Interesting words
 Plug 'lfv89/vim-interestingwords'
 " file search --fzf
-Plug '/usr/local/opt/fzf'
 Plug 'junegunn/fzf', {'on': 'FZF', 'do': { -> fzf#install() }}
+" File Compile Run
 Plug 'skywind3000/asyncrun.vim'
 Plug 'skywind3000/asynctasks.vim'
-" vim-ranger
-Plug 'rbgrouleff/bclose.vim'	" neovim dependency
-Plug 'francoiscabrol/ranger.vim' "{'on': 'Ranger'}
+" Extra Syntax Highlight
 Plug 'sheerun/vim-polyglot'
 " lightline
 Plug 'morhetz/gruvbox'
 " onedark theme
 Plug 'joshdick/onedark.vim'
 " iceberg theme
-Plug 'cocopon/iceberg.vim'
+" Plug 'cocopon/iceberg.vim'
 Plug 'itchyny/lightline.vim'
 " devicons make lightline more graphical
 Plug 'ryanoasis/vim-devicons'
@@ -60,35 +67,41 @@ Plug 'mengelbrecht/lightline-bufferline'
 " Latex 插件
 Plug 'lervag/vimtex', {'for': 'tex'}
 " Golang
-Plug 'fatih/vim-go', {'for': 'go', 'do': ':GoUpdateBinaries' }
+Plug 'fatih/vim-go', {'for': ['go', 'vim-plug'], 'tag': '*'}
 " markdown 语言插件
 Plug 'godlygeek/tabular'
 Plug 'mzlogin/vim-markdown-toc', {'for': 'markdown'}
 Plug 'plasticboy/vim-markdown', {'for': 'markdown'}
-Plug 'dhruvasagar/vim-table-mode' " {'on': 'TableModeEnable'}
+Plug 'dhruvasagar/vim-table-mode', {'for': ['markdown', 'text']}
 Plug 'iamcco/mathjax-support-for-mkdp', {'for': 'markdown'}
 Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app & yarn install'  }
 Plug 'junegunn/vim-easy-align', {'on': '<Plug>(EasyAlign)'}
 " html 插件
-Plug 'mattn/emmet-vim', {'for': 'html'}
+Plug 'mattn/emmet-vim', {'for': ['html', 'css', 'vim-plug', 'php']}
+Plug 'pangloss/vim-javascript', {'for': ['html', 'vim-plug', 'php', 'javascript']}
 " 注释
 Plug 'scrooloose/nerdcommenter'
 " 代码片段
-"Plug 'honza/vim-snippets'
+" Plug 'honza/vim-snippets'
 Plug 'SirVer/ultisnips'
 " 代码折叠
 Plug 'konfekt/fastfold'
 call plug#end()
 """""""""""""""""""""""""""""""""""""
-"	      CUSTOM MY NVIM	     	"
+"         CUSTOM MY NVIM            "
 """""""""""""""""""""""""""""""""""""
+" set clipboard+=unnamed                                " 共享剪切板
+" make Y to copy till the end of the line
+nnoremap Y y$
+" Copy to system clipboard
+vnoremap Y "+y
 set number                                              " 显示行号
 set cursorline                                          " 高亮当前行
 set list listchars=extends:❯,precedes:❮,tab:▸\ ,trail:˽ " 设置空白字符的视觉提示
 syntax on                                               " 语法高亮
 filetype plugin indent on                               " 根据文件类型自动处理缩进
-" set clipboard+=unnamed                                " 共享剪切板
 filetype on
+set shortmess=atI                                       " 取消显示帮助可怜的乌干达儿童
 set autochdir
 set undofile                                            " 设置持久性撤销和重复
 set ignorecase                                          " 大小写不敏感
@@ -134,10 +147,6 @@ imap 》 <ESC>f》a
 imap ”  <ESC>f” a
 imap ’  <ESC>f’ a
 
-" 貌似没什么用
-imap <c-l> <RIGHT>
-"imap <c-h> <left>
-
 " 搜索高亮后　前后跳转：下一个 / 上一个
 " n/N
 " 高亮显示复制区域
@@ -158,19 +167,100 @@ let g:gruvbox_contrast_light='soft'
 let g:gruvbox_improved_warnings=1
 let g:gruvbox_termcolors=256
 
-" reverse the color of signs, not good!
+" reverse the color of signs, so bad!
 " let g:gruvbox_invert_signs=1
 set background=dark
 colorscheme gruvbox
-" For MacVim
-"set macligatures
-"set guifont=Fira\ Code:h17 "设置字体和大小
 set termguicolors
 
 " 开启中文规范
 autocmd BufWritePre *.text,*.txt,*.wiki,*.cnx,*.py call PanGuSpacing()
 """modeconfig"""
 """""""""""""""""""""""""""""""""""""
+"""""""""""""""""""""""""""""""""""""
+" colorizer
+" let g:colorizer_auto_color = 1
+let g:colorizer_auto_filetype='css,html'
+let g:colorizer_skip_comments = 1
+let g:colorizer_syntax = 1
+let g:colorizer_use_virtual_text = 1
+"""""""""""""""""""""""""""""""""""""
+
+"""""""""""""""""""""""""""""""""""""
+" vim-go
+let g:go_version_warning = 1
+let g:go_code_completion_enabled = 1
+let g:go_info_mode = 'gopls'
+let g:go_updatetime = 200
+let g:go_def_mode = 'gopls'
+let g:go_referrers_mode = 'gopls'
+let g:go_auto_type_info = 1
+let g:go_highlight_format_strings = 1
+
+let g:go_fold_enable = ['block', 'import', 'varconst', 'package_comment']
+" golang highlight
+let g:go_highlight_extra_types = 1
+let g:go_highlight_operators = 1
+let g:go_highlight_functions = 1
+let g:go_highlight_function_parameters = 1
+let g:go_highlight_function_calls = 1
+let g:go_highlight_types = 1
+let g:go_highlight_fields = 1
+let g:go_highlight_structs = 1
+let g:go_highlight_build_constraints = 1
+let g:go_highlight_variable_declarations = 0
+let g:go_highlight_variable_assignments = 0
+let g:go_highlight_generate_tags = 1
+let g:go_highlight_space_tab_error = 1
+let g:go_highlight_string_spellcheck = 1
+"""""""""""""""""""""""""""""""""""""
+
+"""""""""""""""""""""""""""""""""""""
+" emmet-vim
+" Only enable in html, css files
+let g:user_emmet_install_global = 0
+let g:user_emmet_mode='a'    "only enable normal mode functions.
+autocmd FileType html,css EmmetInstall
+let g:user_emmet_leader_key='<tab>'
+"""""""""""""""""""""""""""""""""""""
+
+"""""""""""""""""""""""""""""""""""""
+" javascript-vim
+let g:javascript_plugin_jsdoc = 1
+let g:javascript_plugin_ngdoc = 1
+let g:javascript_plugin_flow = 1
+let g:javascript_conceal_function             = "ƒ"
+let g:javascript_conceal_null                 = "ø"
+let g:javascript_conceal_this                 = "@"
+let g:javascript_conceal_return               = "⇚"
+let g:javascript_conceal_undefined            = "¿"
+let g:javascript_conceal_NaN                  = "ℕ"
+let g:javascript_conceal_prototype            = "¶"
+let g:javascript_conceal_static               = "•"
+let g:javascript_conceal_super                = "Ω"
+let g:javascript_conceal_arrow_function       = "⇒"
+" let g:javascript_conceal_noarg_arrow_function = "🞅"
+" let g:javascript_conceal_underscore_arrow_function = "🞅"
+"""""""""""""""""""""""""""""""""""""
+
+
+"""""""""""""""""""""""""""""""""""""
+" vim-multiple-cursors
+" If you don't like the plugin taking over your key bindings, you can turn it off and reassign them the way you want:
+let g:multi_cursor_use_default_mapping=0
+
+" Default mapping
+" Default mapping
+let g:multi_cursor_start_word_key      = '<C-n>'
+let g:multi_cursor_select_all_word_key = '<A-n>'
+let g:multi_cursor_start_key           = 'g<C-n>'
+let g:multi_cursor_select_all_key      = 'g<A-n>'
+let g:multi_cursor_next_key            = '<C-n>'
+let g:multi_cursor_prev_key            = '<C-p>'
+let g:multi_cursor_skip_key            = '<C-x>'
+let g:multi_cursor_quit_key            = '<Esc>'
+"""""""""""""""""""""""""""""""""""""
+
 """""""""""""""""""""""""""""""""""""
 " coc-snippets
 inoremap <silent><expr> <TAB>
@@ -186,6 +276,96 @@ endfunction
 
 let g:coc_snippet_next = '<tab>'
 """""""""""""""""""""""""""""""""""""
+
+"""""""""""""""""""""""""""""""""""""
+" leaderF
+" don't show the help in normal mode
+let g:Lf_HideHelp = 1
+let g:Lf_UseCache = 0
+let g:Lf_UseVersionControlTool = 0
+let g:Lf_IgnoreCurrentBufferName = 1
+" popup mode
+let g:Lf_WindowPosition = 'popup'
+let g:Lf_PreviewInPopup = 1
+let g:Lf_StlSeparator = { 'left': "\ue0b0", 'right': "\ue0b2", 'font': "DejaVu Sans Mono for Powerline" }
+let g:Lf_PreviewResult = {'Function': 0, 'BufTag': 0 }
+" let g:Lf_CommandMap = {'<C-K>': ['<Up>'], '<C-J>': ['<Down>']}
+let g:Lf_ShortcutF = "<leader>ff"
+noremap <leader>fb :<C-U><C-R>=printf("Leaderf buffer %s", "")<CR><CR>
+noremap <leader>fm :<C-U><C-R>=printf("Leaderf mru %s", "")<CR><CR>
+noremap <leader>ft :<C-U><C-R>=printf("Leaderf bufTag %s", "")<CR><CR>
+noremap <leader>fl :<C-U><C-R>=printf("Leaderf line %s", "")<CR><CR>
+
+noremap <C-B> :<C-U><C-R>=printf("Leaderf! rg --current-buffer -e %s ", expand("<cword>"))<CR>
+noremap <C-F> :<C-U><C-R>=printf("Leaderf! rg -e %s ", expand("<cword>"))<CR>
+" search visually selected text literally
+xnoremap gf :<C-U><C-R>=printf("Leaderf! rg -F -e %s ", leaderf#Rg#visual())<CR>
+noremap go :<C-U>Leaderf! rg --recall<CR>
+
+" should use `Leaderf gtags --update` first
+let g:Lf_GtagsAutoGenerate = 0
+let g:Lf_Gtagslabel = 'native-pygments'
+noremap <leader>fr :<C-U><C-R>=printf("Leaderf! gtags -r %s --auto-jump", expand("<cword>"))<CR><CR>
+noremap <leader>fd :<C-U><C-R>=printf("Leaderf! gtags -d %s --auto-jump", expand("<cword>"))<CR><CR>
+noremap <leader>fo :<C-U><C-R>=printf("Leaderf! gtags --recall %s", "")<CR><CR>
+noremap <leader>fn :<C-U><C-R>=printf("Leaderf gtags --next %s", "")<CR><CR>
+noremap <leader>fp :<C-U><C-R>=printf("Leaderf gtags --previous %s", "")<CR><CR>
+"""""""""""""""""""""""""""""""""""""
+
+"""""""""""""""""""""""""""""""""""""
+" coc-actions
+" Remap for do codeAction of selected region
+function! s:cocActionsOpenFromSelected(type) abort
+  execute 'CocCommand actions.open ' . a:type
+endfunction
+xmap <silent> <leader>a :<C-u>execute 'CocCommand actions.open ' . visualmode()<CR>
+nmap <silent> <leader>a :<C-u>set operatorfunc=<SID>cocActionsOpenFromSelected<CR>g@
+"""""""""""""""""""""""""""""""""""""
+
+"""""""""""""""""""""""""""""""""""""
+" tabular
+let g:tabular_loaded = 1
+"""""""""""""""""""""""""""""""""""""
+
+"""""""""""""""""""""""""""""""""""""
+" fastfold
+nmap zuz <Plug>(FastFoldUpdate)
+" Enable folding with the spacebar
+nnoremap <space> za
+let g:fastfold_savehook = 1
+let g:fastfold_fold_command_suffixes =  ['x', 'X', 'a', 'A', 'o', 'O', 'c', 'C']
+let g:fastfold_fold_movement_commands = [']z', '[z', 'zj', 'zk']
+let g:markdown_folding = 1
+let g:tex_fold_enabled = 1
+let g:vimsyn_folding = 'af'
+let g:xml_syntax_folding = 1
+let g:javaScript_fold = 1
+let g:php_folding = 1
+let g:sh_fold_enabled= 7
+let g:multi_cursor_start_key           = 'g<C-n>'
+let g:multi_cursor_select_all_key      = 'g<A-n>'
+let g:multi_cursor_next_key            = '<C-n>'
+let g:multi_cursor_prev_key            = '<C-p>'
+let g:multi_cursor_skip_key            = '<C-x>'
+let g:multi_cursor_quit_key            = '<Esc>'
+"""""""""""""""""""""""""""""""""""""
+
+"""""""""""""""""""""""""""""""""""""
+" coc-snippets
+inoremap <silent><expr> <TAB>
+      \ pumvisible() ? coc#_select_confirm() :
+      \ coc#expandableOrJumpable() ? "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
+      \ <SID>check_back_space() ? "\<TAB>" :
+      \ coc#refresh()
+
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+
+let g:coc_snippet_next = '<tab>'
+"""""""""""""""""""""""""""""""""""""
+
 """""""""""""""""""""""""""""""""""""
 " leaderF
 " don't show the help in normal mode
@@ -272,102 +452,6 @@ let g:NERDAltDelims_java = 1
 
 " Add your own custom formats or override the defaults
 let g:NERDCustomDelimiters = { 'c': { 'left': '/**','right': '*/' } }
-
-" Allow commenting and inverting empty lines (useful when commenting a region)
-let g:NERDCommentEmptyLines = 1
-
-" Enable trimming of trailing whitespace when uncommenting
-let g:NERDTrimTrailingWhitespace = 1
-
-" Enable NERDCommenterToggle to check all selected lines is commented or not 
-let g:NERDToggleCheckAllLines = 1
-"""""""""""""""""""""""""""""""""""""
-
-"""""""""""""""""""""""""""""""""""""
-" polyglot
-let g:python_highlight_all = 1
-"""""""""""""""""""""""""""""""""""""
-
-"""""""""""""""""""""""""""""""""""""
-" coc-calc
-" append result on current expression
-nmap <Leader>ca <Plug>(coc-calc-result-append)
-" replace result on current expression
-nmap <Leader>cr <Plug>(coc-calc-result-replace)
-"""""""""""""""""""""""""""""""""""""
-
-"""""""""""""""""""""""""""""""""""""
-" vim-move
-" let g:move_key_modifier = 'A'
-"""""""""""""""""""""""""""""""""""""
-
-"""""""""""""""""""""""""""""""""""""
-" vim-easy-align
-xmap ga <Plug>(EasyAlign)
-nmap ga <Plug>(EasyAlign)
-"""""""""""""""""""""""""""""""""""""
-
-"""""""""""""""""""""""""""""""""""""
-" ranger
-let g:ranger_map_keys = 1
-let g:NERDTreeHijackNetrw = 0  " add this line if you use NERDTree
-let g:ranger_replace_netrw = 1 " open ranger when vim open a directory
-"""""""""""""""""""""""""""""""""""""
-
-"""""""""""""""""""""""""""""""""""""
-" fzf.vim
-nmap <s-f> :FZF<cr>
-" let g:fzf_layout = { 'down': '~30%' }
-" [Buffers] Jump to the existing window if possible
-let g:fzf_buffers_jump = 1
-
-" [[B]Commits] Customize the options used by 'git log':
-let g:fzf_commits_log_options = '--graph --color=always --format="%C(auto)%h%d %s %C(black)%C(bold)%cr"'
-
-" [Tags] Command to generate tags file
-let g:fzf_tags_command = 'ctags -R'
-
-" [Commands] --expect expression for directly executing the command
-let g:fzf_commands_expect = 'alt-enter,ctrl-x'
-let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.6} }
-command! -bang -nargs=? -complete=dir Files
-    \ call fzf#vim#files(<q-args>, fzf#vim#with_preview({'options': ['--layout=reverse', '--info=inline']}), <bang>0)
-" This is the default extra key bindings
-let g:fzf_action = {
-  \ 'ctrl-t': 'tab split',
-  \ 'ctrl-x': 'split',
-  \ 'ctrl-v': 'vsplit' }
-
-" An action can be a reference to a function that processes selected lines
-function! s:build_quickfix_list(lines)
-  call setqflist(map(copy(a:lines), '{ "filename": v:val }'))
-  copen
-  cc
-endfunction
-
-let g:fzf_action = {
-  \ 'ctrl-q': function('s:build_quickfix_list'),
-  \ 'ctrl-t': 'tab split',
-  \ 'ctrl-x': 'split',
-  \ 'ctrl-v': 'vsplit' }
-" Enable per-command history
-" - History files will be stored in the specified directory
-" - When set, CTRL-N and CTRL-P will be bound to 'next-history' and
-"   'previous-history' instead of 'down' and 'up'.
-let g:fzf_history_dir = '~/.local/share/fzf-history'
-"""""""""""""""""""""""""""""""""""""
-
-"""""""""""""""""""""""""""""""""""""
-" Colorizer
-"let g:colorizer_auto_color = 1
-let g:colorizer_syntax = 1
-let g:colorizer_auto_filetype='css, html'
-let g:colorizer_auto_map = 1
-let g:colorizer_use_virtual_text = 1
-let g:colorizer_skip_comments = 1
-"""""""""""""""""""""""""""""""""""""
-
-"""""""""""""""""""""""""""""""""""""
 " coc-translator
 " popup
 nmap <Leader>t <Plug>(coc-translator-p)
@@ -378,7 +462,6 @@ nmap <Leader>e <Plug>(coc-translator-ev)
 " replace
 nmap <Leader>r <Plug>(coc-translator-r)
 nmap <Leader>r <Plug>(coc-translator-rv)
-
 """""""""""""""""""""""""""""""""""""
 
 """""""""""""""""""""""""""""""""""""
@@ -477,20 +560,14 @@ omap ig <Plug>(coc-git-chunk-inner)
 xmap ig <Plug>(coc-git-chunk-inner)
 omap ag <Plug>(coc-git-chunk-outer)
 xmap ag <Plug>(coc-git-chunk-outer)
-
 """""""""""""""""""""""""""""""""""""
 
-" markdown 语言插件配置
+"""""""""""""""""""""""""""""""""""""
+" markdown-vim
 let g:vim_markdown_folding_style_pythonic = 1
 let g:vim_markdown_math = 1
 let g:markdown_fenced_languages = ['css', 'js=javascript']
-
-" coc-spell-checker
-"<leader>aap for current paragraph
-"<leader>aw for current word
-" vmap <leader>a <Plug>(coc-codeaction-selected)
-" nmap <leader>a <Plug>(coc-codeaction-selected)
-"""""""""""""""""""""""""""""""""""
+"""""""""""""""""""""""""""""""""""""
 
 """""""""""""""""""""""""""""""""
 " 快捷键
@@ -507,7 +584,8 @@ map ,ps :PlugStatus<CR>
 " 新建标签页
 map tt :tabe<CR>
 " 浏览标签页
-" map <TAB><TAB> :tabnext<CR>
+" noremap <TAB><TAB> :tabnext<CR>
+" noremap <S-TAB> :tabprevious<CR>
 " map tc :tabclose<CR>
 " 快捷缩进
 vnoremap < <v
@@ -528,12 +606,13 @@ noremap <c-j> <c-w><c-j>
 noremap <c-k> <c-w><c-k>
 noremap <c-l> <c-w><c-l>
 
-" COC.NVIM
+"""""""""""""""""""""""""""""""""""""
+" coc.nvim
 let g:coc_global_extensions = ['coc-powershell', 'coc-texlab', 'coc-python', 'coc-snippets', 'coc-java', 'coc-bookmark', 'coc-omnisharp', 'coc-phpls', 'coc-vimlsp', 'coc-xml', 'coc-calc', 'coc-cmake', 'coc-html', 'coc-json', 'coc-css', 'coc-tsserver', 'coc-yank', 'coc-lists', 'coc-stylelint', 'coc-git', 'coc-explorer', 'coc-translator', 'coc-flutter']
 " TextEdit might fail if hidden is not set.
 set hidden
 
-" Some servers have issues with backup files, see #649.
+" Some servers have issues with backup files, see 0.
 set nobackup
 set nowritebackup
 
@@ -695,12 +774,12 @@ map TT :Calendar<CR>
 
 """""""""""""""""""""""""""""""""""""
 " latex-preview
-"let g:livepreview_previewer = 'zathura'
+" let g:livepreview_previewer = 'zathura'
 let g:livepreview_engine = 'xelatex'
-"autocmd Filetype tex setl updatetime=20
+" autocmd Filetype tex setl updatetime=20
 autocmd Filetype tex setl updatetime=100
-"let g:livepreview_previewer = 'evince'
-"nmap <F12> :LLPStartPreview<cr>
+" let g:livepreview_previewer = 'evince'
+" nmap <F12> :LLPStartPreview<cr>
 let g:vimtex_compiler_latexmk = {
     \ 'options' : [
     \   '-xelatex',
@@ -711,10 +790,10 @@ let g:vimtex_compiler_latexmk = {
     \ ],
     \}
 let g:tex_conceal='abdmg'
-"let g:livepreview_previewer = 'open -a texshop'
-"let g:livepreview_previewer = 'open -a PDF\ Expert'
-" let g:livepreview_previewer = 'open -a Skim'
-let g:livepreview_previewer = "gv"
+" let g:livepreview_previewer = 'open -a texshop'
+" let g:livepreview_previewer = 'open -a PDF\ Expert'
+let g:livepreview_previewer = 'open -a Skim'
+" let g:livepreview_previewer = 'gv'
 " let g:livepreview_previewer = 'open -a PDF\ Reader\ Pro'
 """""""""""""""""""""""""""""""""""""
 
@@ -744,7 +823,6 @@ let g:table_mode_corner='|'
 " markdown-preview
 let g:mkdp_auto_start = 0
 let g:mkdp_auto_close = 1
-
 """""""""""""""""""""""""""""""""""
 
 """""""""""""""""""""""""""""""""""""
@@ -771,22 +849,20 @@ map ,r :call CompileRun()<CR>
 func! CompileRun()
         exec "w"
 if &filetype == 'c'
-            exec "AsyncRun -focus=0 gcc % -o %<; ./%<"
+            exec "AsyncRun -mode=term -rows=8 -focus=0 gcc % -o %<; ./%<"
 elseif &filetype == 'cpp'
-            exec "AsyncRun -focus=0 g++ % -o %<; ./%<"
+            exec "AsyncRun -mode=term -rows=8 -focus=0 g++ % -o %<; ./%<"
 elseif &filetype == 'java'
-            exec "AsyncRun -focus=0 javac %; java %<"
+            exec "AsyncRun -mode=term -rows=8 -focus=0 javac %; java %<"
 elseif &filetype == 'sh'
-            exec "AsyncRun -focus=0 bash %"
+            exec "AsyncRun -mode=term -rows=8 -focus=0 bash %"
 elseif &filetype == 'python'
-            exec "AsyncRun -focus=0 -raw python3.8 %"
+            exec "AsyncRun -mode=term -rows=8 -focus=0 -raw python3.8 %"
 elseif &filetype == 'html'
             exec "!open % &"
 elseif &filetype == 'go'
-			exec "AsyncRun -focus=0 go build %<; go run %"
+			exec "AsyncRun -mode=term -rows=8 -focus=0 go build %<; go run %"
 elseif &filetype == 'markdown'
-            "exec "!~/.vim/markdown.pl % > %.html &"
-            "exec "!firefox %.html &"
 			exec "MarkdownPreview"
 elseif &filetype == 'tex'
 			exec "LLPStartPreview"
@@ -803,7 +879,7 @@ func! SetHeader()
         call append(line("."), "")
     elseif expand("%:e") == 'tex'
         call setline(1, "%!Tex program = xelatex")
-		call setline(2, "%-- coding: UTF-8 --")
+		call setline(2, "%-- coding: utf-8 --")
         call append(line(".")+1, "")
     elseif expand("%:e") == 'py'
         call setline(1, "#!/usr/local/bin/python3.8")
@@ -848,24 +924,13 @@ endif
 " |____/|_|_| |_|_| |_| .__/ \___|\__|___/
 "                     |_|
 " better key bindings for UltiSnipsExpandTrigger
-let g:UltiSnipsExpandTrigger="<TAB>"
-let g:UltiSnipsJumpForwardTrigger="<TAB>"
-let g:UltiSnipsJumpBackwardTrigger="<S-TAB>"
+let g:UltiSnipsExpandTrigger="<c-e>"
+let g:UltiSnipsJumpForwardTrigger="<c-j>"
+let g:UltiSnipsJumpBackwardTrigger="<c-k>"
 let g:UltiSnipsEditSplit="vertical"
 """"""""""""""""""""""""""""""""""""""""""""""""""
 
-" vim-Startify 设置
-" 设置书签
-let g:startify_bookmarks            = [
-            \ '~/.config/nvim/init.vim',
-            \ '~/.vimrc',
-			\ '~/.config/nvim/coc-settings.json',
-            \]
-
-" 起始页显示的列表长度
-let g:startify_files_number = 20
-
-""""""""""""""""""""""""""""""""""""""
+""""""""""""""""""""""""""""""""""""""""""""""""""
 " lightline
 set laststatus=2
 if !has('gui_running')

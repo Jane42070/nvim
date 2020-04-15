@@ -1,3 +1,4 @@
 *.txt
 tmp.*
 .DS_Store
+./plugged/*
