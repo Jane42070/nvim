@@ -30,6 +30,8 @@ Plug 'tpope/vim-speeddating'
 Plug 'tpope/vim-repeat'
 " CSV
 Plug 'chrisbra/csv.vim', {'for': 'csv'}
+" vim-json
+" Plug 'elzr/vim-json'
 " Vim-move
 Plug 'matze/vim-move'
 " Calendar
@@ -67,7 +69,7 @@ Plug 'mengelbrecht/lightline-bufferline'
 " Latex 插件
 Plug 'lervag/vimtex', {'for': 'tex'}
 " Golang
-Plug 'fatih/vim-go', {'for': ['go', 'vim-plug'], 'tag': '*'}
+Plug 'fatih/vim-go', {'for': ['go', 'vim-plug']}
 " markdown 语言插件
 Plug 'godlygeek/tabular'
 Plug 'mzlogin/vim-markdown-toc', {'for': 'markdown'}
@@ -177,6 +179,7 @@ set termguicolors
 autocmd BufWritePre *.text,*.txt,*.wiki,*.cnx,*.py call PanGuSpacing()
 """modeconfig"""
 """""""""""""""""""""""""""""""""""""
+
 """""""""""""""""""""""""""""""""""""
 " colorizer
 " let g:colorizer_auto_color = 1
@@ -221,7 +224,7 @@ let g:go_highlight_string_spellcheck = 1
 let g:user_emmet_install_global = 0
 let g:user_emmet_mode='a'    "only enable normal mode functions.
 autocmd FileType html,css EmmetInstall
-let g:user_emmet_leader_key='<tab>'
+let g:user_emmet_leader_key=','
 """""""""""""""""""""""""""""""""""""
 
 """""""""""""""""""""""""""""""""""""
