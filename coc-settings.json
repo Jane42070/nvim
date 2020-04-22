@@ -117,6 +117,33 @@
 	"json.format.enable":true,
 	"json.enable": true,
 	"css.enable": true,
+	"tailwindCSS.htmlLanguages": [
+		"blade",
+		"edge",
+		"eelixir",
+		"ejs",
+		"elixir",
+		"elm",
+		"erb",
+		"eruby",
+		"haml",
+		"handlebars",
+		"html",
+		"HTML (EEx)",
+		"HTML (Eex)",
+		"html.twig",
+		"jade",
+		"leaf",
+		"markdown",
+		"njk",
+		"nunjucks",
+		"php",
+		"razor",
+		"slim",
+		"svelte",
+		"twig",
+		"vue"
+	],
 	"html.enable": true,
 	"html.format.enable": true,
 	"html.suggest.html5": true,
@@ -127,8 +154,12 @@
 		"htmldjango",
 		"jsp"
 	],
+	"javascript.showUnused": true,
+	"javascript.suggest.names": true,
+	"javascript.referencesCodeLens.enable": true,
+	"javascript.suggest.enabled": true,
+	"javascript.suggestionActions.enabled": true,
 	"latex.lint.onSave": true,
-	"latex.forwardSearch.executable": "/Applications/Skim.app/Contents/MacOS/Skim",
 	"signature.target":"float",
 	"coc.preferences.formatOnSaveFiletypes": [
 		"javascript",
@@ -139,8 +170,7 @@
 		"go",
 		"php",
 		"sh",
-		"md",
-		"markdown"
+		"md"
 	],
 	"cmake.cmakePath": "cmake",
 	"tsserver.trace.server":"verbose",
@@ -186,16 +216,16 @@
         }
       }
     },
-			"golang": {
-			"command": "gopls",
-			"rootPatterns": ["go.mod"],
-			"filetypes": ["go"],
-			"initializationOptions": {
-				"gocodeCompletionEnabled": true,
-				"diagnosticsEnabled": true,
-				"lintTool": "golint"
-			}
-		},
+		"golang": {
+		"command": "gopls",
+		"rootPatterns": ["go.mod"],
+		"filetypes": ["go"],
+		"initializationOptions": {
+			"gocodeCompletionEnabled": true,
+			"diagnosticsEnabled": true,
+			"lintTool": "golint"
+		}
+	},
 	  "dockerfile": {
 		  "command": "docker-langserver",
 		  "filetypes": ["dockerfile"],

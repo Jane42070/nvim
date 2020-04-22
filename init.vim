@@ -49,7 +49,7 @@ Plug 'itchyny/vim-cursorword'
 " Interesting words
 Plug 'lfv89/vim-interestingwords'
 " file search --fzf
-Plug 'junegunn/fzf', {'on': 'FZF', 'do': { -> fzf#install() }}
+Plug 'junegunn/fzf'
 " File Compile Run
 Plug 'skywind3000/asyncrun.vim'
 Plug 'skywind3000/asynctasks.vim'
@@ -84,7 +84,7 @@ Plug 'pangloss/vim-javascript', {'for': ['html', 'vim-plug', 'php', 'javascript'
 " 注释
 Plug 'scrooloose/nerdcommenter'
 " 代码片段
-" Plug 'honza/vim-snippets'
+Plug 'honza/vim-snippets'
 Plug 'SirVer/ultisnips'
 " 代码折叠
 Plug 'konfekt/fastfold'
@@ -139,15 +139,15 @@ noremap <right> :vertical resize+5<CR>
 inoremap （ （）<LEFT>
 inoremap 【 【】<LEFT>
 inoremap 《 《》<LEFT>
-inoremap “ “”<LEFT>
-inoremap ‘ ‘’<LEFT>
+" inoremap “ “”<LEFT>
+" inoremap ‘ ‘’<LEFT>
 
 imap ） <ESC>f）a
 imap 】 <ESC>f】a
 imap 》 <ESC>f》a
 " 这两个触发可能会产生问题
-imap ”  <ESC>f” a
-imap ’  <ESC>f’ a
+" imap ”  <ESC>f” a
+" imap ’  <ESC>f’ a
 
 " 搜索高亮后　前后跳转：下一个 / 上一个
 " n/N
@@ -179,14 +179,25 @@ set termguicolors
 autocmd BufWritePre *.text,*.txt,*.wiki,*.cnx,*.py call PanGuSpacing()
 """modeconfig"""
 """""""""""""""""""""""""""""""""""""
+"""""""""""""""""""""""""""""""""""""
+" autopairs
+autocmd FileType tex,markdown let g:AutoPairs['$']='$'
+"""""""""""""""""""""""""""""""""""""
+
+"""""""""""""""""""""""""""""""""""""
+" easy-align
+" Start interactive EasyAlign in visual mode (e.g. vipga)
+xmap ga <Plug>(EasyAlign)
+" Start interactive EasyAlign for a motion/text object (e.g. gaip)
+nmap ga <Plug>(EasyAlign)
+"""""""""""""""""""""""""""""""""""""
 
 """""""""""""""""""""""""""""""""""""
 " colorizer
-" let g:colorizer_auto_color = 1
 let g:colorizer_auto_filetype='css,html'
 let g:colorizer_skip_comments = 1
 let g:colorizer_syntax = 1
-let g:colorizer_use_virtual_text = 1
+let g:colorizer_use_virtual_text = 0
 """""""""""""""""""""""""""""""""""""
 
 """""""""""""""""""""""""""""""""""""
@@ -199,7 +210,6 @@ let g:go_def_mode = 'gopls'
 let g:go_referrers_mode = 'gopls'
 let g:go_auto_type_info = 1
 let g:go_highlight_format_strings = 1
-
 let g:go_fold_enable = ['block', 'import', 'varconst', 'package_comment']
 " golang highlight
 let g:go_highlight_extra_types = 1
@@ -222,9 +232,10 @@ let g:go_highlight_string_spellcheck = 1
 " emmet-vim
 " Only enable in html, css files
 let g:user_emmet_install_global = 0
-let g:user_emmet_mode='a'    "only enable normal mode functions.
 autocmd FileType html,css EmmetInstall
-let g:user_emmet_leader_key=','
+" Enable all mode functions.
+let g:user_emmet_mode='a'
+let g:user_emmet_leader_key='<TAB>'
 """""""""""""""""""""""""""""""""""""
 
 """""""""""""""""""""""""""""""""""""
@@ -245,7 +256,6 @@ let g:javascript_conceal_arrow_function       = "⇒"
 " let g:javascript_conceal_noarg_arrow_function = "🞅"
 " let g:javascript_conceal_underscore_arrow_function = "🞅"
 """""""""""""""""""""""""""""""""""""
-
 
 """""""""""""""""""""""""""""""""""""
 " vim-multiple-cursors
@@ -455,6 +465,9 @@ let g:NERDAltDelims_java = 1
 
 " Add your own custom formats or override the defaults
 let g:NERDCustomDelimiters = { 'c': { 'left': '/**','right': '*/' } }
+" Comment on insert mode
+imap <C-c> <plug>NERDCommenterInsert
+
 " coc-translator
 " popup
 nmap <Leader>t <Plug>(coc-translator-p)
@@ -611,7 +624,7 @@ noremap <c-l> <c-w><c-l>
 
 """""""""""""""""""""""""""""""""""""
 " coc.nvim
-let g:coc_global_extensions = ['coc-powershell', 'coc-texlab', 'coc-python', 'coc-snippets', 'coc-java', 'coc-bookmark', 'coc-omnisharp', 'coc-phpls', 'coc-vimlsp', 'coc-xml', 'coc-calc', 'coc-cmake', 'coc-html', 'coc-json', 'coc-css', 'coc-tsserver', 'coc-yank', 'coc-lists', 'coc-stylelint', 'coc-git', 'coc-explorer', 'coc-translator', 'coc-flutter']
+let g:coc_global_extensions = ['coc-powershell', 'coc-texlab', 'coc-python', 'coc-snippets', 'coc-java', 'coc-bookmark', 'coc-omnisharp', 'coc-phpls', 'coc-vimlsp', 'coc-xml', 'coc-calc', 'coc-cmake', 'coc-html', 'coc-json', 'coc-css', 'coc-tsserver', 'coc-yank', 'coc-lists', 'coc-stylelint', 'coc-tailwindcss', 'coc-tslint', 'coc-yaml', 'coc-git', 'coc-gitignore', 'coc-explorer', 'coc-translator', 'coc-flutter', 'coc-diagnostic']
 " TextEdit might fail if hidden is not set.
 set hidden
 
@@ -620,11 +633,11 @@ set nobackup
 set nowritebackup
 
 " Give more space for displaying messages.
-set cmdheight=1
+set cmdheight=2
 
 " Having longer updatetime (default is 4000 ms = 4 s) leads to noticeable
 " delays and poor user experience.
-set updatetime=100
+set updatetime=200
 
 " Don't pass messages to |ins-completion-menu|.
 set shortmess+=c
