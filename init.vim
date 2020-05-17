@@ -180,6 +180,11 @@ autocmd BufWritePre *.text,*.txt,*.wiki,*.cnx,*.py call PanGuSpacing()
 """modeconfig"""
 """""""""""""""""""""""""""""""""""""
 """""""""""""""""""""""""""""""""""""
+" Kite
+nmap <silent> <buffer> gK <Plug>(kite-docs)
+"""""""""""""""""""""""""""""""""""""
+
+"""""""""""""""""""""""""""""""""""""
 " autopairs
 autocmd FileType tex,markdown let g:AutoPairs['$']='$'
 """""""""""""""""""""""""""""""""""""
@@ -637,7 +642,7 @@ set cmdheight=2
 
 " Having longer updatetime (default is 4000 ms = 4 s) leads to noticeable
 " delays and poor user experience.
-set updatetime=200
+set updatetime=500
 
 " Don't pass messages to |ins-completion-menu|.
 set shortmess+=c
@@ -776,6 +781,9 @@ nnoremap <silent> <space>j  :<C-u>CocNext<CR>
 nnoremap <silent> <space>k  :<C-u>CocPrev<CR>
 " Resume latest coc list.
 nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
+" Reslove workspace folder
+autocmd FileType python let b:coc_root_patterns = ['.git', '.env']
+autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
 """""""""""""""""""""""""""""""""""""
 
 """""""""""""""""""""""""""""""""""""
@@ -1051,6 +1059,7 @@ endfunction
 
 autocmd User CocGitStatusChange {command}
 autocmd User CocStatusChange,CocDiagnosticChange call lightline#update()
+autocmd BufWritePost,TextChanged,TextChangedI * call lightline#update()
 
 function! LightlineMode()
   return expand('%:t') =~# '^__Tagbar__' ? 'Tagbar':

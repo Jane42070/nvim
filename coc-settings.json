@@ -6,11 +6,13 @@
 	"suggest.detailMaxLength": 60,
 	"suggest.noselect": false,
 	"suggest.snippetIndicator": "~",
+	"suggest.acceptSuggestionOnCommitCharacter": true,
 	"suggest.enablePreselect": false,
 	"suggest.triggerAfterInsertEnter": false,
 	"suggest.timeout": 5000,
 	"suggest.enablePreview":true,
 	"suggest.floatEnable": true,
+	"suggest.minTriggerInputLength": 1,
 	"suggest.detailField": "preview",
 	"suggest.triggerCompletionWait": 100,
 	"suggest.echodocSupport": true,
@@ -49,8 +51,8 @@
 	"diagnostic.errorSign": "✘",
 	"diagnostic.warningSign": "⚡",
 	"diagnostic.enable": true,
-	"diagnostic.infoSign": "🔥",
-	"diagnostic.hintSign": "✭",
+	"diagnostic.infoSign": "ღ",
+	"diagnostic.hintSign": "ஐ",
 	"diagnostic.displayByAle": false,
 	"diagnostic.refreshOnInsertMode": false,
 	"diagnostic.enableSign": true,
@@ -60,6 +62,13 @@
 	"diagnostic.maxWindowHeight":8,
 	"diagnostic.maxWindowWidth":60,
 	"diagnostic.locationlist": true,
+	"snippets.priority": 110,
+	"snippets.enableStatusItem": true,
+	"snippets.autoTrigger": true,
+	"snippets.ultisnips.directories": [
+	  "UltiSnips",
+	  "gosnippets/UltiSnips"
+	],
 	"git.enableGutters": true,
 	"git.virtualTextPrefix": " ❯❯❯ ",
 	"git.addedSign.hlGroup": "GitGutterAdd",
@@ -92,8 +101,7 @@
 	"xml.format.quotations": "doubleQuotes",
 	"xml.format.splitAttributes": false,
 	"python.pythonPath": "python",
-	"python.workspaceSymbols.rebuildOnFileSave":false,
-	"python.analysis.downloadChannel": "stable",
+	"python.analysis.downloadChannel": "daily",
 	"python.autoUpdateLanguageServer": true,
 	"python.linting.pylintUseMinimalCheckers":true,
 	"python.linting.pylintPath": "pylint",
@@ -145,7 +153,8 @@
 		"vue"
 	],
 	"html.enable": true,
-	"html.format.enable": true,
+	"html.autoClosingTags": false,
+	"html.format.enable": false,
 	"html.suggest.html5": true,
 	"html.suggest.ionic": true,
 	"html.filetypes": [
@@ -238,16 +247,23 @@
 		  "ignoredRootPaths": ["~"]
 		}
 },
-	"explorer.width": 35,
+	"explorer.width": 30,
 	"explorer.file.column.indent.indentLine": true,
 	"explorer.file.showHiddenFiles": true,
-	"explorer.icon.enableNerdfont": true,
 	"explorer.file.column.git.showIgnored": true,
+	"explorer.icon.enableNerdfont": true,
 	"explorer.icon.enableVimDevicons": true,
 	"translator.toLang":"zh",
 	"translator.maxsize": 5000,
 	"translator.engines": [
 		"bing",
-		"ciba"
-	]
+		"iciba",
+		"google",
+		"youdao",
+		"haici"
+	],
+  "python.autoComplete.extraPaths": [
+    "${env:SPARK_HOME}/python",
+    "${env:SPARK_HOME}/python/pyspark"
+  ]
 }
