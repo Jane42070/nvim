@@ -1,15 +1,18 @@
 {
+	// cSpell:disable
 	"coc.preferences.hoverTarget": "preview",
 	"coc.preferences.enableFloatHighlight": true,
 	"coc.preferences.snippetStatusText": "Ⓢ ",
 	"coc.preferences.extensionUpdateCheck": "weekly",
+	// use colorizer
+	"coc.preferences.colorSupport": false,
 	"suggest.detailMaxLength": 60,
 	"suggest.noselect": false,
 	"suggest.snippetIndicator": "~",
 	"suggest.acceptSuggestionOnCommitCharacter": true,
 	"suggest.enablePreselect": false,
 	"suggest.triggerAfterInsertEnter": false,
-	"suggest.timeout": 5000,
+	"suggest.timeout": 10000,
 	"suggest.enablePreview":true,
 	"suggest.floatEnable": true,
 	"suggest.minTriggerInputLength": 1,
@@ -56,18 +59,19 @@
 	"diagnostic.displayByAle": false,
 	"diagnostic.refreshOnInsertMode": false,
 	"diagnostic.enableSign": true,
-	"diagnostic.refreshAfterSave": false,
+	"diagnostic.refreshAfterSave": true,
 	"diagnostic.checkCurrentLine": true,
-	"diagnostic.virtualTextLines": 3,
+	"diagnostic.virtualTextLines": 4,
+	"diagnostic.virtualTextCurrentLineOnly": true,
 	"diagnostic.maxWindowHeight":8,
 	"diagnostic.maxWindowWidth":60,
 	"diagnostic.locationlist": true,
-	"snippets.priority": 110,
+	"snippets.priority": 100,
 	"snippets.enableStatusItem": true,
 	"snippets.autoTrigger": true,
 	"snippets.ultisnips.directories": [
-	  "UltiSnips",
-	  "gosnippets/UltiSnips"
+		"UltiSnips",
+		"gosnippets/UltiSnips"
 	],
 	"git.enableGutters": true,
 	"git.virtualTextPrefix": " ❯❯❯ ",
@@ -103,7 +107,7 @@
 	"python.pythonPath": "python",
 	"python.analysis.downloadChannel": "daily",
 	"python.autoUpdateLanguageServer": true,
-	"python.linting.pylintUseMinimalCheckers":true,
+	"python.linting.pylintUseMinimalCheckers": true,
 	"python.linting.pylintPath": "pylint",
 	"python.linting.enabled":true,
 	"python.linting.flake8CategorySeverity.E":"Error",
@@ -153,10 +157,10 @@
 		"vue"
 	],
 	"html.enable": true,
-	"html.autoClosingTags": false,
-	"html.format.enable": false,
+	"html.format.indentInnerHtml": true,
+	"html.autoClosingTags": true,
+	"html.format.enable": true,
 	"html.suggest.html5": true,
-	"html.suggest.ionic": true,
 	"html.filetypes": [
 		"html",
 		"handlebars",
@@ -164,6 +168,7 @@
 		"jsp"
 	],
 	"javascript.showUnused": true,
+	"tsserver.npm": "/usr/local/bin/npm",
 	"javascript.suggest.names": true,
 	"javascript.referencesCodeLens.enable": true,
 	"javascript.suggest.enabled": true,
@@ -183,70 +188,6 @@
 	],
 	"cmake.cmakePath": "cmake",
 	"tsserver.trace.server":"verbose",
-	  "languageserver": {
-		      "foo": {
-      "module": "/usr/local/lib/node_modules/foo/index.js",
-      "args": ["--node-ipc"],
-      "filetypes": ["foo"],
-      "trace.server": "verbose",
-      "rootPatterns": ["root.yml"],
-      "execArgv": ["--nolazy", "--inspect-brk=6045"],
-      "initializationOptions": {
-      },
-      "settings": {
-        "validate": true
-      }
-    },
-	  "intelephense": {
-		"command": "intelephense",
-		"args": ["--stdio"],
-		"filetypes": ["php"],
-		"initializationOptions": {
-			"storagePath": "/tmp/intelephense"
-						}
-					},
-	    "ccls": {
-      "command": "ccls",
-      "filetypes": ["c", "cpp", "objc", "objcpp"],
-      "rootPatterns": [".ccls", "compile_commands.json", ".git/", ".hg/"],
-	        "initializationOptions": {
-        "cache": {
-          "directory": "/tmp/ccls"
-        },
-        "clang": {
-           // make sure you have installed commandLineTools
-          "resourceDir": "/Library/Developer/CommandLineTools/usr/lib/clang/11.0.3",
-          "extraArgs": [
-            "-isystem",
-            "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include/c++/v1",
-            "-I",
-            "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include"
-          ]
-        }
-      }
-    },
-		"golang": {
-		"command": "gopls",
-		"rootPatterns": ["go.mod"],
-		"filetypes": ["go"],
-		"initializationOptions": {
-			"gocodeCompletionEnabled": true,
-			"diagnosticsEnabled": true,
-			"lintTool": "golint"
-		}
-	},
-	  "dockerfile": {
-		  "command": "docker-langserver",
-		  "filetypes": ["dockerfile"],
-		  "args": ["--stdio"]
-		},
-			"bash": {
-		  "command": "bash-language-server",
-		  "args": ["start"],
-		  "filetypes": ["sh"],
-		  "ignoredRootPaths": ["~"]
-		}
-},
 	"explorer.width": 30,
 	"explorer.file.column.indent.indentLine": true,
 	"explorer.file.showHiddenFiles": true,
@@ -257,13 +198,84 @@
 	"translator.maxsize": 5000,
 	"translator.engines": [
 		"bing",
-		"iciba",
 		"google",
 		"youdao",
 		"haici"
 	],
-  "python.autoComplete.extraPaths": [
-    "${env:SPARK_HOME}/python",
-    "${env:SPARK_HOME}/python/pyspark"
+	"python.autoComplete.extraPaths": [
+		"${env:SPARK_HOME}/python",
+		"${env:SPARK_HOME}/python/pyspark"
+	],
+	"languageserver": {
+		"foo": {
+			"module": "/usr/local/lib/node_modules/foo/index.js",
+			"args": ["--node-ipc"],
+			"filetypes": ["foo"],
+			"trace.server": "verbose",
+			"rootPatterns": ["root.yml"],
+			"execArgv": ["--nolazy", "--inspect-brk=6045"],
+			"initializationOptions": {
+			},
+			"settings": {
+				"validate": true
+			}
+		},
+		"intelephense": {
+			"command": "intelephense",
+			"args": ["--stdio"],
+			"filetypes": ["php"],
+			"initializationOptions": {
+				"storagePath": "/tmp/intelephense"
+				}
+		},
+		"ccls": {
+			"command": "ccls",
+			"filetypes": ["c", "cc", "c++", "cpp", "objc", "objcpp"],
+			"rootPatterns": [".ccls", "compile_commands.json", ".git/", ".hg/"],
+			"initializationOptions": {
+			"cache": {
+				"directory": "/tmp/ccls"
+			},
+			"clang": {
+				// make sure you have installed commandLineTools
+				"resourceDir": "/Library/Developer/CommandLineTools/usr/lib/clang/11.0.3",
+				"extraArgs": [
+					"-isystem",
+					"/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include/c++/v1",
+					"-I",
+					"/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include"
+				]
+				}
+			}
+		},
+		"golang": {
+			"command": "gopls",
+			"rootPatterns": ["go.mod"],
+			"filetypes": ["go"],
+			"initializationOptions": {
+				"gocodeCompletionEnabled": true,
+				"diagnosticsEnabled": true,
+				"lintTool": "golint"
+			}
+		},
+		"dockerfile": {
+			"command": "docker-langserver",
+			"filetypes": ["dockerfile"],
+			"args": ["--stdio"]
+		},
+		"bash": {
+			"command": "bash-language-server",
+			"args": ["start"],
+			"filetypes": ["sh"],
+			"ignoredRootPaths": ["~"]
+		},
+		"sql": {
+			"command": "sql-language-server",
+			"args" : ["up", "--method", "stdio"],
+			"filetypes": ["sql", "mysql"]
+		 }
+  },
+  "cSpell.userWords": [
+    "ultisnips"
   ]
 }

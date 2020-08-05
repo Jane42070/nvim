@@ -6,7 +6,7 @@
 "         |___/
 " Jane
 " mail : jql1377219787@gmail.com
-
+" cSpell:disable
 call plug#begin('~/.config/nvim/plugged')
 " 撤销树 Gundo
 Plug 'sjl/gundo.vim', {'on': 'GundoToggle'}
@@ -31,7 +31,9 @@ Plug 'tpope/vim-repeat'
 " CSV
 Plug 'chrisbra/csv.vim', {'for': 'csv'}
 " vim-json
-" Plug 'elzr/vim-json'
+Plug 'elzr/vim-json', {'for': 'json'}
+" vim 缩进参考线
+Plug 'Yggdroot/indentLine', {'for': ['go', 'python', 'c', 'cpp']}
 " Vim-move
 Plug 'matze/vim-move'
 " Calendar
@@ -48,8 +50,12 @@ Plug 'easymotion/vim-easymotion'
 Plug 'itchyny/vim-cursorword'
 " Interesting words
 Plug 'lfv89/vim-interestingwords'
+" Jupyter
+" Plug 'jupyter-vim/jupyter-vim'
 " file search --fzf
 Plug 'junegunn/fzf'
+Plug 'junegunn/fzf.vim'
+" Plug 'antoinemadec/coc-fzf'
 " File Compile Run
 Plug 'skywind3000/asyncrun.vim'
 Plug 'skywind3000/asynctasks.vim'
@@ -59,8 +65,10 @@ Plug 'sheerun/vim-polyglot'
 Plug 'morhetz/gruvbox'
 " onedark theme
 Plug 'joshdick/onedark.vim'
+" srcery-colors
+Plug 'srcery-colors/srcery-vim'
 " iceberg theme
-" Plug 'cocopon/iceberg.vim'
+Plug 'cocopon/iceberg.vim'
 Plug 'itchyny/lightline.vim'
 " devicons make lightline more graphical
 Plug 'ryanoasis/vim-devicons'
@@ -70,6 +78,8 @@ Plug 'mengelbrecht/lightline-bufferline'
 Plug 'lervag/vimtex', {'for': 'tex'}
 " Golang
 Plug 'fatih/vim-go', {'for': ['go', 'vim-plug']}
+" Arduino
+" Plug 'sudar/vim-arduino-syntax'
 " markdown 语言插件
 Plug 'godlygeek/tabular'
 Plug 'mzlogin/vim-markdown-toc', {'for': 'markdown'}
@@ -99,7 +109,8 @@ nnoremap Y y$
 vnoremap Y "+y
 set number                                              " 显示行号
 set cursorline                                          " 高亮当前行
-set list listchars=extends:❯,precedes:❮,tab:▸\ ,trail:˽ " 设置空白字符的视觉提示
+set list listchars=extends:❯,precedes:❮,tab:▸\ ,trail:˽
+set listchars+=eol:⏎                                    " 设置空白字符的视觉提示
 syntax on                                               " 语法高亮
 filetype plugin indent on                               " 根据文件类型自动处理缩进
 filetype on
@@ -173,16 +184,70 @@ let g:gruvbox_termcolors=256
 " let g:gruvbox_invert_signs=1
 set background=dark
 colorscheme gruvbox
+" colorscheme srcery
 set termguicolors
 
 " 开启中文规范
-autocmd BufWritePre *.text,*.txt,*.wiki,*.cnx,*.py call PanGuSpacing()
+autocmd BufWritePre *.text,*.txt,*.wiki,*.cnx,*.md call PanGuSpacing()
+
 """modeconfig"""
 """""""""""""""""""""""""""""""""""""
 """""""""""""""""""""""""""""""""""""
-" Kite
-nmap <silent> <buffer> gK <Plug>(kite-docs)
+" Jupyter
+" Run current file
+let g:jupyter_mapkeys = 0
+let g:python3_host_prog = '/usr/local/bin/python3.8'
+nnoremap <buffer> <silent> <localleader>R :JupyterRunFile<CR>
+nnoremap <buffer> <silent> <localleader>I :PythonImportThisFile<CR>
+
+" Change to directory of current file
+nnoremap <buffer> <silent> <localleader>d :JupyterCd %:p:h<CR>
+
+" Send a selection of lines
+nnoremap <buffer> <silent> <localleader>X :JupyterSendCell<CR>
+nnoremap <buffer> <silent> <localleader>E :JupyterSendRange<CR>
+nmap     <buffer> <silent> <localleader>e <Plug>JupyterRunTextObj
+vmap     <buffer> <silent> <localleader>e <Plug>JupyterRunVisual
+
+nnoremap <buffer> <silent> <localleader>U :JupyterUpdateShell<CR>
+
+" Debugging maps
+nnoremap <buffer> <silent> <localleader>b :PythonSetBreak<CR>
 """""""""""""""""""""""""""""""""""""
+
+"""""""""""""""""""""""""""""""""""""
+" FZF
+if exists('$TMUX')
+	let g:fzf_layout = {'tmux': '-p90%,60%'}
+else
+	let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.6 } }
+endif
+
+function! RipgrepFzf(query, fullscreen)
+  let command_fmt = 'rg --column --line-number --no-heading --color=always --smart-case -- %s || true'
+  let initial_command = printf(command_fmt, shellescape(a:query))
+  let reload_command = printf(command_fmt, '{q}')
+  let spec = {'options': ['--phony', '--query', a:query, '--bind', 'change:reload:'.reload_command]}
+  call fzf#vim#grep(initial_command, 1, fzf#vim#with_preview(spec), a:fullscreen)
+endfunction
+
+command! -nargs=* -bang RG call RipgrepFzf(<q-args>, <bang>0)
+
+command! -bang -complete=dir -nargs=* LS
+    \ call fzf#run(fzf#wrap({'source': 'ls', 'dir': <q-args>}, <bang>0))
+" Enable per-command history
+" - History files will be stored in the specified directory
+" - When set, CTRL-N and CTRL-P will be bound to 'next-history' and
+"   'previous-history' instead of 'down' and 'up'.
+let g:fzf_history_dir = '~/.local/share/fzf-history'
+"""""""""""""""""""""""""""""""""""""
+
+
+"""""""""""""""""""""""""""""""""""""
+" vim-indentLine
+let g:indentLine_char_list = ['|', '¦', '┆', '┊']
+"""""""""""""""""""""""""""""""""""""
+
 
 """""""""""""""""""""""""""""""""""""
 " autopairs
@@ -202,7 +267,7 @@ nmap ga <Plug>(EasyAlign)
 let g:colorizer_auto_filetype='css,html'
 let g:colorizer_skip_comments = 1
 let g:colorizer_syntax = 1
-let g:colorizer_use_virtual_text = 0
+let g:colorizer_use_virtual_text = 1
 """""""""""""""""""""""""""""""""""""
 
 """""""""""""""""""""""""""""""""""""
@@ -280,22 +345,6 @@ let g:multi_cursor_quit_key            = '<Esc>'
 """""""""""""""""""""""""""""""""""""
 
 """""""""""""""""""""""""""""""""""""
-" coc-snippets
-inoremap <silent><expr> <TAB>
-      \ pumvisible() ? coc#_select_confirm() :
-      \ coc#expandableOrJumpable() ? "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
-      \ <SID>check_back_space() ? "\<TAB>" :
-      \ coc#refresh()
-
-function! s:check_back_space() abort
-  let col = col('.') - 1
-  return !col || getline('.')[col - 1]  =~# '\s'
-endfunction
-
-let g:coc_snippet_next = '<tab>'
-"""""""""""""""""""""""""""""""""""""
-
-"""""""""""""""""""""""""""""""""""""
 " leaderF
 " don't show the help in normal mode
 let g:Lf_HideHelp = 1
@@ -366,6 +415,8 @@ let g:multi_cursor_next_key            = '<C-n>'
 let g:multi_cursor_prev_key            = '<C-p>'
 let g:multi_cursor_skip_key            = '<C-x>'
 let g:multi_cursor_quit_key            = '<Esc>'
+xnoremap iz :<c-u>FastFoldUpdate<cr><esc>:<c-u>normal! ]zv[z<cr>
+xnoremap az :<c-u>FastFoldUpdate<cr><esc>:<c-u>normal! ]zV[z<cr>
 """""""""""""""""""""""""""""""""""""
 
 """""""""""""""""""""""""""""""""""""
@@ -595,7 +646,7 @@ let g:markdown_fenced_languages = ['css', 'js=javascript']
 map <F3> :CocCommand explorer<CR>
 nnoremap <F5> :GundoToggle<CR>
 map C :CocCommand<CR>
-" map ,f  :FZF<CR>
+map ,f  :FZF<CR>
 map ,pl :PlugInstall<CR>
 map ,ps :PlugStatus<CR>
 map ,pd :PlugUpdate<CR>
@@ -605,8 +656,8 @@ map ,ps :PlugStatus<CR>
 " 新建标签页
 map tt :tabe<CR>
 " 浏览标签页
-" noremap <TAB><TAB> :tabnext<CR>
-" noremap <S-TAB> :tabprevious<CR>
+noremap <TAB><TAB> :bnext<CR>
+noremap <S-TAB> :bprevious<CR>
 " map tc :tabclose<CR>
 " 快捷缩进
 vnoremap < <v
@@ -629,7 +680,7 @@ noremap <c-l> <c-w><c-l>
 
 """""""""""""""""""""""""""""""""""""
 " coc.nvim
-let g:coc_global_extensions = ['coc-powershell', 'coc-texlab', 'coc-python', 'coc-snippets', 'coc-java', 'coc-bookmark', 'coc-omnisharp', 'coc-phpls', 'coc-vimlsp', 'coc-xml', 'coc-calc', 'coc-cmake', 'coc-html', 'coc-json', 'coc-css', 'coc-tsserver', 'coc-yank', 'coc-lists', 'coc-stylelint', 'coc-tailwindcss', 'coc-tslint', 'coc-yaml', 'coc-git', 'coc-gitignore', 'coc-explorer', 'coc-translator', 'coc-flutter', 'coc-diagnostic']
+let g:coc_global_extensions = ['coc-powershell', 'coc-texlab', 'coc-python', 'coc-snippets', 'coc-spell-checker', 'coc-ultisnips', 'coc-java', 'coc-bookmark', 'coc-omnisharp', 'coc-phpls', 'coc-vimlsp', 'coc-xml', 'coc-calc', 'coc-cmake', 'coc-html', 'coc-json', 'coc-css', 'coc-tsserver', 'coc-yank', 'coc-lists', 'coc-stylelint', 'coc-tailwindcss', 'coc-tslint', 'coc-yaml', 'coc-git', 'coc-gitignore', 'coc-explorer', 'coc-translator', 'coc-flutter', 'coc-diagnostic']
 " TextEdit might fail if hidden is not set.
 set hidden
 
@@ -642,7 +693,7 @@ set cmdheight=2
 
 " Having longer updatetime (default is 4000 ms = 4 s) leads to noticeable
 " delays and poor user experience.
-set updatetime=500
+set updatetime=100
 
 " Don't pass messages to |ins-completion-menu|.
 set shortmess+=c
@@ -801,7 +852,7 @@ map TT :Calendar<CR>
 " let g:livepreview_previewer = 'zathura'
 let g:livepreview_engine = 'xelatex'
 " autocmd Filetype tex setl updatetime=20
-autocmd Filetype tex setl updatetime=100
+autocmd Filetype tex setl updatetime=1000
 " let g:livepreview_previewer = 'evince'
 " nmap <F12> :LLPStartPreview<cr>
 let g:vimtex_compiler_latexmk = {
@@ -926,7 +977,8 @@ func! SetHeader()
     elseif expand("%:e") == 'c'
         call setline(1,"#include <stdio.h>")
         call setline(2,"#include <stdlib.h>")
-        call setline(3,"")
+        call setline(3,"#include <unistd.h>")
+		call setline(4,"")
     elseif expand("%:e") == 'h'
         call setline(1, "#ifndef ".toupper(expand("%:r"))."_H")
         call setline(2, "#define ".toupper(expand("%:r"))."_H")
@@ -948,10 +1000,10 @@ endif
 " |____/|_|_| |_|_| |_| .__/ \___|\__|___/
 "                     |_|
 " better key bindings for UltiSnipsExpandTrigger
-let g:UltiSnipsExpandTrigger="<c-e>"
-let g:UltiSnipsJumpForwardTrigger="<c-j>"
-let g:UltiSnipsJumpBackwardTrigger="<c-k>"
-let g:UltiSnipsEditSplit="vertical"
+" let g:UltiSnipsExpandTrigger="<c-e>"
+" let g:UltiSnipsJumpForwardTrigger="<c-j>"
+" let g:UltiSnipsJumpBackwardTrigger="<c-k>"
+" let g:UltiSnipsEditSplit="vertical"
 """"""""""""""""""""""""""""""""""""""""""""""""""
 
 """"""""""""""""""""""""""""""""""""""""""""""""""
@@ -962,8 +1014,10 @@ if !has('gui_running')
 endif
 set noshowmode
 let g:lightline#bufferline#number_map = {
-\ 0: '⓿ ', 1: '① ', 2: '② ', 3: '③ ', 4: '④ ',
-\ 5: '⑤ ', 6: '⑥ ', 7: '⑦ ', 8: '⑧ ', 9: '⑨ '}
+	\ 0: '⓪ ', 1: '① ', 2: '② ', 3: '③ ', 4: '④ ',
+	\ 5: '⑤ ', 6: '⑥ ', 7: '⑦ ', 8: '⑧ ', 9: '⑨ ',
+	\ 10: '⑩ ', 11: '⑪ ', 12: '⑫ ', 13: '⑬ ', 14: '⑭ ', 15: '⑮ ',
+	\ 16: '⑯ ', 17: '⑰ ', 18: '⑱ ', 19: '⑲ ', 20: '⑳ ' }
 let g:lightline#bufferline#show_number  = 2
 let g:lightline#bufferline#unicode_symbols = 1
 let g:lightline#bufferline#clickable = 1
