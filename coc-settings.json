@@ -65,7 +65,6 @@
 	"diagnostic.virtualTextCurrentLineOnly": true,
 	"diagnostic.maxWindowHeight":8,
 	"diagnostic.maxWindowWidth":60,
-	"diagnostic.locationlist": true,
 	"snippets.priority": 100,
 	"snippets.enableStatusItem": true,
 	"snippets.autoTrigger": true,
@@ -174,6 +173,7 @@
 	"javascript.suggest.enabled": true,
 	"javascript.suggestionActions.enabled": true,
 	"latex.lint.onSave": true,
+	"rust-analyzer.serverPath": "/usr/local/Cellar/rust-analyzer/2020-09-07/bin/rust-analyzer",
 	"signature.target":"float",
 	"coc.preferences.formatOnSaveFiletypes": [
 		"javascript",
@@ -206,6 +206,7 @@
 		"${env:SPARK_HOME}/python",
 		"${env:SPARK_HOME}/python/pyspark"
 	],
+	"http.proxy": "http://127.0.0.1:7890",
 	"languageserver": {
 		"foo": {
 			"module": "/usr/local/lib/node_modules/foo/index.js",
@@ -238,12 +239,12 @@
 			},
 			"clang": {
 				// make sure you have installed commandLineTools
-				"resourceDir": "/Library/Developer/CommandLineTools/usr/lib/clang/11.0.3",
+				"resourceDir": "/Library/Developer/CommandLineTools/usr/lib/clang/12.0.0",
 				"extraArgs": [
 					"-isystem",
-					"/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include/c++/v1",
+					"/Applications/Xcode-beta.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include/c++/v1",
 					"-I",
-					"/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include"
+					"/Applications/Xcode-beta.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include"
 				]
 				}
 			}
@@ -274,8 +275,5 @@
 			"args" : ["up", "--method", "stdio"],
 			"filetypes": ["sql", "mysql"]
 		 }
-  },
-  "cSpell.userWords": [
-    "ultisnips"
-  ]
+  }
 }

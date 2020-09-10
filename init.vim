@@ -14,6 +14,8 @@ Plug 'sjl/gundo.vim', {'on': 'GundoToggle'}
 Plug 'xuhdev/vim-latex-live-preview', {'for': 'tex'}
 " coc
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
+" leetcode
+Plug 'ianding1/leetcode.vim'
 " rgb 颜色显示
 Plug 'chrisbra/colorizer'
 " 括号补全
@@ -44,6 +46,8 @@ Plug 'majutsushi/tagbar', {'on': 'TagbarToggle'}
 Plug 'liuchengxu/vista.vim', {'on': 'Vista'}
 " Super searching
 Plug 'Yggdroot/LeaderF', { 'do': './install.sh' }
+" vimspector
+Plug 'puremourning/vimspector'
 " Easy motion
 Plug 'easymotion/vim-easymotion'
 " Cursor Word
@@ -150,15 +154,16 @@ noremap <right> :vertical resize+5<CR>
 inoremap （ （）<LEFT>
 inoremap 【 【】<LEFT>
 inoremap 《 《》<LEFT>
-" inoremap “ “”<LEFT>
-" inoremap ‘ ‘’<LEFT>
+inoremap “ “”<LEFT>
+inoremap ‘ ‘’<LEFT>
 
 imap ） <ESC>f）a
 imap 】 <ESC>f】a
 imap 》 <ESC>f》a
-" 这两个触发可能会产生问题
-" imap ”  <ESC>f” a
-" imap ’  <ESC>f’ a
+imap ”  <ESC>f”a
+imap ’  <ESC>f’a
+
+noremap U :redo<CR>
 
 " 搜索高亮后　前后跳转：下一个 / 上一个
 " n/N
@@ -193,26 +198,45 @@ autocmd BufWritePre *.text,*.txt,*.wiki,*.cnx,*.md call PanGuSpacing()
 """modeconfig"""
 """""""""""""""""""""""""""""""""""""
 """""""""""""""""""""""""""""""""""""
+" Leetcode
+nnoremap <leader>ll :LeetCodeList<cr>
+nnoremap <leader>lt :LeetCodeTest<cr>
+nnoremap <leader>ls :LeetCodeSubmit<cr>
+nnoremap <leader>li :LeetCodeSignIn<cr>
+let g:leetcode_browser='chrome'
+let g:leetcode_solution_filetype='cpp'
+"""""""""""""""""""""""""""""""""""""
+
+
+"""""""""""""""""""""""""""""""""""""
+" vimspector
+" packadd! vimspector
+" let g:vimspector_enable_mappings = 'HUMAN'
+" let g:vimspector_install_gadgets = ['vscode-cpptools', 'vscode-go']
+" let g:vimspector_base_dir=expand( '$HOME/.vim/vimspector-config' )
+"""""""""""""""""""""""""""""""""""""
+
+"""""""""""""""""""""""""""""""""""""
 " Jupyter
 " Run current file
-let g:jupyter_mapkeys = 0
-let g:python3_host_prog = '/usr/local/bin/python3.8'
-nnoremap <buffer> <silent> <localleader>R :JupyterRunFile<CR>
-nnoremap <buffer> <silent> <localleader>I :PythonImportThisFile<CR>
+" let g:jupyter_mapkeys = 0
+" let g:python3_host_prog = '/usr/local/bin/python3.8'
+" nnoremap <buffer> <silent> <localleader>R :JupyterRunFile<CR>
+" nnoremap <buffer> <silent> <localleader>I :PythonImportThisFile<CR>
 
-" Change to directory of current file
-nnoremap <buffer> <silent> <localleader>d :JupyterCd %:p:h<CR>
+" " Change to directory of current file
+" nnoremap <buffer> <silent> <localleader>d :JupyterCd %:p:h<CR>
 
-" Send a selection of lines
-nnoremap <buffer> <silent> <localleader>X :JupyterSendCell<CR>
-nnoremap <buffer> <silent> <localleader>E :JupyterSendRange<CR>
-nmap     <buffer> <silent> <localleader>e <Plug>JupyterRunTextObj
-vmap     <buffer> <silent> <localleader>e <Plug>JupyterRunVisual
+" " Send a selection of lines
+" nnoremap <buffer> <silent> <localleader>X :JupyterSendCell<CR>
+" nnoremap <buffer> <silent> <localleader>E :JupyterSendRange<CR>
+" nmap     <buffer> <silent> <localleader>e <Plug>JupyterRunTextObj
+" vmap     <buffer> <silent> <localleader>e <Plug>JupyterRunVisual
 
-nnoremap <buffer> <silent> <localleader>U :JupyterUpdateShell<CR>
+" nnoremap <buffer> <silent> <localleader>U :JupyterUpdateShell<CR>
 
-" Debugging maps
-nnoremap <buffer> <silent> <localleader>b :PythonSetBreak<CR>
+" " Debugging maps
+" nnoremap <buffer> <silent> <localleader>b :PythonSetBreak<CR>
 """""""""""""""""""""""""""""""""""""
 
 """""""""""""""""""""""""""""""""""""
@@ -436,51 +460,6 @@ let g:coc_snippet_next = '<tab>'
 """""""""""""""""""""""""""""""""""""
 
 """""""""""""""""""""""""""""""""""""
-" leaderF
-" don't show the help in normal mode
-let g:Lf_HideHelp = 1
-let g:Lf_UseCache = 0
-let g:Lf_UseVersionControlTool = 0
-let g:Lf_IgnoreCurrentBufferName = 1
-" popup mode
-let g:Lf_WindowPosition = 'popup'
-let g:Lf_PreviewInPopup = 1
-let g:Lf_StlSeparator = { 'left': "\ue0b0", 'right': "\ue0b2", 'font': "DejaVu Sans Mono for Powerline" }
-let g:Lf_PreviewResult = {'Function': 0, 'BufTag': 0 }
-" let g:Lf_CommandMap = {'<C-K>': ['<Up>'], '<C-J>': ['<Down>']}
-let g:Lf_ShortcutF = "<leader>ff"
-noremap <leader>fb :<C-U><C-R>=printf("Leaderf buffer %s", "")<CR><CR>
-noremap <leader>fm :<C-U><C-R>=printf("Leaderf mru %s", "")<CR><CR>
-noremap <leader>ft :<C-U><C-R>=printf("Leaderf bufTag %s", "")<CR><CR>
-noremap <leader>fl :<C-U><C-R>=printf("Leaderf line %s", "")<CR><CR>
-
-noremap <C-B> :<C-U><C-R>=printf("Leaderf! rg --current-buffer -e %s ", expand("<cword>"))<CR>
-noremap <C-F> :<C-U><C-R>=printf("Leaderf! rg -e %s ", expand("<cword>"))<CR>
-" search visually selected text literally
-xnoremap gf :<C-U><C-R>=printf("Leaderf! rg -F -e %s ", leaderf#Rg#visual())<CR>
-noremap go :<C-U>Leaderf! rg --recall<CR>
-
-" should use `Leaderf gtags --update` first
-let g:Lf_GtagsAutoGenerate = 0
-let g:Lf_Gtagslabel = 'native-pygments'
-noremap <leader>fr :<C-U><C-R>=printf("Leaderf! gtags -r %s --auto-jump", expand("<cword>"))<CR><CR>
-noremap <leader>fd :<C-U><C-R>=printf("Leaderf! gtags -d %s --auto-jump", expand("<cword>"))<CR><CR>
-noremap <leader>fo :<C-U><C-R>=printf("Leaderf! gtags --recall %s", "")<CR><CR>
-noremap <leader>fn :<C-U><C-R>=printf("Leaderf gtags --next %s", "")<CR><CR>
-noremap <leader>fp :<C-U><C-R>=printf("Leaderf gtags --previous %s", "")<CR><CR>
-"""""""""""""""""""""""""""""""""""""
-
-"""""""""""""""""""""""""""""""""""""
-" coc-actions
-" Remap for do codeAction of selected region
-function! s:cocActionsOpenFromSelected(type) abort
-  execute 'CocCommand actions.open ' . a:type
-endfunction
-xmap <silent> <leader>a :<C-u>execute 'CocCommand actions.open ' . visualmode()<CR>
-nmap <silent> <leader>a :<C-u>set operatorfunc=<SID>cocActionsOpenFromSelected<CR>g@
-"""""""""""""""""""""""""""""""""""""
-
-"""""""""""""""""""""""""""""""""""""
 " tabular
 let g:tabular_loaded = 1
 """""""""""""""""""""""""""""""""""""
@@ -680,7 +659,7 @@ noremap <c-l> <c-w><c-l>
 
 """""""""""""""""""""""""""""""""""""
 " coc.nvim
-let g:coc_global_extensions = ['coc-powershell', 'coc-texlab', 'coc-python', 'coc-snippets', 'coc-spell-checker', 'coc-ultisnips', 'coc-java', 'coc-bookmark', 'coc-omnisharp', 'coc-phpls', 'coc-vimlsp', 'coc-xml', 'coc-calc', 'coc-cmake', 'coc-html', 'coc-json', 'coc-css', 'coc-tsserver', 'coc-yank', 'coc-lists', 'coc-stylelint', 'coc-tailwindcss', 'coc-tslint', 'coc-yaml', 'coc-git', 'coc-gitignore', 'coc-explorer', 'coc-translator', 'coc-flutter', 'coc-diagnostic']
+let g:coc_global_extensions = ['coc-powershell', 'coc-texlab', 'coc-python', 'coc-ultisnips', 'coc-snippets', 'coc-java', 'coc-bookmark', 'coc-omnisharp', 'coc-phpls', 'coc-vimlsp', 'coc-xml', 'coc-calc', 'coc-cmake', 'coc-html', 'coc-json', 'coc-css', 'coc-tsserver', 'coc-yank', 'coc-lists', 'coc-stylelint', 'coc-tailwindcss', 'coc-tslint', 'coc-yaml', 'coc-git', 'coc-gitignore', 'coc-explorer', 'coc-translator', 'coc-flutter', 'coc-diagnostic']
 " TextEdit might fail if hidden is not set.
 set hidden
 
@@ -932,7 +911,7 @@ elseif &filetype == 'java'
 elseif &filetype == 'sh'
             exec "AsyncRun -mode=term -rows=8 -focus=0 bash %"
 elseif &filetype == 'python'
-            exec "AsyncRun -mode=term -rows=8 -focus=0 -raw python3.8 %"
+            exec "AsyncRun -mode=term -rows=8 -focus=0 -raw python %"
 elseif &filetype == 'html'
             exec "!open % &"
 elseif &filetype == 'go'
@@ -975,10 +954,14 @@ func! SetHeader()
         call setline(5, "using std::endl;")
         call setline(6, "")
     elseif expand("%:e") == 'c'
-        call setline(1,"#include <stdio.h>")
-        call setline(2,"#include <stdlib.h>")
-        call setline(3,"#include <unistd.h>")
-		call setline(4,"")
+        call setline(1, "#include <stdio.h>")
+        call setline(2, "#include <stdlib.h>")
+        call setline(3, "#include <string.h>")
+        call setline(4, "#include <unistd.h>")
+		call setline(5, "#include <math.h>")
+		call setline(6, "#include <time.h>")
+		call setline(7, "")
+		call setline(8, "")
     elseif expand("%:e") == 'h'
         call setline(1, "#ifndef ".toupper(expand("%:r"))."_H")
         call setline(2, "#define ".toupper(expand("%:r"))."_H")
@@ -1000,10 +983,10 @@ endif
 " |____/|_|_| |_|_| |_| .__/ \___|\__|___/
 "                     |_|
 " better key bindings for UltiSnipsExpandTrigger
-" let g:UltiSnipsExpandTrigger="<c-e>"
-" let g:UltiSnipsJumpForwardTrigger="<c-j>"
-" let g:UltiSnipsJumpBackwardTrigger="<c-k>"
-" let g:UltiSnipsEditSplit="vertical"
+let g:UltiSnipsExpandTrigger="<tab>"
+let g:UltiSnipsJumpForwardTrigger="<tab>"
+let g:UltiSnipsJumpBackwardTrigger="<c-k>"
+let g:UltiSnipsEditSplit="vertical"
 """"""""""""""""""""""""""""""""""""""""""""""""""
 
 """"""""""""""""""""""""""""""""""""""""""""""""""
