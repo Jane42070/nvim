@@ -45,7 +45,7 @@ Plug 'itchyny/calendar.vim', {'on': 'Calendar'}
 Plug 'majutsushi/tagbar', {'on': 'TagbarToggle'}
 Plug 'liuchengxu/vista.vim', {'on': 'Vista'}
 " Super searching
-Plug 'Yggdroot/LeaderF', { 'do': './install.sh' }
+" Plug 'Yggdroot/LeaderF', { 'do': './install.sh' }
 " vimspector
 Plug 'puremourning/vimspector'
 " Easy motion
@@ -83,7 +83,8 @@ Plug 'lervag/vimtex', {'for': 'tex'}
 " Golang
 Plug 'fatih/vim-go', {'for': ['go', 'vim-plug']}
 " Arduino
-" Plug 'sudar/vim-arduino-syntax'
+Plug 'sudar/vim-arduino-syntax', {'for': 'ino'}
+Plug 'stevearc/vim-arduino', {'for': 'ino'}
 " markdown 语言插件
 Plug 'godlygeek/tabular'
 Plug 'mzlogin/vim-markdown-toc', {'for': 'markdown'}
@@ -93,7 +94,9 @@ Plug 'iamcco/mathjax-support-for-mkdp', {'for': 'markdown'}
 Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app & yarn install'  }
 Plug 'junegunn/vim-easy-align', {'on': '<Plug>(EasyAlign)'}
 " html 插件
-Plug 'mattn/emmet-vim', {'for': ['html', 'css', 'vim-plug', 'php']}
+" Wechat development
+Plug 'chemzqm/wxapp.vim'
+Plug 'mattn/emmet-vim', {'for': ['html', 'wxml', 'css', 'wxss', 'vim-plug', 'php']}
 Plug 'pangloss/vim-javascript', {'for': ['html', 'vim-plug', 'php', 'javascript']}
 " 注释
 Plug 'scrooloose/nerdcommenter'
@@ -197,6 +200,15 @@ autocmd BufWritePre *.text,*.txt,*.wiki,*.cnx,*.md call PanGuSpacing()
 
 """modeconfig"""
 """""""""""""""""""""""""""""""""""""
+"""""""""""""""""""""""""""""""""""""
+" Arduino
+nnoremap <buffer> <leader>am :ArduinoVerify<CR>
+nnoremap <buffer> <leader>au :ArduinoUpload<CR>
+nnoremap <buffer> <leader>ad :ArduinoUploadAndSerial<CR>
+nnoremap <buffer> <leader>ab :ArduinoChooseBoard<CR>
+nnoremap <buffer> <leader>ap :ArduinoChooseProgrammer<CR>
+"""""""""""""""""""""""""""""""""""""
+
 """""""""""""""""""""""""""""""""""""
 " Leetcode
 nnoremap <leader>ll :LeetCodeList<cr>
@@ -326,7 +338,45 @@ let g:go_highlight_string_spellcheck = 1
 " emmet-vim
 " Only enable in html, css files
 let g:user_emmet_install_global = 0
-autocmd FileType html,css EmmetInstall
+let g:user_emmet_settings = {
+			\ 'wxss': {
+			\   'extends': 'css',
+			\ },
+			\ 'wxml': {
+			\   'extends': 'html',
+			\   'aliases': {
+			\     'div': 'view',
+			\     'span': 'text',
+			\   },
+			\  'default_attributes': {
+			\     'block': [{'wx:for-items': '{{list}}','wx:for-item': '{{item}}'}],
+			\     'navigator': [{'url': '', 'redirect': 'false'}],
+			\     'scroll-view': [{'bindscroll': ''}],
+			\     'swiper': [{'autoplay': 'false', 'current': '0'}],
+			\     'icon': [{'type': 'success', 'size': '23'}],
+			\     'progress': [{'precent': '0'}],
+			\     'button': [{'size': 'default'}],
+			\     'checkbox-group': [{'bindchange': ''}],
+			\     'checkbox': [{'value': '', 'checked': ''}],
+			\     'form': [{'bindsubmit': ''}],
+			\     'input': [{'type': 'text'}],
+			\     'label': [{'for': ''}],
+			\     'picker': [{'bindchange': ''}],
+			\     'radio-group': [{'bindchange': ''}],
+			\     'radio': [{'checked': ''}],
+			\     'switch': [{'checked': ''}],
+			\     'slider': [{'value': ''}],
+			\     'action-sheet': [{'bindchange': ''}],
+			\     'modal': [{'title': ''}],
+			\     'loading': [{'bindchange': ''}],
+			\     'toast': [{'duration': '1500'}],
+			\     'audio': [{'src': ''}],
+			\     'video': [{'src': ''}],
+			\     'image': [{'src': '', 'mode': 'scaleToFill'}],
+			\   }
+			\ },
+			\}
+autocmd FileType html,css,wxml,wxss EmmetInstall
 " Enable all mode functions.
 let g:user_emmet_mode='a'
 let g:user_emmet_leader_key='<TAB>'
@@ -366,41 +416,6 @@ let g:multi_cursor_next_key            = '<C-n>'
 let g:multi_cursor_prev_key            = '<C-p>'
 let g:multi_cursor_skip_key            = '<C-x>'
 let g:multi_cursor_quit_key            = '<Esc>'
-"""""""""""""""""""""""""""""""""""""
-
-"""""""""""""""""""""""""""""""""""""
-" leaderF
-" don't show the help in normal mode
-let g:Lf_HideHelp = 1
-let g:Lf_UseCache = 0
-let g:Lf_UseVersionControlTool = 0
-let g:Lf_IgnoreCurrentBufferName = 1
-" popup mode
-let g:Lf_WindowPosition = 'popup'
-let g:Lf_PreviewInPopup = 1
-let g:Lf_StlSeparator = { 'left': "\ue0b0", 'right': "\ue0b2", 'font': "DejaVu Sans Mono for Powerline" }
-let g:Lf_PreviewResult = {'Function': 0, 'BufTag': 0 }
-" let g:Lf_CommandMap = {'<C-K>': ['<Up>'], '<C-J>': ['<Down>']}
-let g:Lf_ShortcutF = "<leader>ff"
-noremap <leader>fb :<C-U><C-R>=printf("Leaderf buffer %s", "")<CR><CR>
-noremap <leader>fm :<C-U><C-R>=printf("Leaderf mru %s", "")<CR><CR>
-noremap <leader>ft :<C-U><C-R>=printf("Leaderf bufTag %s", "")<CR><CR>
-noremap <leader>fl :<C-U><C-R>=printf("Leaderf line %s", "")<CR><CR>
-
-noremap <C-B> :<C-U><C-R>=printf("Leaderf! rg --current-buffer -e %s ", expand("<cword>"))<CR>
-noremap <C-F> :<C-U><C-R>=printf("Leaderf! rg -e %s ", expand("<cword>"))<CR>
-" search visually selected text literally
-xnoremap gf :<C-U><C-R>=printf("Leaderf! rg -F -e %s ", leaderf#Rg#visual())<CR>
-noremap go :<C-U>Leaderf! rg --recall<CR>
-
-" should use `Leaderf gtags --update` first
-let g:Lf_GtagsAutoGenerate = 0
-let g:Lf_Gtagslabel = 'native-pygments'
-noremap <leader>fr :<C-U><C-R>=printf("Leaderf! gtags -r %s --auto-jump", expand("<cword>"))<CR><CR>
-noremap <leader>fd :<C-U><C-R>=printf("Leaderf! gtags -d %s --auto-jump", expand("<cword>"))<CR><CR>
-noremap <leader>fo :<C-U><C-R>=printf("Leaderf! gtags --recall %s", "")<CR><CR>
-noremap <leader>fn :<C-U><C-R>=printf("Leaderf gtags --next %s", "")<CR><CR>
-noremap <leader>fp :<C-U><C-R>=printf("Leaderf gtags --previous %s", "")<CR><CR>
 """""""""""""""""""""""""""""""""""""
 
 """""""""""""""""""""""""""""""""""""
@@ -901,79 +916,93 @@ let g:asyncrun_open = 8
 let $PYTHONNUNBUFFERED=1
 map ,r :call CompileRun()<CR>
 func! CompileRun()
-        exec "w"
-if &filetype == 'c'
-            exec "AsyncRun -mode=term -rows=8 -focus=0 gcc % -o %<; ./%<"
-elseif &filetype == 'cpp'
-            exec "AsyncRun -mode=term -rows=8 -focus=0 g++ % -o %<; ./%<"
-elseif &filetype == 'java'
-            exec "AsyncRun -mode=term -rows=8 -focus=0 javac %; java %<"
-elseif &filetype == 'sh'
-            exec "AsyncRun -mode=term -rows=8 -focus=0 bash %"
-elseif &filetype == 'python'
-            exec "AsyncRun -mode=term -rows=8 -focus=0 -raw python %"
-elseif &filetype == 'html'
-            exec "!open % &"
-elseif &filetype == 'go'
-			exec "AsyncRun -mode=term -rows=8 -focus=0 go build %<; go run %"
-elseif &filetype == 'markdown'
-			exec "MarkdownPreview"
-elseif &filetype == 'tex'
-			exec "LLPStartPreview"
-elseif &filetype == 'vim'
-			exec "source %"
-endif
-    endfunc
-
+	exec "w"
+	if &filetype == 'c'
+		exec "AsyncRun -mode=term -rows=8 -focus=0 gcc % -o %<; ./%<"
+	elseif &filetype == 'cpp'
+		exec "AsyncRun -mode=term -rows=8 -focus=0 g++ % -o %<; ./%<"
+	elseif &filetype == 'java'
+		exec "AsyncRun -mode=term -rows=8 -focus=0 javac %; java %<"
+	elseif &filetype == 'sh'
+		exec "AsyncRun -mode=term -rows=8 -focus=0 bash %"
+	elseif &filetype == 'python'
+		exec "AsyncRun -mode=term -rows=8 -focus=0 -raw python %"
+	elseif &filetype == 'html'
+		exec "!open % &"
+	elseif &filetype == 'go'
+		exec "AsyncRun -mode=term -rows=8 -focus=0 go build %<; go run %"
+	elseif &filetype == 'markdown'
+		exec "MarkdownPreview"
+	elseif &filetype == 'tex'
+		exec "LLPStartPreview"
+	elseif &filetype == 'vim'
+		exec "source %"
+	endif
+endfunc
 "自动插入文件头
-autocmd BufNewFile *.cpp,*.cc,*.c,*h,*.sh,*.py,*.tex exec ":call SetHeader()"
+autocmd BufNewFile *.cpp,*.cc,*.c,*h,*.sh,*.py,*.tex,.gitignore exec ":call SetHeader()"
 func! SetHeader()
-    if expand("%:e") == 'sh'
-        call setline(1,"\#!/bin/bash")
-        call append(line("."), "")
-    elseif expand("%:e") == 'tex'
-        call setline(1, "%!Tex program = xelatex")
+	if expand("%:e") == 'sh'
+		call setline(1,"\#!/bin/bash")
+		call append(line("."), "")
+	elseif expand("%:e") == 'tex'
+		call setline(1, "%!Tex program = xelatex")
 		call setline(2, "%-- coding: utf-8 --")
-        call append(line(".")+1, "")
-    elseif expand("%:e") == 'py'
-        call setline(1, "#!/usr/local/bin/python3.8")
+		call append(line(".")+1, "")
+	elseif expand("%:e") == 'py'
+		call setline(1, "#!/usr/local/bin/python")
 		call setline(2, "# -*- coding: utf-8 -*-")
-        call append(line(".")+1, "")
-    elseif expand("%:e") == 'cpp'
-        call setline(1,"#include <iostream>")
-        call setline(2, "")
-        call setline(3, "using std::cin;")
-        call setline(4, "using std::cout;")
-        call setline(5, "using std::endl;")
-        call setline(6, "")
-    elseif expand("%:e") == 'cc'
-        call setline(1,"#include <iostream>")
-        call setline(2, "")
-        call setline(3, "using std::cin;")
-        call setline(4, "using std::cout;")
-        call setline(5, "using std::endl;")
-        call setline(6, "")
-    elseif expand("%:e") == 'c'
-        call setline(1, "#include <stdio.h>")
-        call setline(2, "#include <stdlib.h>")
-        call setline(3, "#include <string.h>")
-        call setline(4, "#include <unistd.h>")
+		call append(line(".")+1, "")
+	elseif expand("%:e") == 'cpp'
+		call setline(1,"#include <iostream>")
+		call setline(2, "")
+		call setline(3, "using std::cin;")
+		call setline(4, "using std::cout;")
+		call setline(5, "using std::endl;")
+		call setline(6, "")
+	elseif expand("%:e") == 'cc'
+		call setline(1,"#include <iostream>")
+		call setline(2, "")
+		call setline(3, "using std::cin;")
+		call setline(4, "using std::cout;")
+		call setline(5, "using std::endl;")
+		call setline(6, "")
+	elseif expand("%:e") == 'c'
+		call setline(1, "#include <stdio.h>")
+		call setline(2, "#include <stdlib.h>")
+		call setline(3, "#include <string.h>")
+		call setline(4, "#include <unistd.h>")
 		call setline(5, "#include <math.h>")
 		call setline(6, "#include <time.h>")
 		call setline(7, "")
 		call setline(8, "")
-    elseif expand("%:e") == 'h'
-        call setline(1, "#ifndef ".toupper(expand("%:r"))."_H")
-        call setline(2, "#define ".toupper(expand("%:r"))."_H")
-        call setline(3,"")
-        call setline(4, "#endif")
-    endif
+	elseif expand("%:e") == 'h'
+		call setline(1, "#ifndef ".toupper(expand("%:r"))."_H")
+		call setline(2, "#define ".toupper(expand("%:r"))."_H")
+		call setline(3,"")
+		call setline(4, "#endif")
+	elseif expand("%") == '.gitignore'
+		call setline(1, "# Windows")
+		call setline(2, "[Dd]esktop.ini")
+		call setline(3, "Thumbs.db")
+		call setline(4, "$RECYCLE.BIN/")
+		call setline(5, "")
+		call setline(6, "# macOS")
+		call setline(7, ".DS_Store")
+		call setline(8, ".fseventsd")
+		call setline(9, ".Spotlight-V100")
+		call setline(10, ".TemporaryItems")
+		call setline(11, ".Trashes")
+		call setline(12, "")
+		call setline(13, "# Node.js")
+		call setline(14, "node_modules/")
+	endif
 endfunc
 autocmd BufNewFile * normal G
 
 " 打开一个文件自动定位到上一次退出时的位置
 if has("autocmd")
-    au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
+	au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
 endif
 """"""""""""""""""""""""""""""""""""""""""""""""""
 "  ____  _                        _

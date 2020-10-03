@@ -122,9 +122,9 @@
 	"python.analysis.diagnosticPublishDelay":100,
 	"python.formatting.provider": "yapf",
 	"python.formatting.yapfArgs": [
-        "--style",
-        "{SPACES_AROUND_POWER_OPERATOR: True, SPACES_BEFORE_COMMENT: 4, SPLIT_BEFORE_LOGICAL_OPERATOR: True}"
-    ],
+		"--style",
+		"{SPACES_AROUND_POWER_OPERATOR: True, SPACES_BEFORE_COMMENT: 4, SPLIT_BEFORE_LOGICAL_OPERATOR: True}"
+	],
 	"json.format.enable":true,
 	"json.enable": true,
 	"css.enable": true,
@@ -179,6 +179,8 @@
 		"javascript",
 		"html",
 		"css",
+		"wxml",
+		"wxss",
 		"python",
 		"dart",
 		"go",
@@ -206,8 +208,20 @@
 		"${env:SPARK_HOME}/python",
 		"${env:SPARK_HOME}/python/pyspark"
 	],
-	"http.proxy": "http://127.0.0.1:7890",
 	"languageserver": {
+		"dart": {
+			"command": "dart",
+			"args": [
+				"/usr/local/opt/dart/libexec/bin/snapshots/analysis_server.dart.snapshot",
+				"--lsp",
+				"--client-id",
+				"vim",
+				"--client-version",
+				"coc.nvim"
+			],
+			"filetypes": ["dart"],
+			"trace.server": "verbose"
+		},
 		"foo": {
 			"module": "/usr/local/lib/node_modules/foo/index.js",
 			"args": ["--node-ipc"],
@@ -227,25 +241,25 @@
 			"filetypes": ["php"],
 			"initializationOptions": {
 				"storagePath": "/tmp/intelephense"
-				}
+			}
 		},
 		"ccls": {
 			"command": "ccls",
 			"filetypes": ["c", "cc", "c++", "cpp", "objc", "objcpp"],
 			"rootPatterns": [".ccls", "compile_commands.json", ".git/", ".hg/"],
 			"initializationOptions": {
-			"cache": {
-				"directory": "/tmp/ccls"
-			},
-			"clang": {
-				// make sure you have installed commandLineTools
-				"resourceDir": "/Library/Developer/CommandLineTools/usr/lib/clang/12.0.0",
-				"extraArgs": [
-					"-isystem",
-					"/Applications/Xcode-beta.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include/c++/v1",
-					"-I",
-					"/Applications/Xcode-beta.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include"
-				]
+				"cache": {
+					"directory": "/tmp/ccls"
+				},
+				"clang": {
+					// make sure you have installed commandLineTools
+					"resourceDir": "/Library/Developer/CommandLineTools/usr/lib/clang/12.0.0",
+					"extraArgs": [
+						"-isystem",
+						"/Applications/Xcode-beta.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include/c++/v1",
+						"-I",
+						"/Applications/Xcode-beta.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include"
+					]
 				}
 			}
 		},
@@ -274,6 +288,6 @@
 			"command": "sql-language-server",
 			"args" : ["up", "--method", "stdio"],
 			"filetypes": ["sql", "mysql"]
-		 }
-  }
+		}
+	}
 }
