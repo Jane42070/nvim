@@ -173,7 +173,6 @@
 	"javascript.suggest.enabled": true,
 	"javascript.suggestionActions.enabled": true,
 	"latex.lint.onSave": true,
-	"rust-analyzer.serverPath": "/usr/local/Cellar/rust-analyzer/2020-09-07/bin/rust-analyzer",
 	"signature.target":"float",
 	"coc.preferences.formatOnSaveFiletypes": [
 		"javascript",
@@ -201,8 +200,7 @@
 	"translator.engines": [
 		"bing",
 		"google",
-		"youdao",
-		"haici"
+		"youdao"
 	],
 	"python.autoComplete.extraPaths": [
 		"${env:SPARK_HOME}/python",
@@ -263,6 +261,16 @@
 				}
 			}
 		},
+		"cmake": {
+			"command": "cmake-language-server",
+			"filetypes": ["cmake"],
+			"rootPatterns": [
+				"build/"
+			],
+			"initializationOptions": {
+				"buildDirectory": "build"
+			}
+		},
 		"golang": {
 			"command": "gopls",
 			"rootPatterns": ["go.mod"],
@@ -277,12 +285,6 @@
 			"command": "docker-langserver",
 			"filetypes": ["dockerfile"],
 			"args": ["--stdio"]
-		},
-		"bash": {
-			"command": "bash-language-server",
-			"args": ["start"],
-			"filetypes": ["sh"],
-			"ignoredRootPaths": ["~"]
 		},
 		"sql": {
 			"command": "sql-language-server",

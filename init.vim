@@ -674,7 +674,7 @@ noremap <c-l> <c-w><c-l>
 
 """""""""""""""""""""""""""""""""""""
 " coc.nvim
-let g:coc_global_extensions = ['coc-powershell', 'coc-texlab', 'coc-python', 'coc-ultisnips', 'coc-snippets', 'coc-java', 'coc-bookmark', 'coc-omnisharp', 'coc-phpls', 'coc-vimlsp', 'coc-xml', 'coc-calc', 'coc-cmake', 'coc-html', 'coc-json', 'coc-css', 'coc-tsserver', 'coc-yank', 'coc-lists', 'coc-stylelint', 'coc-tailwindcss', 'coc-tslint', 'coc-yaml', 'coc-git', 'coc-gitignore', 'coc-explorer', 'coc-translator', 'coc-flutter', 'coc-diagnostic']
+let g:coc_global_extensions = ['coc-powershell', 'coc-texlab', 'coc-python', 'coc-ultisnips', 'coc-snippets', 'coc-java', 'coc-bookmark', 'coc-omnisharp', 'coc-phpls', 'coc-vimlsp', 'coc-xml', 'coc-calc', 'coc-cmake', 'coc-html', 'coc-json', 'coc-css', 'coc-tsserver', 'coc-yank', 'coc-lists', 'coc-stylelint', 'coc-tailwindcss', 'coc-tslint', 'coc-yaml', 'coc-git', 'coc-gitignore', 'coc-explorer', 'coc-translator', 'coc-flutter', 'coc-diagnostic', 'coc-sh', 'coc-rust-analyzer']
 " TextEdit might fail if hidden is not set.
 set hidden
 
@@ -930,7 +930,7 @@ func! CompileRun()
 	elseif &filetype == 'html'
 		exec "!open % &"
 	elseif &filetype == 'go'
-		exec "AsyncRun -mode=term -rows=8 -focus=0 go build %<; go run %"
+		exec "AsyncRun -mode=term -rows=8 -focus=0 go run %"
 	elseif &filetype == 'markdown'
 		exec "MarkdownPreview"
 	elseif &filetype == 'tex'
