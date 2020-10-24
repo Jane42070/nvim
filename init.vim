@@ -6,7 +6,6 @@
 "         |___/
 " Jane
 " mail : jql1377219787@gmail.com
-" cSpell:disable
 call plug#begin('~/.config/nvim/plugged')
 " 撤销树 Gundo
 Plug 'sjl/gundo.vim', {'on': 'GundoToggle'}
@@ -117,7 +116,7 @@ vnoremap Y "+y
 set number                                              " 显示行号
 set cursorline                                          " 高亮当前行
 set list listchars=extends:❯,precedes:❮,tab:▸\ ,trail:˽
-set listchars+=eol:⏎                                    " 设置空白字符的视觉提示
+" set listchars+=eol:⏎                                  " 设置空白字符的视觉提示
 syntax on                                               " 语法高亮
 filetype plugin indent on                               " 根据文件类型自动处理缩进
 filetype on
@@ -152,6 +151,9 @@ noremap <up> :res +5<CR>
 noremap <down> :res -5<CR>
 noremap <left> :vertical resize-5<CR>
 noremap <right> :vertical resize+5<CR>
+
+" 快捷跳出 vim 内置 terminal
+" tnoremap <c-m> <c-\><c-n>
 
 " 对于中文括号跳出的支持
 inoremap （ （）<LEFT>
@@ -217,6 +219,7 @@ nnoremap <leader>ls :LeetCodeSubmit<cr>
 nnoremap <leader>li :LeetCodeSignIn<cr>
 let g:leetcode_browser='chrome'
 let g:leetcode_solution_filetype='cpp'
+let g:leetcode_china=1
 """""""""""""""""""""""""""""""""""""
 
 
@@ -300,7 +303,7 @@ nmap ga <Plug>(EasyAlign)
 
 """""""""""""""""""""""""""""""""""""
 " colorizer
-let g:colorizer_auto_filetype='css,html'
+let g:colorizer_auto_filetype='css,html,wxss,wxml'
 let g:colorizer_skip_comments = 1
 let g:colorizer_syntax = 1
 let g:colorizer_use_virtual_text = 1
@@ -480,28 +483,6 @@ let g:tabular_loaded = 1
 """""""""""""""""""""""""""""""""""""
 
 """""""""""""""""""""""""""""""""""""
-" fastfold
-nmap zuz <Plug>(FastFoldUpdate)
-" Enable folding with the spacebar
-nnoremap <space> za
-let g:fastfold_savehook = 1
-let g:fastfold_fold_command_suffixes =  ['x', 'X', 'a', 'A', 'o', 'O', 'c', 'C']
-let g:fastfold_fold_movement_commands = [']z', '[z', 'zj', 'zk']
-let g:markdown_folding = 1
-let g:tex_fold_enabled = 1
-let g:vimsyn_folding = 'af'
-let g:xml_syntax_folding = 1
-let g:sh_fold_enabled= 7
-let g:javaScript_fold = 1
-let g:ruby_fold = 1
-let g:perl_fold = 1
-let g:perl_fold_blocks = 1
-let g:r_syntax_folding = 1
-let g:rust_fold = 1
-let g:php_folding = 1
-"""""""""""""""""""""""""""""""""""""
-
-"""""""""""""""""""""""""""""""""""""
 " nerdcommenter
 " Add spaces after comment delimiters by default
 let g:NERDSpaceDelims = 1
@@ -633,6 +614,8 @@ xmap ag <Plug>(coc-git-chunk-outer)
 let g:vim_markdown_folding_style_pythonic = 1
 let g:vim_markdown_math = 1
 let g:markdown_fenced_languages = ['css', 'js=javascript']
+let g:vim_markdown_conceal_code_blocks = 0
+let g:vim_markdown_frontmatter = 1
 """""""""""""""""""""""""""""""""""""
 
 """""""""""""""""""""""""""""""""
@@ -678,7 +661,7 @@ let g:coc_global_extensions = ['coc-powershell', 'coc-texlab', 'coc-python', 'co
 " TextEdit might fail if hidden is not set.
 set hidden
 
-" Some servers have issues with backup files, see 0.
+" Some servers have issues with backup files, see #649.
 set nobackup
 set nowritebackup
 
@@ -687,22 +670,27 @@ set cmdheight=2
 
 " Having longer updatetime (default is 4000 ms = 4 s) leads to noticeable
 " delays and poor user experience.
-set updatetime=100
+set updatetime=300
 
 " Don't pass messages to |ins-completion-menu|.
 set shortmess+=c
 
 " Always show the signcolumn, otherwise it would shift the text each time
 " diagnostics appear/become resolved.
-set signcolumn=yes
+if has("patch-8.1.1564")
+  " Recently vim can merge signcolumn and number column into one
+  set signcolumn=number
+else
+  set signcolumn=yes
+endif
 
 " Use tab for trigger completion with characters ahead and navigate.
 " NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
 " other plugin before putting this into your config.
 inoremap <silent><expr> <TAB>
-	  \ pumvisible() ? "\<C-n>" :
-	  \ <SID>check_back_space() ? "\<TAB>" :
-	  \ coc#refresh()
+      \ pumvisible() ? "\<C-n>" :
+      \ <SID>check_back_space() ? "\<TAB>" :
+      \ coc#refresh()
 inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
 
 function! s:check_back_space() abort
@@ -711,18 +699,19 @@ function! s:check_back_space() abort
 endfunction
 
 " Use <c-space> to trigger completion.
-inoremap <silent><expr> <c-space> coc#refresh()
-
-" Use <cr> to confirm completion, `<C-g>u` means break undo chain at current
-" position. Coc only does snippet and additional edit on confirm.
-if has('patch8.1.1068')
-  " Use `complete_info` if your (Neo)Vim version supports it.
-  inoremap <expr> <cr> complete_info()["selected"] != "-1" ? "\<C-y>" : "\<C-g>u\<CR>"
+if has('nvim')
+  inoremap <silent><expr> <c-space> coc#refresh()
 else
-  imap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+  inoremap <silent><expr> <c-@> coc#refresh()
 endif
 
+" Make <CR> auto-select the first completion item and notify coc.nvim to
+" format on enter, <cr> could be remapped by other vim plugin
+inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm()
+                              \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+
 " Use `[g` and `]g` to navigate diagnostics
+" Use `:CocDiagnostics` to get all diagnostics of current buffer in location list.
 nmap <silent> [g <Plug>(coc-diagnostic-prev)
 nmap <silent> ]g <Plug>(coc-diagnostic-next)
 
@@ -733,13 +722,15 @@ nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
 
 " Use K to show documentation in preview window.
-nnoremap <silent> ,k :call <SID>show_documentation()<CR>
+nnoremap <silent> K :call <SID>show_documentation()<CR>
 
 function! s:show_documentation()
   if (index(['vim','help'], &filetype) >= 0)
     execute 'h '.expand('<cword>')
+  elseif (coc#rpc#ready())
+    call CocActionAsync('doHover')
   else
-    call CocAction('doHover')
+    execute '!' . &keywordprg . " " . expand('<cword>')
   endif
 endfunction
 
@@ -766,23 +757,33 @@ augroup end
 xmap <leader>a  <Plug>(coc-codeaction-selected)
 nmap <leader>a  <Plug>(coc-codeaction-selected)
 
-" Remap keys for applying codeAction to the current line.
+" Remap keys for applying codeAction to the current buffer.
 nmap <leader>ac  <Plug>(coc-codeaction)
 " Apply AutoFix to problem on the current line.
 nmap <leader>qf  <Plug>(coc-fix-current)
 
-" Introduce function text object
+" Map function and class text objects
 " NOTE: Requires 'textDocument.documentSymbol' support from the language server.
 xmap if <Plug>(coc-funcobj-i)
-xmap af <Plug>(coc-funcobj-a)
 omap if <Plug>(coc-funcobj-i)
+xmap af <Plug>(coc-funcobj-a)
 omap af <Plug>(coc-funcobj-a)
+xmap ic <Plug>(coc-classobj-i)
+omap ic <Plug>(coc-classobj-i)
+xmap ac <Plug>(coc-classobj-a)
+omap ac <Plug>(coc-classobj-a)
 
-" Use <TAB> for selections ranges.
-" NOTE: Requires 'textDocument/selectionRange' support from the language server.
-" coc-tsserver, coc-python are the examples of servers that support it.
-nmap <silent> <TAB> <Plug>(coc-range-select)
-xmap <silent> <TAB> <Plug>(coc-range-select)
+" Remap <C-f> and <C-b> for scroll float windows/popups.
+" Note coc#float#scroll works on neovim >= 0.4.3 or vim >= 8.2.0750
+nnoremap <nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
+nnoremap <nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
+inoremap <nowait><expr> <C-f> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(1)\<cr>" : "\<Right>"
+inoremap <nowait><expr> <C-b> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(0)\<cr>" : "\<Left>"
+
+" Use CTRL-S for selections ranges.
+" Requires 'textDocument/selectionRange' support of language server.
+nmap <silent> <C-s> <Plug>(coc-range-select)
+xmap <silent> <C-s> <Plug>(coc-range-select)
 
 " Add `:Format` command to format current buffer.
 command! -nargs=0 Format :call CocAction('format')
@@ -796,39 +797,25 @@ command! -nargs=0 OR   :call     CocAction('runCommand', 'editor.action.organize
 " Add (Neo)Vim's native statusline support.
 " NOTE: Please see `:h coc-status` for integrations with external plugins that
 " provide custom statusline: lightline.vim, vim-airline.
-function! StatusDiagnostic() abort
-  let info = get(b:, 'coc_diagnostic_info', {})
-  if empty(info) | return '' | endif
-  let msgs = []
-  if get(info, 'error', 0)
-	call add(msgs, 'E' . info['error'])
-  endif
-  if get(info, 'warning', 0)
-	call add(msgs, 'W' . info['warning'])
-  endif
-  return join(msgs, ' ') . ' ' . get(g:, 'coc_status', '')
-endfunction
+set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
 
-" Mappings using CoCList:
+" Mappings for CoCList
 " Show all diagnostics.
-nnoremap <silent> <space>d  :<C-u>CocList diagnostics<cr>
+nnoremap <silent><nowait> <space>a  :<C-u>CocList diagnostics<cr>
 " Manage extensions.
-nnoremap <silent> <space>e  :<C-u>CocList extensions<cr>
+nnoremap <silent><nowait> <space>e  :<C-u>CocList extensions<cr>
 " Show commands.
-nnoremap <silent> <space>c  :<C-u>CocList commands<cr>
+nnoremap <silent><nowait> <space>c  :<C-u>CocList commands<cr>
 " Find symbol of current document.
-nnoremap <silent> <space>o  :<C-u>CocList outline<cr>
+nnoremap <silent><nowait> <space>o  :<C-u>CocList outline<cr>
 " Search workspace symbols.
-nnoremap <silent> <space>s  :<C-u>CocList -I symbols<cr>
+nnoremap <silent><nowait> <space>s  :<C-u>CocList -I symbols<cr>
 " Do default action for next item.
-nnoremap <silent> <space>j  :<C-u>CocNext<CR>
+nnoremap <silent><nowait> <space>j  :<C-u>CocNext<CR>
 " Do default action for previous item.
-nnoremap <silent> <space>k  :<C-u>CocPrev<CR>
+nnoremap <silent><nowait> <space>k  :<C-u>CocPrev<CR>
 " Resume latest coc list.
-nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
-" Reslove workspace folder
-autocmd FileType python let b:coc_root_patterns = ['.git', '.env']
-autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
+nnoremap <silent><nowait> <space>p  :<C-u>CocListResume<CR>
 """""""""""""""""""""""""""""""""""""
 
 """""""""""""""""""""""""""""""""""""
@@ -900,7 +887,7 @@ set shellslash
 let g:tex_flavor='latex'
 let g:vimtex_view_method='zathura'
 let g:vimtex_quickfix_mode=0
-set conceallevel=1
+set conceallevel=2
 let g:tex_conceal='abdmg'
 """""""""""""""""""""""""""""""""""""
 
@@ -912,15 +899,17 @@ let g:tex_conceal='abdmg'
 " /_/   \_\___/\__, |_| |_|\___|_|   \__,_|_| |_|
 "              |___/
 "   设置运行可执行文件
-let g:asyncrun_open = 8
+let g:asyncrun_mode="term"
+let g:asyncrun_open=8
 let $PYTHONNUNBUFFERED=1
 map ,r :call CompileRun()<CR>
+map ,R :call MultiCompileRun()<CR>
 func! CompileRun()
 	exec "w"
 	if &filetype == 'c'
-		exec "AsyncRun -mode=term -rows=8 -focus=0 gcc % -o %<; ./%<"
+		exec "AsyncRun -rows=8 -focus=0 gcc % -o %<; ./%<"
 	elseif &filetype == 'cpp'
-		exec "AsyncRun -mode=term -rows=8 -focus=0 g++ % -o %<; ./%<"
+		exec "AsyncRun -rows=8 -focus=0 g++ % -o %<; ./%<"
 	elseif &filetype == 'java'
 		exec "AsyncRun -mode=term -rows=8 -focus=0 javac %; java %<"
 	elseif &filetype == 'sh'
@@ -937,6 +926,15 @@ func! CompileRun()
 		exec "LLPStartPreview"
 	elseif &filetype == 'vim'
 		exec "source %"
+	endif
+endfunc
+" Now this function only works for c and cpp
+func MultiCompileRun()
+	exec "w"
+	if &filetype == 'c'
+		exec "AsyncRun -rows=8 -focus=0 gcc *.c -o %<; ./%<"
+	elseif &filetype == 'cpp'
+		exec "AsyncRun -rows=8 -focus=0 g++ *.cpp -o %<; ./%<"
 	endif
 endfunc
 "自动插入文件头
@@ -956,10 +954,10 @@ func! SetHeader()
 	elseif expand("%:e") == 'cpp'
 		call setline(1,"#include <iostream>")
 		call setline(2, "")
-		call setline(3, "using std::cin;")
-		call setline(4, "using std::cout;")
-		call setline(5, "using std::endl;")
-		call setline(6, "")
+		call setline(3, "using namespace std;")
+		" call setline(4, "using std::cout;")
+		" call setline(5, "using std::endl;")
+		call setline(4, "")
 	elseif expand("%:e") == 'cc'
 		call setline(1,"#include <iostream>")
 		call setline(2, "")
