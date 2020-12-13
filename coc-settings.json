@@ -49,7 +49,6 @@
 	"codeLens.separator":"‣",
 	"diagnostic.virtualTextPrefix": " ❯❯❯ ",
 	"diagnostic.virtualText": true,
-	"diagnostic.signOffset": 1,
 	"diagnostic.errorSign": "✘",
 	"diagnostic.warningSign": "⚡",
 	"diagnostic.enable": true,
@@ -102,7 +101,7 @@
 	"xml.completion.autoCloseTags": true,
 	"xml.format.quotations": "doubleQuotes",
 	"xml.format.splitAttributes": false,
-	"python.pythonPath": "python",
+	"python.pythonPath": "python3.9",
 	"python.analysis.downloadChannel": "daily",
 	"python.autoUpdateLanguageServer": true,
 	"python.linting.pylintUseMinimalCheckers": true,
@@ -191,7 +190,9 @@
 	"explorer.width": 30,
 	"explorer.file.column.indent.indentLine": true,
 	"explorer.file.showHiddenFiles": true,
-	"explorer.file.column.git.showIgnored": true,
+	"explorer.git.showIgnored": true,
+	"explorer.filename.colored.enable": true,
+	"explorer.focus": false,
 	"explorer.icon.enableNerdfont": true,
 	"explorer.icon.enableVimDevicons": true,
 	"translator.toLang":"zh",
@@ -246,7 +247,7 @@
 			"rootPatterns": [".ccls-root", "compile_commands.json"],
 			"initializationOptions": {
 				"cache": {
-					"directory": ".ccls-cache"
+					"directory": "/tmp/.ccls-cache"
 				},
 				"client": {
 					"snippetSupport": true

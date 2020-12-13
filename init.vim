@@ -6,6 +6,7 @@
 "         |___/
 " Jane
 " mail : jql1377219787@gmail.com
+echo "Have some fun"
 call plug#begin('~/.config/nvim/plugged')
 " 撤销树 Gundo
 Plug 'sjl/gundo.vim', {'on': 'GundoToggle'}
@@ -13,6 +14,8 @@ Plug 'sjl/gundo.vim', {'on': 'GundoToggle'}
 Plug 'xuhdev/vim-latex-live-preview', {'for': 'tex'}
 " coc
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
+" calling lazygit
+Plug 'kdheepak/lazygit.nvim'
 " leetcode
 Plug 'ianding1/leetcode.vim'
 " rgb 颜色显示
@@ -114,6 +117,7 @@ nnoremap Y y$
 " Copy to system clipboard
 vnoremap Y "+y
 set number                                              " 显示行号
+set relativenumber
 set cursorline                                          " 高亮当前行
 set list listchars=extends:❯,precedes:❮,tab:▸\ ,trail:˽
 " set listchars+=eol:⏎                                  " 设置空白字符的视觉提示
@@ -127,6 +131,11 @@ set ignorecase                                          " 大小写不敏感
 set smartcase                                           " 开启智能推测
 set textwidth=80
 set linebreak                                           " 不对单词折行
+" 设置文件编码
+set fileencodings=utf-8,ucs-bom,gb18030,gbk,gb2312,cp936,utf-16,big5
+set termencoding=utf-8
+set encoding=utf-8                                      " 编码
+set fenc=utf-8                                          " 编码
 set scrolloff=5
 set sidescrolloff=15
 set shiftwidth=4
@@ -138,8 +147,6 @@ set incsearch                                           " 输入字符串就显�
 set hlsearch
 set showmatch                                           " 显示匹配的括号
 set scrolloff=3                                         " 距离顶部和底部 3 行
-set encoding=utf-8                                      " 编码
-set fenc=utf-8                                          " 编码
 set mouse=a                                             " 启用鼠标
 set hlsearch                                            " 搜索高亮
 set autoindent                                          " 设置自动缩进
@@ -202,6 +209,110 @@ autocmd BufWritePre *.text,*.txt,*.wiki,*.cnx,*.md call PanGuSpacing()
 
 """modeconfig"""
 """""""""""""""""""""""""""""""""""""
+"""""""""""""""""""""""""""""""""""""
+" Lazygit
+let g:lazygit_floating_window_winblend = 0 " transparency of floating window
+let g:lazygit_floating_window_scaling_factor = 0.9 " scaling factor for floating window
+let g:lazygit_floating_window_corner_chars = ['╭', '╮', '╰', '╯'] " customize lazygit popup window corner characters
+let g:lazygit_use_neovim_remote = 1 " for neovim-remote support
+nnoremap <silent> <leader>lg :LazyGit<CR>
+
+"""""""""""""""""""""""""""""""""""""
+
+"""""""""""""""""""""""""""""""""""""
+" MarkdownPreview
+" set to 1, nvim will open the preview window after entering the markdown buffer
+" default: 0
+let g:mkdp_auto_start = 1
+
+" set to 1, the nvim will auto close current preview window when change
+" from markdown buffer to another buffer
+" default: 1
+let g:mkdp_auto_close = 0
+
+" set to 1, the vim will refresh markdown when save the buffer or
+" leave from insert mode, default 0 is auto refresh markdown as you edit or
+" move the cursor
+" default: 0
+let g:mkdp_refresh_slow = 0
+
+" set to 1, the MarkdownPreview command can be use for all files,
+" by default it can be use in markdown file
+" default: 0
+let g:mkdp_command_for_global = 1
+
+" set to 1, preview server available to others in your network
+" by default, the server listens on localhost (127.0.0.1)
+" default: 0
+let g:mkdp_open_to_the_world = 0
+
+" use custom IP to open preview page
+" useful when you work in remote vim and preview on local browser
+" more detail see: https://github.com/iamcco/markdown-preview.nvim/pull/9
+" default empty
+let g:mkdp_open_ip = ''
+
+" specify browser to open preview page
+" default: ''
+let g:mkdp_browser = ''
+
+" set to 1, echo preview page url in command line when open preview page
+" default is 0
+let g:mkdp_echo_preview_url = 0
+
+" a custom vim function name to open preview page
+" this function will receive url as param
+" default is empty
+let g:mkdp_browserfunc = ''
+
+" options for markdown render
+" mkit: markdown-it options for render
+" katex: katex options for math
+" uml: markdown-it-plantuml options
+" maid: mermaid options
+" disable_sync_scroll: if disable sync scroll, default 0
+" sync_scroll_type: 'middle', 'top' or 'relative', default value is 'middle'
+"   middle: mean the cursor position alway show at the middle of the preview page
+"   top: mean the vim top viewport alway show at the top of the preview page
+"   relative: mean the cursor position alway show at the relative positon of the preview page
+" hide_yaml_meta: if hide yaml metadata, default is 1
+" sequence_diagrams: js-sequence-diagrams options
+" content_editable: if enable content editable for preview page, default: v:false
+" disable_filename: if disable filename header for preview page, default: 0
+let g:mkdp_preview_options = {
+    \ 'mkit': {},
+    \ 'katex': {},
+    \ 'uml': {},
+    \ 'maid': {},
+    \ 'disable_sync_scroll': 0,
+    \ 'sync_scroll_type': 'middle',
+    \ 'hide_yaml_meta': 1,
+    \ 'sequence_diagrams': {},
+    \ 'flowchart_diagrams': {},
+    \ 'content_editable': v:false,
+    \ 'disable_filename': 0
+    \ }
+
+" use a custom markdown style must be absolute path
+" like '/Users/username/markdown.css' or expand('~/markdown.css')
+let g:mkdp_markdown_css = ''
+
+" use a custom highlight style must absolute path
+" like '/Users/username/highlight.css' or expand('~/highlight.css')
+let g:mkdp_highlight_css = ''
+
+" use a custom port to start server or random for empty
+let g:mkdp_port = ''
+
+" preview page title
+" ${name} will be replace with the file name
+let g:mkdp_page_title = '「${name}」'
+
+" recognized filetypes
+" these filetypes will have MarkdownPreview... commands
+let g:mkdp_filetypes = ['markdown']
+"""""""""""""""""""""""""""""""""""""
+
 """""""""""""""""""""""""""""""""""""
 " Arduino
 nnoremap <buffer> <leader>am :ArduinoVerify<CR>
@@ -386,6 +497,13 @@ let g:user_emmet_leader_key='<TAB>'
 """""""""""""""""""""""""""""""""""""
 
 """""""""""""""""""""""""""""""""""""
+" Consider a as b
+autocmd BufRead,BufNewFile *.nas setfiletype nasm
+let b:asmsyntax = "nasm"
+"""""""""""""""""""""""""""""""""""""
+
+
+"""""""""""""""""""""""""""""""""""""
 " javascript-vim
 let g:javascript_plugin_jsdoc = 1
 let g:javascript_plugin_ngdoc = 1
@@ -490,12 +608,14 @@ let g:NERDSpaceDelims = 1
 let g:NERDCompactSexyComs = 1
 " Align line-wise comment delimiters flush left instead of following code indentation
 let g:NERDDefaultAlign = 'left'
-
 " Set a language to use its alternate delimiters by default
 let g:NERDAltDelims_java = 1
-
+let g:NERDAltDelims_c = 1
 " Add your own custom formats or override the defaults
-let g:NERDCustomDelimiters = { 'c': { 'left': '/**','right': '*/' } }
+" let g:NERDCustomDelimiters = {
+"             \'c': { 'left': '/*', 'right': '*/' }
+"             \}
+let g:NERDCompactSexyComs = 1
 " Comment on insert mode
 imap <C-c> <plug>NERDCommenterInsert
 
@@ -540,15 +660,7 @@ let g:vista_icon_indent = ["╰─▸ ", "├─▸ "]
 
 " Executive used when opening vista sidebar without specifying it.
 " See all the avaliable executives via `:echo g:vista#executives`.
-let g:vista_default_executive = 'ctags'
-
-" Set the executive for some filetypes explicitly. Use the explicit executive
-" instead of the default one for these filetypes when using `:Vista` without
-" specifying the executive.
-let g:vista_executive_for = {
-  \ 'cpp': 'vim_lsp',
-  \ 'php': 'vim_lsp',
-  \ }
+let g:vista_default_executive = 'coc'
 
 " Declare the command including the executable and options used to generate ctags output
 " for some certain filetypes.The file path will be appened to your custom command.
@@ -633,8 +745,7 @@ map ,ps :PlugStatus<CR>
 " 新建标签页
 map tt :tabe<CR>
 " 浏览标签页
-noremap <TAB><TAB> :bnext<CR>
-noremap <S-TAB> :bprevious<CR>
+noremap <S-TAB> :bnext<CR>
 " map tc :tabclose<CR>
 " 快捷缩进
 vnoremap < <v
@@ -774,11 +885,14 @@ xmap ac <Plug>(coc-classobj-a)
 omap ac <Plug>(coc-classobj-a)
 
 " Remap <C-f> and <C-b> for scroll float windows/popups.
-" Note coc#float#scroll works on neovim >= 0.4.3 or vim >= 8.2.0750
-nnoremap <nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
-nnoremap <nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
-inoremap <nowait><expr> <C-f> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(1)\<cr>" : "\<Right>"
-inoremap <nowait><expr> <C-b> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(0)\<cr>" : "\<Left>"
+if has('nvim-0.4.0') || has('patch-8.2.0750')
+  nnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
+  nnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
+  inoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(1)\<cr>" : "\<Right>"
+  inoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(0)\<cr>" : "\<Left>"
+  vnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
+  vnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
+endif
 
 " Use CTRL-S for selections ranges.
 " Requires 'textDocument/selectionRange' support of language server.
@@ -907,7 +1021,7 @@ map ,R :call MultiCompileRun()<CR>
 func! CompileRun()
 	exec "w"
 	if &filetype == 'c'
-		exec "AsyncRun -rows=8 -focus=0 gcc % -o %<; ./%<"
+		exec "AsyncRun -rows=8 -focus=0 gcc % -o %<;./%<"
 	elseif &filetype == 'cpp'
 		exec "AsyncRun -rows=8 -focus=0 g++ % -o %<; ./%<"
 	elseif &filetype == 'java'
@@ -915,7 +1029,7 @@ func! CompileRun()
 	elseif &filetype == 'sh'
 		exec "AsyncRun -mode=term -rows=8 -focus=0 bash %"
 	elseif &filetype == 'python'
-		exec "AsyncRun -mode=term -rows=8 -focus=0 -raw python %"
+		exec "AsyncRun -mode=term -rows=8 -focus=0 -raw python3.9 %"
 	elseif &filetype == 'html'
 		exec "!open % &"
 	elseif &filetype == 'go'
@@ -1023,11 +1137,11 @@ if !has('gui_running')
   set t_Co=256
 endif
 set noshowmode
-let g:lightline#bufferline#number_map = {
-	\ 0: '⓪ ', 1: '① ', 2: '② ', 3: '③ ', 4: '④ ',
-	\ 5: '⑤ ', 6: '⑥ ', 7: '⑦ ', 8: '⑧ ', 9: '⑨ ',
-	\ 10: '⑩ ', 11: '⑪ ', 12: '⑫ ', 13: '⑬ ', 14: '⑭ ', 15: '⑮ ',
-	\ 16: '⑯ ', 17: '⑰ ', 18: '⑱ ', 19: '⑲ ', 20: '⑳ ' }
+" let g:lightline#bufferline#number_map = {
+"     \ 0: '⓪ ', 1: '① ', 2: '② ', 3: '③ ', 4: '④ ',
+"     \ 5: '⑤ ', 6: '⑥ ', 7: '⑦ ', 8: '⑧ ', 9: '⑨ ',
+"     \ 10: '⑩ ', 11: '⑪ ', 12: '⑫ ', 13: '⑬ ', 14: '⑭ ', 15: '⑮ ',
+"     \ 16: '⑯ ', 17: '⑰ ', 18: '⑱ ', 19: '⑲ ', 20: '⑳ ' }
 let g:lightline#bufferline#show_number  = 2
 let g:lightline#bufferline#unicode_symbols = 1
 let g:lightline#bufferline#clickable = 1
