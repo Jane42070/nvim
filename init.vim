@@ -48,7 +48,7 @@ Plug 'liuchengxu/vista.vim', {'on': 'Vista'}
 " Super searching
 " Plug 'Yggdroot/LeaderF', { 'do': './install.sh' }
 " vimspector
-Plug 'puremourning/vimspector'
+" Plug 'puremourning/vimspector', {'do': './install_gadget.py --enable-rust --enable-python --enable-c --enable-go'}
 " Easy motion
 Plug 'easymotion/vim-easymotion'
 " Cursor Word
@@ -58,7 +58,7 @@ Plug 'lfv89/vim-interestingwords'
 " Jupyter
 " Plug 'jupyter-vim/jupyter-vim'
 " file search --fzf
-Plug 'junegunn/fzf'
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 " Plug 'antoinemadec/coc-fzf'
 " File Compile Run
@@ -210,11 +210,15 @@ autocmd BufWritePre *.text,*.txt,*.wiki,*.cnx,*.md call PanGuSpacing()
 """""""""""""""""""""""""""""""""""""
 """""""""""""""""""""""""""""""""""""
 " Lazygit
-let g:lazygit_floating_window_winblend = 0 " transparency of floating window
-let g:lazygit_floating_window_scaling_factor = 0.85 " scaling factor for floating window
-let g:lazygit_floating_window_corner_chars = ['╭', '╮', '╰', '╯'] " customize lazygit popup window corner characters
-let g:lazygit_use_neovim_remote = 1 " for neovim-remote support
-nnoremap <silent> <leader>lg :LazyGit<CR>
+if has('nvim-0.5.0')
+	nnoremap <silent> <leader>lg :LazyGit<CR>
+	let g:lazygit_floating_window_winblend = 0 " transparency of floating window
+	let g:lazygit_floating_window_scaling_factor = 0.85 " scaling factor for floating window
+	let g:lazygit_floating_window_corner_chars = ['╭', '╮', '╰', '╯'] " customize lazygit popup window corner characters
+	let g:lazygit_use_neovim_remote = 1 " for neovim-remote support
+else
+	echo 'use nvim-5.0.0 to make sure lazygit.nvim works'
+endif
 """""""""""""""""""""""""""""""""""""
 
 """""""""""""""""""""""""""""""""""""
@@ -314,41 +318,15 @@ nnoremap <leader>ll :LeetCodeList<cr>
 nnoremap <leader>lt :LeetCodeTest<cr>
 nnoremap <leader>ls :LeetCodeSubmit<cr>
 nnoremap <leader>li :LeetCodeSignIn<cr>
-let g:leetcode_browser='chrome'
+let g:leetcode_browser='safari'
 let g:leetcode_solution_filetype='cpp'
-let g:leetcode_china=1
+let g:leetcode_china=0
 """""""""""""""""""""""""""""""""""""
-
 
 """""""""""""""""""""""""""""""""""""
 " vimspector
-" packadd! vimspector
 " let g:vimspector_enable_mappings = 'HUMAN'
-" let g:vimspector_install_gadgets = ['vscode-cpptools', 'vscode-go']
-" let g:vimspector_base_dir=expand( '$HOME/.vim/vimspector-config' )
-"""""""""""""""""""""""""""""""""""""
-
-"""""""""""""""""""""""""""""""""""""
-" Jupyter
-" Run current file
-" let g:jupyter_mapkeys = 0
-" let g:python3_host_prog = '/usr/local/bin/python3.8'
-" nnoremap <buffer> <silent> <localleader>R :JupyterRunFile<CR>
-" nnoremap <buffer> <silent> <localleader>I :PythonImportThisFile<CR>
-
-" " Change to directory of current file
-" nnoremap <buffer> <silent> <localleader>d :JupyterCd %:p:h<CR>
-
-" " Send a selection of lines
-" nnoremap <buffer> <silent> <localleader>X :JupyterSendCell<CR>
-" nnoremap <buffer> <silent> <localleader>E :JupyterSendRange<CR>
-" nmap     <buffer> <silent> <localleader>e <Plug>JupyterRunTextObj
-" vmap     <buffer> <silent> <localleader>e <Plug>JupyterRunVisual
-
-" nnoremap <buffer> <silent> <localleader>U :JupyterUpdateShell<CR>
-
-" " Debugging maps
-" nnoremap <buffer> <silent> <localleader>b :PythonSetBreak<CR>
+" let g:vimspector_base_dir=expand( '~/.config/nvim/vimspector-config' )
 """""""""""""""""""""""""""""""""""""
 
 """""""""""""""""""""""""""""""""""""
