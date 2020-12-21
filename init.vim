@@ -6,7 +6,6 @@
 "         |___/
 " Jane
 " mail : jql1377219787@gmail.com
-echo "Have some fun"
 call plug#begin('~/.config/nvim/plugged')
 " 撤销树 Gundo
 Plug 'sjl/gundo.vim', {'on': 'GundoToggle'}
@@ -93,7 +92,7 @@ Plug 'mzlogin/vim-markdown-toc', {'for': 'markdown'}
 Plug 'plasticboy/vim-markdown', {'for': 'markdown'}
 Plug 'dhruvasagar/vim-table-mode', {'for': ['markdown', 'text']}
 Plug 'iamcco/mathjax-support-for-mkdp', {'for': 'markdown'}
-Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app & yarn install'  }
+Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
 Plug 'junegunn/vim-easy-align', {'on': '<Plug>(EasyAlign)'}
 " html 插件
 " Wechat development
@@ -212,59 +211,51 @@ autocmd BufWritePre *.text,*.txt,*.wiki,*.cnx,*.md call PanGuSpacing()
 """""""""""""""""""""""""""""""""""""
 " Lazygit
 let g:lazygit_floating_window_winblend = 0 " transparency of floating window
-let g:lazygit_floating_window_scaling_factor = 0.9 " scaling factor for floating window
+let g:lazygit_floating_window_scaling_factor = 0.85 " scaling factor for floating window
 let g:lazygit_floating_window_corner_chars = ['╭', '╮', '╰', '╯'] " customize lazygit popup window corner characters
 let g:lazygit_use_neovim_remote = 1 " for neovim-remote support
 nnoremap <silent> <leader>lg :LazyGit<CR>
-
 """""""""""""""""""""""""""""""""""""
 
 """""""""""""""""""""""""""""""""""""
 " MarkdownPreview
 " set to 1, nvim will open the preview window after entering the markdown buffer
 " default: 0
-let g:mkdp_auto_start = 1
-
+let g:mkdp_auto_start = 0
+" let g:vim_markdown_conceal = 0
+set conceallevel=1
 " set to 1, the nvim will auto close current preview window when change
 " from markdown buffer to another buffer
 " default: 1
-let g:mkdp_auto_close = 0
-
+let g:mkdp_auto_close = 1
 " set to 1, the vim will refresh markdown when save the buffer or
 " leave from insert mode, default 0 is auto refresh markdown as you edit or
 " move the cursor
 " default: 0
 let g:mkdp_refresh_slow = 0
-
 " set to 1, the MarkdownPreview command can be use for all files,
 " by default it can be use in markdown file
 " default: 0
-let g:mkdp_command_for_global = 1
-
+let g:mkdp_command_for_global = 0
 " set to 1, preview server available to others in your network
 " by default, the server listens on localhost (127.0.0.1)
 " default: 0
 let g:mkdp_open_to_the_world = 0
-
 " use custom IP to open preview page
 " useful when you work in remote vim and preview on local browser
 " more detail see: https://github.com/iamcco/markdown-preview.nvim/pull/9
 " default empty
 let g:mkdp_open_ip = ''
-
 " specify browser to open preview page
 " default: ''
 let g:mkdp_browser = ''
-
 " set to 1, echo preview page url in command line when open preview page
 " default is 0
 let g:mkdp_echo_preview_url = 0
-
 " a custom vim function name to open preview page
 " this function will receive url as param
 " default is empty
 let g:mkdp_browserfunc = ''
-
 " options for markdown render
 " mkit: markdown-it options for render
 " katex: katex options for math
@@ -292,22 +283,17 @@ let g:mkdp_preview_options = {
     \ 'content_editable': v:false,
     \ 'disable_filename': 0
     \ }
-
 " use a custom markdown style must be absolute path
 " like '/Users/username/markdown.css' or expand('~/markdown.css')
 let g:mkdp_markdown_css = ''
-
 " use a custom highlight style must absolute path
 " like '/Users/username/highlight.css' or expand('~/highlight.css')
 let g:mkdp_highlight_css = ''
-
 " use a custom port to start server or random for empty
 let g:mkdp_port = ''
-
 " preview page title
 " ${name} will be replace with the file name
 let g:mkdp_page_title = '「${name}」'
-
 " recognized filetypes
 " these filetypes will have MarkdownPreview... commands
 let g:mkdp_filetypes = ['markdown']
@@ -370,9 +356,15 @@ let g:leetcode_china=1
 if exists('$TMUX')
 	let g:fzf_layout = {'tmux': '-p90%,60%'}
 else
-	let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.6 } }
+	let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.9 } }
 endif
 
+if has('nvim') && !exists('g:fzf_layout')
+  autocmd! FileType fzf
+  autocmd  FileType fzf set laststatus=0 noshowmode noruler
+    \| autocmd BufLeave <buffer> set laststatus=2 showmode ruler
+endif
+" Need to install bat, rg, fzf, ag
 function! RipgrepFzf(query, fullscreen)
   let command_fmt = 'rg --column --line-number --no-heading --color=always --smart-case -- %s || true'
   let initial_command = printf(command_fmt, shellescape(a:query))
@@ -380,6 +372,21 @@ function! RipgrepFzf(query, fullscreen)
   let spec = {'options': ['--phony', '--query', a:query, '--bind', 'change:reload:'.reload_command]}
   call fzf#vim#grep(initial_command, 1, fzf#vim#with_preview(spec), a:fullscreen)
 endfunction
+
+let g:fzf_colors =
+      \ { 'fg':      ['fg', 'Normal'],
+      \ 'bg':      ['bg', 'Normal'],
+      \ 'hl':      ['fg', 'Comment'],
+      \ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
+      \ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
+      \ 'hl+':     ['fg', 'Statement'],
+      \ 'info':    ['fg', 'PreProc'],
+      \ 'border':  ['fg', 'Ignore'],
+      \ 'prompt':  ['fg', 'Conditional'],
+      \ 'pointer': ['fg', 'Exception'],
+      \ 'marker':  ['fg', 'Keyword'],
+      \ 'spinner': ['fg', 'Label'],
+      \ 'header':  ['fg', 'Comment'] }
 
 command! -nargs=* -bang RG call RipgrepFzf(<q-args>, <bang>0)
 
@@ -392,16 +399,14 @@ command! -bang -complete=dir -nargs=* LS
 let g:fzf_history_dir = '~/.local/share/fzf-history'
 """""""""""""""""""""""""""""""""""""
 
-
 """""""""""""""""""""""""""""""""""""
 " vim-indentLine
 let g:indentLine_char_list = ['|', '¦', '┆', '┊']
 """""""""""""""""""""""""""""""""""""
 
-
 """""""""""""""""""""""""""""""""""""
 " autopairs
-autocmd FileType tex,markdown let g:AutoPairs['$']='$'
+autocmd FileType * let g:AutoPairs={'（':'）'}
 """""""""""""""""""""""""""""""""""""
 
 """""""""""""""""""""""""""""""""""""
@@ -502,22 +507,21 @@ autocmd BufRead,BufNewFile *.nas setfiletype nasm
 let b:asmsyntax = "nasm"
 """""""""""""""""""""""""""""""""""""
 
-
 """""""""""""""""""""""""""""""""""""
 " javascript-vim
-let g:javascript_plugin_jsdoc = 1
-let g:javascript_plugin_ngdoc = 1
-let g:javascript_plugin_flow = 1
-let g:javascript_conceal_function             = "ƒ"
-let g:javascript_conceal_null                 = "ø"
-let g:javascript_conceal_this                 = "@"
-let g:javascript_conceal_return               = "⇚"
-let g:javascript_conceal_undefined            = "¿"
-let g:javascript_conceal_NaN                  = "ℕ"
-let g:javascript_conceal_prototype            = "¶"
-let g:javascript_conceal_static               = "•"
-let g:javascript_conceal_super                = "Ω"
-let g:javascript_conceal_arrow_function       = "⇒"
+let g:javascript_plugin_jsdoc           = 1
+let g:javascript_plugin_ngdoc           = 1
+let g:javascript_plugin_flow            = 1
+let g:javascript_conceal_function       = "ƒ"
+let g:javascript_conceal_null           = "ø"
+let g:javascript_conceal_this           = "@"
+let g:javascript_conceal_return         = "⇚"
+let g:javascript_conceal_undefined      = "¿"
+let g:javascript_conceal_NaN            = "ℕ"
+let g:javascript_conceal_prototype      = "¶"
+let g:javascript_conceal_static         = "•"
+let g:javascript_conceal_super          = "Ω"
+let g:javascript_conceal_arrow_function = "⇒"
 " let g:javascript_conceal_noarg_arrow_function = "🞅"
 " let g:javascript_conceal_underscore_arrow_function = "🞅"
 """""""""""""""""""""""""""""""""""""
@@ -525,10 +529,7 @@ let g:javascript_conceal_arrow_function       = "⇒"
 """""""""""""""""""""""""""""""""""""
 " vim-multiple-cursors
 " If you don't like the plugin taking over your key bindings, you can turn it off and reassign them the way you want:
-let g:multi_cursor_use_default_mapping=0
-
-" Default mapping
-" Default mapping
+let g:multi_cursor_use_default_mapping = 0
 let g:multi_cursor_start_word_key      = '<C-n>'
 let g:multi_cursor_select_all_word_key = '<A-n>'
 let g:multi_cursor_start_key           = 'g<C-n>'
@@ -559,22 +560,22 @@ let g:tabular_loaded = 1
 nmap zuz <Plug>(FastFoldUpdate)
 " Enable folding with the spacebar
 nnoremap <space> za
-let g:fastfold_savehook = 1
-let g:fastfold_fold_command_suffixes =  ['x', 'X', 'a', 'A', 'o', 'O', 'c', 'C']
+let g:fastfold_savehook               = 1
+let g:fastfold_fold_command_suffixes  = ['x', 'X', 'a', 'A', 'o', 'O', 'c', 'C']
 let g:fastfold_fold_movement_commands = [']z', '[z', 'zj', 'zk']
-let g:markdown_folding = 1
-let g:tex_fold_enabled = 1
-let g:vimsyn_folding = 'af'
-let g:xml_syntax_folding = 1
-let g:javaScript_fold = 1
-let g:php_folding = 1
-let g:sh_fold_enabled= 7
-let g:multi_cursor_start_key           = 'g<C-n>'
-let g:multi_cursor_select_all_key      = 'g<A-n>'
-let g:multi_cursor_next_key            = '<C-n>'
-let g:multi_cursor_prev_key            = '<C-p>'
-let g:multi_cursor_skip_key            = '<C-x>'
-let g:multi_cursor_quit_key            = '<Esc>'
+let g:markdown_folding                = 1
+let g:tex_fold_enabled                = 1
+let g:vimsyn_folding                  = 'af'
+let g:xml_syntax_folding              = 1
+let g:javaScript_fold                 = 1
+let g:php_folding                     = 1
+let g:sh_fold_enabled                 = 7
+let g:multi_cursor_start_key          = 'g<C-n>'
+let g:multi_cursor_select_all_key     = 'g<A-n>'
+let g:multi_cursor_next_key           = '<C-n>'
+let g:multi_cursor_prev_key           = '<C-p>'
+let g:multi_cursor_skip_key           = '<C-x>'
+let g:multi_cursor_quit_key           = '<Esc>'
 xnoremap iz :<c-u>FastFoldUpdate<cr><esc>:<c-u>normal! ]zv[z<cr>
 xnoremap az :<c-u>FastFoldUpdate<cr><esc>:<c-u>normal! ]zV[z<cr>
 """""""""""""""""""""""""""""""""""""
@@ -735,7 +736,8 @@ let g:vim_markdown_frontmatter = 1
 map <F3> :CocCommand explorer<CR>
 nnoremap <F5> :GundoToggle<CR>
 map C :CocCommand<CR>
-map ,f  :FZF<CR>
+map ,f  :Files<CR>
+map ,c  :RG<CR>
 map ,pl :PlugInstall<CR>
 map ,ps :PlugStatus<CR>
 map ,pd :PlugUpdate<CR>
@@ -1001,7 +1003,6 @@ set shellslash
 let g:tex_flavor='latex'
 let g:vimtex_view_method='zathura'
 let g:vimtex_quickfix_mode=0
-set conceallevel=2
 let g:tex_conceal='abdmg'
 """""""""""""""""""""""""""""""""""""
 
