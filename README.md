@@ -51,62 +51,33 @@ try these commands:
 ### [Vim-table-mode](https://github.com/dhruvasagar/vim-table-mode)
 
 ### vim-surround
-It's easiest to explain with examples.  Press `cs"'` inside
 
-    "Hello world!"
-
-to change it to
-
-    'Hello world!'
-
-Now press `cs'<q>` to change it to
-
-    <q>Hello world!</q>
-
-To go full circle, press `cst"` to get
-
-    "Hello world!"
-
-To remove the delimiters entirely, press `ds"`.
-
-    Hello world!
-
-Now with the cursor on "Hello", press `ysiw]` (`iw` is a text object).
-
-    [Hello] world!
-
-Let's make that braces and add some space (use `}` instead of `{` for no
-space): `cs]{`
-
-    { Hello } world!
-
-Now wrap the entire line in parentheses with `yssb` or `yss)`.
-
-    ({ Hello } world!)
-
-Revert to the original text: `ds{ds)`
-
-    Hello world!
-
-Emphasize hello: `ysiw<em>`
-
-    <em>Hello</em> world!
-
-Finally, let's try out visual mode. Press a capital V (for linewise
-visual mode) followed by `S<p class="important">`.
-
-    <p class="important">
-      <em>Hello</em> world!
-    </p>
-
-This plugin is very powerful for HTML and XML editing, a niche which
-currently seems underfilled in Vim land.  (As opposed to HTML/XML
-*inserting*, for which many plugins are available).  Adding, changing,
-and removing pairs of tags simultaneously is a breeze.
+| Old text              | Command | New text ~                |
+|-----------------------|---------|---------------------------|
+| "Hello *world!"       | ds"     | Hello world!              |
+| Hello w*orld!         | ysiw)   | Hello (world)!            |
+| Hello w*orld!         | yssB    | {Hello world!}            |
+| [123+4*56]/2          | cs])    | (123+456)/2               |
+| "Look ma, I'm *HTML!" | cs"<q>  | <q>Look ma, I'm HTML!</q> |
+| if *x>3 {             | ysW(    | if ( x>3 ) {              |
+| my $str = *whee!;     | vlllls' | my $str = 'whee!';        |
+| "Hello *world!"       | ds"     | Hello world!              |
+| (123+4*56)/2          | ds)     | 123+456/2                 |
+| <div>Yo!*</div>       | dst     | Yo!                       |
 
 ## Custom keymaps
 
-| Key     | Map            |
-|---------|----------------|
-| ,r      | FileCompileRun |
-| <space> | za, Fold       |
+| Key        | Map                    |
+|------------|------------------------|
+| ,r         | FileCompileRun         |
+| ,R         | MultiCompileRun        |
+| <F3>       | explorer(coc-explorer) |
+| <F4>       | Vista(universal-ctags) |
+| <SPACE>e   | coc-extensions         |
+| <S-c>      | coc-commands           |
+| <leader>t  | coc-translator         |
+| <leader>lg | lazygit                |
+| ,f         | Files(fzf)             |
+| ,c         | File Content(rg)       |
+| <F7>       | Count CN words         |
+| <space>    | za, Fold               |

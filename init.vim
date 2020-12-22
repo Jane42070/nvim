@@ -23,10 +23,12 @@ Plug 'chrisbra/colorizer'
 Plug 'jiangmiao/auto-pairs'
 " 包围
 Plug 'anyakichi/vim-surround'
+" 括号选中
+Plug 'gcmt/wildfire.vim'
 " 中文标准化排版
 Plug 'hotoo/pangu.vim'
 " Vim 多光标操作
-Plug 'terryma/vim-multiple-cursors'
+Plug 'mg979/vim-visual-multi', {'branch': 'master'}
 " 增强<C-A>/<C-X>
 Plug 'tpope/vim-speeddating'
 " 增强.
@@ -60,7 +62,6 @@ Plug 'lfv89/vim-interestingwords'
 " file search --fzf
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
-" Plug 'antoinemadec/coc-fzf'
 " File Compile Run
 Plug 'skywind3000/asyncrun.vim'
 Plug 'skywind3000/asynctasks.vim'
@@ -324,12 +325,6 @@ let g:leetcode_china=0
 """""""""""""""""""""""""""""""""""""
 
 """""""""""""""""""""""""""""""""""""
-" vimspector
-" let g:vimspector_enable_mappings = 'HUMAN'
-" let g:vimspector_base_dir=expand( '~/.config/nvim/vimspector-config' )
-"""""""""""""""""""""""""""""""""""""
-
-"""""""""""""""""""""""""""""""""""""
 " FZF
 if exists('$TMUX')
 	let g:fzf_layout = {'tmux': '-p90%,60%'}
@@ -350,6 +345,9 @@ function! RipgrepFzf(query, fullscreen)
   let spec = {'options': ['--phony', '--query', a:query, '--bind', 'change:reload:'.reload_command]}
   call fzf#vim#grep(initial_command, 1, fzf#vim#with_preview(spec), a:fullscreen)
 endfunction
+
+let $FZF_DEFAULT_COMMAND = 'rg --files --ignore-case --hidden -g "!{.git,.DS_Store,node_modules,vendor}/*"'
+let $FZF_DEFAULT_OPTS="--preview-window 'right:60%' --preview 'bat --color=always --style=header,grid --line-range:300 {}'"
 
 let g:fzf_colors =
       \ { 'fg':      ['fg', 'Normal'],
@@ -384,7 +382,8 @@ let g:indentLine_char_list = ['|', '¦', '┆', '┊']
 
 """""""""""""""""""""""""""""""""""""
 " autopairs
-autocmd FileType * let g:AutoPairs={'（':'）'}
+autocmd FileType * let g:AutoPairs={'(':')', '[':']', '{':'}',"'":"'",'"':'"', '`':'`', '（':'）', '【':'】', '“':'”', '‘':'’'}
+au Filetype html,wxml let g:AutoPairs["<"]=[">"]
 """""""""""""""""""""""""""""""""""""
 
 """""""""""""""""""""""""""""""""""""
@@ -705,7 +704,7 @@ xmap ag <Plug>(coc-git-chunk-outer)
 let g:vim_markdown_folding_style_pythonic = 1
 let g:vim_markdown_math = 1
 let g:markdown_fenced_languages = ['css', 'js=javascript']
-let g:vim_markdown_conceal_code_blocks = 0
+let g:vim_markdown_conceal_code_blocks = 1
 let g:vim_markdown_frontmatter = 1
 """""""""""""""""""""""""""""""""""""
 
@@ -970,12 +969,6 @@ let g:table_mode_corner='|'
 """""""""""""""""""""""""""""""""""""
 
 """""""""""""""""""""""""""""""""""""
-" markdown-preview
-let g:mkdp_auto_start = 0
-let g:mkdp_auto_close = 1
-"""""""""""""""""""""""""""""""""""
-
-"""""""""""""""""""""""""""""""""""""
 " Vimtex Latex
 set shellslash
 let g:tex_flavor='latex'
@@ -1090,6 +1083,24 @@ func! SetHeader()
 	endif
 endfunc
 autocmd BufNewFile * normal G
+
+function! ChineseCount() range
+	let save = @z
+	silent exec 'normal! gv"zy'
+	let text = @z
+	let @z = save
+	silent exec 'normal! gv'
+	let cc = 0
+	for char in split(text, '\zs')
+		if char2nr(char) >= 0x2000
+			let cc += 1
+		endif
+	endfor
+	echo "Count of Chinese charasters is:"
+	echo cc
+endfunc
+
+vnoremap <F7> :call ChineseCount()<cr>
 
 " 打开一个文件自动定位到上一次退出时的位置
 if has("autocmd")
