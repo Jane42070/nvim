@@ -12,7 +12,8 @@ noremap <left> :vertical resize-5<CR>
 noremap <right> :vertical resize+5<CR>
 
 noremap U :redo<CR>
-map <F3> :CocCommand explorer<CR>
+nnoremap ,e :CocCommand explorer<CR>
+nnoremap ,v :Vista<CR>
 nnoremap <F5> :GundoToggle<CR>
 map C :CocCommand<CR>
 map ,f  :Files<CR>

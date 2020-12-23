@@ -10,6 +10,11 @@ source ~/.config/nvim/config/modes.vim
 source ~/.config/nvim/config/mode_config.vim
 source ~/.config/nvim/config/keymaps.vim
 source ~/.config/nvim/config/sets.vim
+if empty(glob("~/.config/nvim/config/calendar.vim"))
+	echo "calendar.vim need google keys!"
+else
+	source ~/.config/nvim/config/calendar.vim
+endif
 
 "   设置运行可执行文件
 let g:asyncrun_mode="term"
