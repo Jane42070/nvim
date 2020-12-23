@@ -1,6 +1,6 @@
 call plug#begin('~/.config/nvim/plugged')
 " 撤销树 Gundo
-Plug 'sjl/gundo.vim', {'on': 'GundoToggle'}
+Plug 'sjl/gundo.vim'
 " A Vim Plugin for Lively Previewing LaTeX PDF Output
 Plug 'xuhdev/vim-latex-live-preview', {'for': 'tex'}
 " coc

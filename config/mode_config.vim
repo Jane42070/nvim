@@ -16,6 +16,11 @@ else
 	echo 'use nvim-5.0.0 to make sure lazygit.nvim works'
 endif
 """""""""""""""""""""""""""""""""""""
+"""""""""""""""""""""""""""""""""""""
+" Gundo
+let g:gundo_auto_preview=1
+"""""""""""""""""""""""""""""""""""""
+
 
 """""""""""""""""""""""""""""""""""""
 " MarkdownPreview
@@ -503,42 +508,6 @@ let g:vim_markdown_conceal_code_blocks = 1
 let g:vim_markdown_frontmatter = 1
 """""""""""""""""""""""""""""""""""""
 
-"""""""""""""""""""""""""""""""""
-" 快捷键
-map <F3> :CocCommand explorer<CR>
-nnoremap <F5> :GundoToggle<CR>
-map C :CocCommand<CR>
-map ,f  :Files<CR>
-map ,c  :RG<CR>
-map ,pl :PlugInstall<CR>
-map ,ps :PlugStatus<CR>
-map ,pd :PlugUpdate<CR>
-map ,pg :PlugUpgrade<CR>
-map ,pc :PlugClean<CR>
-map ,ps :PlugStatus<CR>
-" 新建标签页
-map tt :tabe<CR>
-" 浏览标签页
-noremap <S-TAB> :bnext<CR>
-" map tc :tabclose<CR>
-" 快捷缩进
-vnoremap < <v
-vnoremap > >v
-
-" 映射 jk 为<ESC>
-inoremap jk <ESC>
-
-" 使用 s + hjkl 在 nvim 中快速分屏
-map sl :set splitright<CR>:vsplit<CR>
-map sh :set nosplitright<CR>:vsplit<CR>
-map sk :set nosplitbelow<CR>:split<CR>
-map sj :set splitbelow<CR>:split<CR>
-
-" 使用<Ctrl> + hjkl 在窗口间快速切换
-noremap <c-h> <c-w><c-h>
-noremap <c-j> <c-w><c-j>
-noremap <c-k> <c-w><c-k>
-noremap <c-l> <c-w><c-l>
 
 """""""""""""""""""""""""""""""""""""
 " coc.nvim
@@ -772,135 +741,6 @@ let g:vimtex_quickfix_mode=0
 let g:tex_conceal='abdmg'
 """""""""""""""""""""""""""""""""""""
 
-""""""""""""""""""""""""""""""""""""""""""""""""""
-"     _
-"    / \   ___ _   _ _ __   ___ _ __ _   _ _ __
-"   / _ \ / __| | | | '_ \ / __| '__| | | | '_ \
-"  / ___ \\__ \ |_| | | | | (__| |  | |_| | | | |
-" /_/   \_\___/\__, |_| |_|\___|_|   \__,_|_| |_|
-"              |___/
-"   设置运行可执行文件
-let g:asyncrun_mode="term"
-let g:asyncrun_open=8
-let $PYTHONNUNBUFFERED=1
-map ,r :call CompileRun()<CR>
-map ,R :call MultiCompileRun()<CR>
-func! CompileRun()
-	exec "w"
-	if &filetype == 'c'
-		exec "AsyncRun -rows=8 -focus=0 gcc % -o %<;./%<"
-	elseif &filetype == 'cpp'
-		exec "AsyncRun -rows=8 -focus=0 g++ % -o %<; ./%<"
-	elseif &filetype == 'java'
-		exec "AsyncRun -mode=term -rows=8 -focus=0 javac %; java %<"
-	elseif &filetype == 'sh'
-		exec "AsyncRun -mode=term -rows=8 -focus=0 bash %"
-	elseif &filetype == 'python'
-		exec "AsyncRun -mode=term -rows=8 -focus=0 -raw python3.9 %"
-	elseif &filetype == 'html'
-		exec "!open % &"
-	elseif &filetype == 'go'
-		exec "AsyncRun -mode=term -rows=8 -focus=0 go run %"
-	elseif &filetype == 'markdown'
-		exec "MarkdownPreview"
-	elseif &filetype == 'tex'
-		exec "LLPStartPreview"
-	elseif &filetype == 'vim'
-		exec "source %"
-	endif
-endfunc
-" Now this function only works for c and cpp
-func MultiCompileRun()
-	exec "w"
-	if &filetype == 'c'
-		exec "AsyncRun -rows=8 -focus=0 gcc *.c -o %<; ./%<"
-	elseif &filetype == 'cpp'
-		exec "AsyncRun -rows=8 -focus=0 g++ *.cpp -o %<; ./%<"
-	endif
-endfunc
-"自动插入文件头
-autocmd BufNewFile *.cpp,*.cc,*.c,*h,*.sh,*.py,*.tex,.gitignore exec ":call SetHeader()"
-func! SetHeader()
-	if expand("%:e") == 'sh'
-		call setline(1,"\#!/bin/bash")
-		call append(line("."), "")
-	elseif expand("%:e") == 'tex'
-		call setline(1, "%!Tex program = xelatex")
-		call setline(2, "%-- coding: utf-8 --")
-		call append(line(".")+1, "")
-	elseif expand("%:e") == 'py'
-		call setline(1, "#!/usr/local/bin/python")
-		call setline(2, "# -*- coding: utf-8 -*-")
-		call append(line(".")+1, "")
-	elseif expand("%:e") == 'cpp'
-		call setline(1,"#include <iostream>")
-		call setline(2, "")
-		call setline(3, "using namespace std;")
-		" call setline(4, "using std::cout;")
-		" call setline(5, "using std::endl;")
-		call setline(4, "")
-	elseif expand("%:e") == 'cc'
-		call setline(1,"#include <iostream>")
-		call setline(2, "")
-		call setline(3, "using std::cin;")
-		call setline(4, "using std::cout;")
-		call setline(5, "using std::endl;")
-		call setline(6, "")
-	elseif expand("%:e") == 'c'
-		call setline(1, "#include <stdio.h>")
-		call setline(2, "#include <stdlib.h>")
-		call setline(3, "#include <string.h>")
-		call setline(4, "#include <unistd.h>")
-		call setline(5, "#include <math.h>")
-		call setline(6, "#include <time.h>")
-		call setline(7, "")
-		call setline(8, "")
-	elseif expand("%:e") == 'h'
-		call setline(1, "#ifndef ".toupper(expand("%:r"))."_H")
-		call setline(2, "#define ".toupper(expand("%:r"))."_H")
-		call setline(3,"")
-		call setline(4, "#endif")
-	elseif expand("%") == '.gitignore'
-		call setline(1, "# Windows")
-		call setline(2, "[Dd]esktop.ini")
-		call setline(3, "Thumbs.db")
-		call setline(4, "$RECYCLE.BIN/")
-		call setline(5, "")
-		call setline(6, "# macOS")
-		call setline(7, ".DS_Store")
-		call setline(8, ".fseventsd")
-		call setline(9, ".Spotlight-V100")
-		call setline(10, ".TemporaryItems")
-		call setline(11, ".Trashes")
-		call setline(12, "")
-		call setline(13, "# Node.js")
-		call setline(14, "node_modules/")
-	endif
-endfunc
-autocmd BufNewFile * normal G
-
-function! ChineseCount() range
-	let save = @z
-	silent exec 'normal! gv"zy'
-	let text = @z
-	let @z = save
-	silent exec 'normal! gv'
-	let cc = 0
-	for char in split(text, '\zs')
-		if char2nr(char) >= 0x2000
-			let cc += 1
-		endif
-	endfor
-	echo "Count of Chinese charasters is:"
-	echo cc
-endfunc
-
-vnoremap <F7> :call ChineseCount()<cr>
-
-" 打开一个文件自动定位到上一次退出时的位置
-if has("autocmd")
-	au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
-endif
 """"""""""""""""""""""""""""""""""""""""""""""""""
 "  ____  _                        _
 " / ___|(_)_ __  _ __  _ __   ___| |_ ___
