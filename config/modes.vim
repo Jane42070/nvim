@@ -13,10 +13,12 @@ Plug 'ianding1/leetcode.vim'
 Plug 'chrisbra/colorizer'
 " 括号补全
 Plug 'jiangmiao/auto-pairs'
-" 包围
-Plug 'anyakichi/vim-surround'
 " 括号选中
 Plug 'gcmt/wildfire.vim'
+" 彩虹括号
+Plug 'luochen1990/rainbow'
+" 包围
+Plug 'anyakichi/vim-surround'
 " 中文标准化排版
 Plug 'hotoo/pangu.vim'
 " Vim 多光标操作
