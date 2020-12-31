@@ -58,9 +58,13 @@ let g:gruvbox_termcolors=256
 " reverse the color of signs, so bad!
 " let g:gruvbox_invert_signs=1
 set background=dark
-colorscheme gruvbox
-" colorscheme srcery
-set termguicolors
+if &t_Co < 256 && has("gui_running")
+	set bg=dark
+	colorscheme default
+else 
+	colorscheme gruvbox
+	set termguicolors
+endif
 
 " 开启中文规范
 autocmd BufWritePre *.text,*.txt,*.wiki,*.cnx,*.md call PanGuSpacing()

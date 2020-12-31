@@ -25,34 +25,38 @@ map ,R :call MultiCompileRun()<CR>
 func! CompileRun()
 	exec "w"
 	if &filetype == 'c'
-		exec "AsyncRun -rows=8 -focus=0 gcc % -o %<;./%<"
+		exec "AsyncRun -rows=6 -focus=0 gcc % -o %<;./%<"
 	elseif &filetype == 'cpp'
-		exec "AsyncRun -rows=8 -focus=0 g++ % -o %<; ./%<"
+		exec "AsyncRun -rows=6 -focus=0 g++ % -o %<; ./%<"
 	elseif &filetype == 'java'
-		exec "AsyncRun -mode=term -rows=8 -focus=0 javac %; java %<"
+		exec "AsyncRun -mode=term -rows=6 -focus=0 javac %; java %<"
 	elseif &filetype == 'sh'
-		exec "AsyncRun -mode=term -rows=8 -focus=0 bash %"
+		exec "AsyncRun -mode=term -rows=6 -focus=0 bash %"
+	elseif &filetype == 'fish'
+		exec "AsyncRun -mode=term -rows=6 -focus=0 fish %"
 	elseif &filetype == 'python'
-		exec "AsyncRun -mode=term -rows=8 -focus=0 -raw python3.9 %"
+		exec "AsyncRun -mode=term -rows=6 -focus=0 -raw python3 %"
 	elseif &filetype == 'html'
 		exec "!open % &"
 	elseif &filetype == 'go'
-		exec "AsyncRun -mode=term -rows=8 -focus=0 go run %"
+		exec "AsyncRun -mode=term -rows=6 -focus=0 go run %"
 	elseif &filetype == 'markdown'
 		exec "MarkdownPreview"
 	elseif &filetype == 'tex'
 		exec "LLPStartPreview"
 	elseif &filetype == 'vim'
 		exec "source %"
+	else
+		echo "Unkown filetype"
 	endif
 endfunc
 " Now this function only works for c and cpp
 func MultiCompileRun()
 	exec "w"
 	if &filetype == 'c'
-		exec "AsyncRun -rows=8 -focus=0 gcc *.c -o %<; ./%<"
+		exec "AsyncRun -rows=6 -focus=0 gcc *.c -o %<; ./%<"
 	elseif &filetype == 'cpp'
-		exec "AsyncRun -rows=8 -focus=0 g++ *.cpp -o %<; ./%<"
+		exec "AsyncRun -rows=6 -focus=0 g++ *.cpp -o %<; ./%<"
 	endif
 endfunc
 "自动插入文件头
@@ -112,6 +116,9 @@ func! SetHeader()
 		call setline(12, "")
 		call setline(13, "# Node.js")
 		call setline(14, "node_modules/")
+	elseif expand("%:e") == 'fish'
+		call setline(1, "#!/usr/bin/fish")
+		call setline(2, "")
 	endif
 endfunc
 autocmd BufNewFile * normal G

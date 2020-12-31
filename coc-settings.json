@@ -1,7 +1,7 @@
 {
 	"coc.preferences.hoverTarget": "preview",
 	"coc.preferences.enableFloatHighlight": true,
-	"coc.preferences.snippetStatusText": "Ⓢ ",
+	"coc.preferences.snippetStatusText": "S ",
 	"coc.preferences.extensionUpdateCheck": "weekly",
 	// use colorizer
 	"coc.preferences.colorSupport": true,
@@ -13,6 +13,8 @@
 	"suggest.triggerAfterInsertEnter": false,
 	"suggest.timeout": 10000,
 	"suggest.enablePreview":true,
+	"suggest.maxPreviewWidth": 30,
+	"suggest.labelMaxLength": 30,
 	"suggest.floatEnable": true,
 	"suggest.minTriggerInputLength": 1,
 	"suggest.detailField": "preview",
@@ -186,7 +188,7 @@
 	],
 	"cmake.cmakePath": "cmake",
 	"tsserver.trace.server":"verbose",
-	"explorer.width": 30,
+	"explorer.width": 20,
 	"explorer.file.column.indent.indentLine": true,
 	"explorer.file.showHiddenFiles": true,
 	"explorer.git.showIgnored": true,
@@ -250,12 +252,10 @@
 				},
 				"clang": {
 					// make sure you have installed commandLineTools
-					"resourceDir": "/Library/Developer/CommandLineTools/usr/lib/clang/12.0.0",
+					"resourceDir": "/usr/local/llvm11/lib/clang/11.0.0",
 					"extraArgs": [
 						"-isystem",
-						"/Library/Developer/CommandLineTools/usr/include/c++/v1",
-						"-isysroot",
-						"/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk"
+						"/usr/local/llvm11/include/c++/v1"
 					]
 				}
 			}
