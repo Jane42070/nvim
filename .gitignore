@@ -16,3 +16,4 @@ plugged/
 
 # calendar.vim
 config/calendar.vim
+.netrwhist
