@@ -21,7 +21,6 @@ let g:asyncrun_mode="term"
 let g:asyncrun_open=8
 let $PYTHONNUNBUFFERED=1
 map ,r :call CompileRun()<CR>
-map ,R :call MultiCompileRun()<CR>
 func! CompileRun()
 	exec "w"
 	if &filetype == 'c'
@@ -48,15 +47,6 @@ func! CompileRun()
 		exec "source %"
 	else
 		echo "Unkown filetype"
-	endif
-endfunc
-" Now this function only works for c and cpp
-func MultiCompileRun()
-	exec "w"
-	if &filetype == 'c'
-		exec "AsyncRun -rows=6 -focus=0 gcc *.c -o %<; ./%<"
-	elseif &filetype == 'cpp'
-		exec "AsyncRun -rows=6 -focus=0 g++ *.cpp -o %<; ./%<"
 	endif
 endfunc
 "自动插入文件头
