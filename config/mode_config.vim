@@ -307,6 +307,7 @@ let g:user_emmet_leader_key='<TAB>'
 """""""""""""""""""""""""""""""""""""
 " Consider a as b
 autocmd BufRead,BufNewFile *.nas setfiletype nasm
+autocmd BufRead,BufNewFile *.asm setfiletype nasm
 let b:asmsyntax = "nasm"
 """""""""""""""""""""""""""""""""""""
 
