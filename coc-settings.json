@@ -1,7 +1,7 @@
 {
 	"coc.preferences.hoverTarget": "preview",
 	"coc.preferences.enableFloatHighlight": true,
-	"coc.preferences.snippetStatusText": "S ",
+	"coc.preferences.snippetStatusText": "ⓢ ",
 	"coc.preferences.extensionUpdateCheck": "weekly",
 	// use colorizer
 	"coc.preferences.colorSupport": true,
@@ -13,8 +13,7 @@
 	"suggest.triggerAfterInsertEnter": false,
 	"suggest.timeout": 10000,
 	"suggest.enablePreview":true,
-	"suggest.maxPreviewWidth": 30,
-	"suggest.labelMaxLength": 30,
+	"suggest.maxPreviewWidth": 50,
 	"suggest.floatEnable": true,
 	"suggest.minTriggerInputLength": 1,
 	"suggest.detailField": "preview",
@@ -85,7 +84,6 @@
 	"git.topRemovedSign.text": "↵",
 	"git.changeRemovedSign.text": "↹",
 	"git.enableGlobalStatus": true,
-	"git.signOffset": 2,
 	"java.home": "/Library/Java/JavaVirtualMachines/jdk-14.jdk/Contents/Home",
 	"java.format.enabled": true,
 	"java.completion.enabled": true,
