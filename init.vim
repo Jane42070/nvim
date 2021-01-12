@@ -18,7 +18,6 @@ endif
 
 "   设置运行可执行文件
 let g:asyncrun_mode="term"
-let g:asyncrun_open=8
 let $PYTHONNUNBUFFERED=1
 map ,r :call CompileRun()<CR>
 func! CompileRun()
