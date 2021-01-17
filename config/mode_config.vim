@@ -481,14 +481,6 @@ let g:vista#renderer#icons = {
 """""""""""""""""""""""""""""""""""""
 
 """""""""""""""""""""""""""""""""""""
-" coc-bookmarks
-nmap mj <Plug>(coc-bookmark-next)
-nmap mk <Plug>(coc-bookmark-prev)
-nmap mm <Plug>(coc-bookmark-toggle)
-nmap ma <Plug>(coc-bookmark-annotate)
-""""""""""""""""""""""""""""""""""""
-
-"""""""""""""""""""""""""""""""""""""
 " Interesting words
 nnoremap <silent> <leader>k :call InterestingWords('n')<cr>
 nnoremap <silent> <leader>K :call UncolorAllWords()<cr>
@@ -530,7 +522,7 @@ let g:vim_markdown_frontmatter = 1
 
 """""""""""""""""""""""""""""""""""""
 " coc.nvim
-let g:coc_global_extensions = ['coc-powershell', 'coc-texlab', 'coc-python', 'coc-ultisnips', 'coc-snippets', 'coc-java', 'coc-bookmark', 'coc-omnisharp', 'coc-phpls', 'coc-vimlsp', 'coc-xml', 'coc-calc', 'coc-cmake', 'coc-html', 'coc-json', 'coc-css', 'coc-tsserver', 'coc-yank', 'coc-lists', 'coc-stylelint', 'coc-tailwindcss', 'coc-tslint', 'coc-yaml', 'coc-git', 'coc-gitignore', 'coc-explorer', 'coc-translator', 'coc-flutter', 'coc-diagnostic', 'coc-sh', 'coc-rust-analyzer']
+let g:coc_global_extensions = ['coc-powershell', 'coc-texlab', 'coc-python', 'coc-ultisnips', 'coc-snippets', 'coc-java', 'coc-omnisharp', 'coc-phpls', 'coc-vimlsp', 'coc-xml', 'coc-calc', 'coc-cmake', 'coc-html', 'coc-json', 'coc-css', 'coc-tsserver', 'coc-yank', 'coc-lists', 'coc-stylelint', 'coc-tailwindcss', 'coc-tslint', 'coc-yaml', 'coc-git', 'coc-gitignore', 'coc-explorer', 'coc-translator', 'coc-flutter', 'coc-diagnostic', 'coc-sh', 'coc-rust-analyzer']
 " TextEdit might fail if hidden is not set.
 set hidden
 
