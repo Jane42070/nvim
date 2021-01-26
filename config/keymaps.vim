@@ -33,8 +33,8 @@ noremap <S-TAB> :bnext<CR>
 vnoremap < <v
 vnoremap > >v
 
-" 映射 jk 为<ESC>
-inoremap jk <ESC>
+" 映射 jj 为<ESC>
+inoremap jj <ESC>
 
 " 使用 s + hjkl 在 nvim 中快速分屏
 map sl :set splitright<CR>:vsplit<CR>
