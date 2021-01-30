@@ -522,7 +522,7 @@ let g:vim_markdown_frontmatter = 1
 
 """""""""""""""""""""""""""""""""""""
 " coc.nvim
-let g:coc_global_extensions = ['coc-powershell', 'coc-texlab', 'coc-python', 'coc-ultisnips', 'coc-snippets', 'coc-java', 'coc-omnisharp', 'coc-phpls', 'coc-vimlsp', 'coc-xml', 'coc-calc', 'coc-cmake', 'coc-html', 'coc-json', 'coc-css', 'coc-tsserver', 'coc-yank', 'coc-lists', 'coc-stylelint', 'coc-tailwindcss', 'coc-tslint', 'coc-yaml', 'coc-git', 'coc-gitignore', 'coc-explorer', 'coc-translator', 'coc-flutter', 'coc-diagnostic', 'coc-sh', 'coc-rust-analyzer']
+let g:coc_global_extensions = ['coc-powershell', 'coc-texlab', 'coc-pyright', 'coc-ultisnips', 'coc-snippets', 'coc-java', 'coc-omnisharp', 'coc-phpls', 'coc-vimlsp', 'coc-xml', 'coc-calc', 'coc-cmake', 'coc-html', 'coc-json', 'coc-css', 'coc-tsserver', 'coc-yank', 'coc-lists', 'coc-stylelint', 'coc-tailwindcss', 'coc-tslint', 'coc-yaml', 'coc-git', 'coc-gitignore', 'coc-explorer', 'coc-translator', 'coc-flutter', 'coc-diagnostic', 'coc-sh', 'coc-rust-analyzer']
 " TextEdit might fail if hidden is not set.
 set hidden
 
@@ -777,12 +777,12 @@ set noshowmode
 "     \ 5: '⑤ ', 6: '⑥ ', 7: '⑦ ', 8: '⑧ ', 9: '⑨ ',
 "     \ 10: '⑩ ', 11: '⑪ ', 12: '⑫ ', 13: '⑬ ', 14: '⑭ ', 15: '⑮ ',
 "     \ 16: '⑯ ', 17: '⑰ ', 18: '⑱ ', 19: '⑲ ', 20: '⑳ ' }
-let g:lightline#bufferline#show_number  = 2
+let g:lightline#bufferline#show_number     = 2
 let g:lightline#bufferline#unicode_symbols = 1
-let g:lightline#bufferline#clickable = 1
-let g:lightline#bufferline#shorten_path = 1
+let g:lightline#bufferline#clickable       = 1
+let g:lightline#bufferline#shorten_path    = 1
 let g:lightline#bufferline#enable_devicons = 1
-let g:lightline#bufferline#unnamed      = '[No Name]'
+let g:lightline#bufferline#unnamed         = '[No Name]'
 let g:lightline = {
 	\ 'tabline': {'left': [['buffers']], 'right': [['close']]},
 	\ 'separator': { 'left': '', 'right': '' },
