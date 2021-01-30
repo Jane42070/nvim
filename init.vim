@@ -29,7 +29,7 @@ func! CompileRun()
 	elseif &filetype == 'java'
 		exec "AsyncRun -mode=term -rows=6 -focus=0 javac %; java %<"
 	elseif &filetype == 'sh'
-		exec "AsyncRun -mode=term -rows=6 -focus=0 bash %"
+		exec "AsyncRun -mode=term -rows=6 -focus=0 sh %"
 	elseif &filetype == 'fish'
 		exec "AsyncRun -mode=term -rows=6 -focus=0 fish %"
 	elseif &filetype == 'python'
