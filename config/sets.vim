@@ -2,7 +2,7 @@ set number                                              " 显示行号
 set relativenumber
 set cursorline                                          " 高亮当前行
 set list listchars=extends:❯,precedes:❮,tab:▸\ ,trail:˽
-" set listchars+=eol:⏎                                  " 设置空白字符的视觉提示
+"set listchars+=eol:⏎                                    " 设置空白字符的视觉提示
 syntax on                                               " 语法高亮
 filetype plugin indent on                               " 根据文件类型自动处理缩进
 filetype on
@@ -65,6 +65,5 @@ else
 	colorscheme gruvbox
 	set termguicolors
 endif
-
 " 开启中文规范
 " autocmd BufWritePre *.text,*.txt,*.wiki,*.cnx,*.md call PanGuSpacing()
