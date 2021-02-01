@@ -23,7 +23,8 @@ open("${1:file}", mode="${2:r}", encoding="${3:UTF-8}")
 endsnippet
 
 snippet matfont "set matplotlib font"
-font = {"family": "${1:SimHei}"}
-matplotlib.rc("font", **font)
-endsnippet
+from matplotlib import rcParams
 
+rcParams['font.family'] = 'sans-serif'
+rcParams['font.sans-serif'] = ['${1:OPPOSans}']
+endsnippet
