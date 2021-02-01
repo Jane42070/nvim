@@ -47,14 +47,12 @@
 		"variable": "\ue71b"
 	},
 	"codeLens.enable":true,
-	"codeLens.separator":"✀ ",
+	// "codeLens.separator":"✀ ",
 	"diagnostic.virtualTextPrefix": " ❯❯❯ ",
 	"diagnostic.virtualText": true,
 	"diagnostic.errorSign": "✘",
 	"diagnostic.warningSign": "⚡",
 	"diagnostic.enable": true,
-	"diagnostic.infoSign": "🚨",
-	"diagnostic.hintSign": "💡",
 	"diagnostic.displayByAle": false,
 	"diagnostic.refreshOnInsertMode": false,
 	"diagnostic.enableSign": true,
@@ -186,6 +184,7 @@
 	"explorer.focus": false,
 	"explorer.icon.enableNerdfont": true,
 	"explorer.icon.enableVimDevicons": true,
+	"explorer.previewAction.onHover": "labeling",
 	"translator.toLang":"zh",
 	"translator.engines": [
 		"bing",
@@ -260,12 +259,8 @@
 		"golang": {
 			"command": "gopls",
 			"rootPatterns": ["go.mod"],
-			"filetypes": ["go"],
-			"initializationOptions": {
-				"gocodeCompletionEnabled": true,
-				"diagnosticsEnabled": true,
-				"lintTool": "golint"
-			}
+			"disableWorkspaceFolders": true,
+			"filetypes": ["go"]
 		},
 		"dockerfile": {
 			"command": "docker-langserver",
@@ -276,6 +271,12 @@
 			"command": "sql-language-server",
 			"args" : ["up", "--method", "stdio"],
 			"filetypes": ["sql", "mysql"]
+		},
+		"latex": {
+			"command": "/PATH/TO/texlab",
+			// not start server at home directory, since it won't work.
+			"ignoredRootPaths": ["~"],
+			"filetypes": ["tex", "bib", "plaintex", "context"]
 		}
 	}
 }
