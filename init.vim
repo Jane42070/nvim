@@ -23,21 +23,21 @@ map ,r :call CompileRun()<CR>
 func! CompileRun()
 	exec "w"
 	if &filetype == 'c'
-		exec "AsyncRun -rows=6 -focus=0 gcc % -o %<;./%<"
+		exec "AsyncRun -rows=8 -focus=0 gcc % -o %<;./%<"
 	elseif &filetype == 'cpp'
-		exec "AsyncRun -rows=6 -focus=0 g++ % -o %<; ./%<"
+		exec "AsyncRun -rows=8 -focus=0 g++ % -o %<; ./%<"
 	elseif &filetype == 'java'
-		exec "AsyncRun -mode=term -rows=6 -focus=0 javac %; java %<"
+		exec "AsyncRun -mode=term -rows=8 -focus=0 javac %; java %<"
 	elseif &filetype == 'sh'
-		exec "AsyncRun -mode=term -rows=6 -focus=0 sh %"
+		exec "AsyncRun -mode=term -rows=8 -focus=0 sh %"
 	elseif &filetype == 'fish'
-		exec "AsyncRun -mode=term -rows=6 -focus=0 fish %"
+		exec "AsyncRun -mode=term -rows=8 -focus=0 fish %"
 	elseif &filetype == 'python'
-		exec "AsyncRun -mode=term -rows=6 -focus=0 -raw python3 %"
+		exec "AsyncRun -mode=term -rows=8 -focus=0 -raw python3 %"
 	elseif &filetype == 'html'
 		exec "!open % &"
 	elseif &filetype == 'go'
-		exec "AsyncRun -mode=term -rows=6 -focus=0 go run %"
+		exec "AsyncRun -mode=term -rows=8 -focus=0 go run %"
 	elseif &filetype == 'markdown'
 		exec "MarkdownPreview"
 	elseif &filetype == 'tex'
