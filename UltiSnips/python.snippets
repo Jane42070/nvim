@@ -1,3 +1,18 @@
+snippet def "def function"
+def ${1:function}(${2:object}) -> ${3:None}:
+	"""
+	${4:Function use}
+	${5:This method is called by}
+	$1()
+	Parameters
+	----------
+	${6:None}
+	"""
+	$7
+	return $3
+
+endsnippet
+
 snippet main "def function and __name__ == '__main__'"
 def ${1:main}(${2:object}):
 	"""
