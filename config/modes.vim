@@ -3,6 +3,8 @@ call plug#begin('~/.config/nvim/plugged')
 Plug 'sjl/gundo.vim'
 " A Vim Plugin for Lively Previewing LaTeX PDF Output
 Plug 'xuhdev/vim-latex-live-preview', {'for': 'tex'}
+" nnn plugin
+Plug 'mcchrish/nnn.vim'
 " coc
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 " calling lazygit

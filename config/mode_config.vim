@@ -5,6 +5,27 @@
 " |_|  |_|\___/ \__,_|\___|\____\___/|_| |_|_| |_|\__, |
 "                                                 |___/
 """""""""""""""""""""""""""""""""""""
+"""""""""""""""""""""""""""""""""""""
+" nnn
+" Disable default mappings
+let g:nnn#set_default_mappings = 0
+
+" Then set your own
+" nnoremap <silent> <leader>nn :NnnPicker<CR>
+
+" Or override
+" Start nnn in the current file's directory
+nnoremap <leader>n :NnnPicker %:p:h<CR>
+" Opens the nnn window in a split
+let g:nnn#layout = 'new' " or vnew, tabnew etc.
+
+" Or pass a dictionary with window size
+let g:nnn#layout = { 'left': '~20%' } " or right, up, down
+
+" Floating window (neovim latest and vim with patch 8.2.191)
+let g:nnn#layout = { 'window': { 'width': 0.6, 'height': 0.6, 'highlight': 'Debug' } }
+"""""""""""""""""""""""""""""""""""""
+
 " Lazygit
 if has('nvim-0.5.0')
 	nnoremap <silent> <leader>lg :LazyGit<CR>
