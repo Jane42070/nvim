@@ -13,6 +13,10 @@
 	* [Vim-table-mode](#vim-table-mode)
 	* [vim-surround](#vim-surround)
 * [Custom keymaps](#custom-keymaps)
+* [Custom functions](#custom-functions)
+* [TODO](#todo)
+	* [snippets](#snippets)
+	* [plugins](#plugins)
 
 <!-- vim-markdown-toc -->
 
@@ -81,3 +85,20 @@ try these commands:
 | ,c         | File Content(rg)       |
 | <F7>       | Count CN words         |
 | <space>    | za, Fold               |
+| <leader>cc | comment                |
+| <leader>cu | uncomment              |
+| <leader>nn | nnn file browser       |
+
+## Custom functions
+
+| Func name | Action                |
+|-----------|-----------------------|
+| Config    | edit nvim config file |
+
+## TODO
+### snippets
+- Use own snippets
+- Python, golang, c, etc
+
+### plugins
+- fix markdown display issue
