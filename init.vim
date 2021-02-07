@@ -132,3 +132,9 @@ vnoremap <F7> :call ChineseCount()<cr>
 
 " 打开一个文件自动定位到上一次退出时的位置
 au BufReadPost * if line("'\"") > 0|if line("'\"") <= line("$")|exe("norm '\"")|else|exe "norm $"|endif|endif
+" hi Normal ctermfg=252 ctermbg=none
+
+function Config() abort
+	edit ~/.config/nvim/init.vim
+endfunction
+command Config call Config()
