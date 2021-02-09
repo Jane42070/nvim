@@ -52,7 +52,7 @@ endfunc
 autocmd BufNewFile *.cpp,*.cc,*.c,*h,*.sh,*.py,*.tex,.gitignore exec ":call SetHeader()"
 func! SetHeader()
 	if expand("%:e") == 'sh'
-		call setline(1,"\#!/bin/bash")
+		call setline(1,"\#!/bin/sh")
 		call append(line("."), "")
 	elseif expand("%:e") == 'tex'
 		call setline(1, "%!Tex program = xelatex")

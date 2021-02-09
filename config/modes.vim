@@ -1,10 +1,8 @@
 call plug#begin('~/.config/nvim/plugged')
 " 撤销树 Gundo
-Plug 'sjl/gundo.vim'
+" Plug 'sjl/gundo.vim'
 " A Vim Plugin for Lively Previewing LaTeX PDF Output
 Plug 'xuhdev/vim-latex-live-preview', {'for': 'tex'}
-" nnn plugin
-Plug 'mcchrish/nnn.vim'
 " coc
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 " calling lazygit
@@ -65,12 +63,6 @@ Plug 'skywind3000/asynctasks.vim'
 Plug 'sheerun/vim-polyglot'
 " lightline
 Plug 'morhetz/gruvbox'
-" onedark theme
-Plug 'joshdick/onedark.vim'
-" srcery-colors
-Plug 'srcery-colors/srcery-vim'
-" iceberg theme
-Plug 'cocopon/iceberg.vim'
 Plug 'itchyny/lightline.vim'
 " devicons make lightline more graphical
 Plug 'ryanoasis/vim-devicons'
@@ -99,7 +91,6 @@ Plug 'pangloss/vim-javascript', {'for': ['html', 'vim-plug', 'php', 'javascript'
 " 注释
 Plug 'scrooloose/nerdcommenter'
 " 代码片段
-Plug 'honza/vim-snippets'
 Plug 'SirVer/ultisnips'
 " 代码折叠
 Plug 'konfekt/fastfold'

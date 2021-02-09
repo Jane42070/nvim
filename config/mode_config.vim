@@ -793,6 +793,7 @@ if !has('gui_running')
   set t_Co=256
 endif
 set noshowmode
+" let g:lightline#bufferline#auto_hide = 4000
 " let g:lightline#bufferline#number_map = {
 "     \ 0: '⓪ ', 1: '① ', 2: '② ', 3: '③ ', 4: '④ ',
 "     \ 5: '⑤ ', 6: '⑥ ', 7: '⑦ ', 8: '⑧ ', 9: '⑨ ',
@@ -821,8 +822,7 @@ let g:lightline = {
 	\   ],
 	\   'right':[
 	\     ['fileencoding', 'fileformat', 'lineinfo', 'percent'],
-	\	  ['diagnostic', 'blame', 'cocstatus', 'currentfunction'],
-	\	  ['filetype']
+	\	  ['diagnostic', 'filetype', 'blame', 'cocstatus', 'currentfunction'],
 	\   ],
 	\ },
 	\ 'component_raw': {'buffers': 1},
@@ -852,10 +852,10 @@ nmap <Leader>7 <Plug>lightline#bufferline#go(7)
 nmap <Leader>8 <Plug>lightline#bufferline#go(8)
 nmap <Leader>9 <Plug>lightline#bufferline#go(9)
 nmap <Leader>0 <Plug>lightline#bufferline#go(10)
-set showtabline=2
+set showtabline=1
 set guioptions-=e
 function! NearestMethodOrFunction() abort
-  return get(b:, 'vista_nearest_method_or_function', '')
+	return get(b:, 'vista_nearest_method_or_function', '')
 endfunction
 
 function! MyFiletype()
@@ -867,28 +867,28 @@ function! MyFileformat()
 endfunction
 
 function! LightlineFilename()
-  let filename = expand('%:t') !=# '' ? expand('%:t') : '[No Name]'
-  let modified = &modified ? ' +' : ''
-  let readonly = &readonly ? ' ' : ''
-  return readonly . filename . modified
+	let filename = expand('%:t') !=# '' ? expand('%:t') : '[No Name]'
+	let modified = &modified ? ' +' : ''
+	let readonly = &readonly ? ' ' : ''
+	return readonly . filename . modified
 endfunction
 
 function! LightlineFileformat()
-  return winwidth(0) > 70 ? &fileformat : ''
+	return winwidth(0) > 70 ? &fileformat : ''
 endfunction
 
 function! LightlineFiletype()
-  return winwidth(0) > 70 ? (&filetype !=# '' ? &filetype : 'no ft') : ''
+	return winwidth(0) > 70 ? (&filetype !=# '' ? &filetype : 'no ft') : ''
 endfunction
 
 function! CocCurrentFunction()
-    return get(b:, 'coc_current_function', '')
+	return get(b:, 'coc_current_function', '')
 endfunction
 
 function! LightlineGitBlame() abort
-  let blame = get(b:, 'coc_git_blame', '')
-  " return blame
-  return winwidth(0) > 120 ? blame : ''
+	let blame = get(b:, 'coc_git_blame', '')
+	" return blame
+	return winwidth(0) > 120 ? blame : ''
 endfunction
 
 autocmd User CocGitStatusChange {command}
@@ -896,17 +896,26 @@ autocmd User CocStatusChange,CocDiagnosticChange call lightline#update()
 autocmd BufWritePost,TextChanged,TextChangedI * call lightline#update()
 
 function! LightlineMode()
-  return expand('%:t') =~# '^__Tagbar__' ? 'Tagbar':
-        \ expand('%:t') ==# 'ControlP' ? 'CtrlP' :
-        \ &filetype ==# 'unite' ? 'Unite' :
-        \ &filetype ==# 'coc-explorer' ? 'explorer' :
-        \ &filetype ==# 'vimshell' ? 'VimShell' :
-        \ &filetype ==# 'qf' ? 'QuickFix' :
-        \ &filetype ==# '__vista__' ? 'Vista' :
-        \ lightline#mode()
+	return expand('%:t') =~# '^__Tagbar__' ? 'Tagbar':
+				\ expand('%:t') ==# 'ControlP' ? 'CtrlP' :
+				\ &filetype ==# 'unite' ? 'Unite' :
+				\ &filetype ==# 'coc-explorer' ? 'explorer' :
+				\ &filetype ==# 'vimshell' ? 'VimShell' :
+				\ &filetype ==# 'qf' ? 'QuickFix' :
+				\ &filetype ==# '__vista__' ? 'Vista' :
+				\ lightline#mode()
 endfunction
 let g:unite_force_overwrite_statusline = 0
 let g:vimfiler_force_overwrite_statusline = 0
 let g:explorer_force_overwrite_statusline = 0
 let g:vimshell_force_overwrite_statusline = 0
+
+autocmd VimEnter * call SetupLightlineColors()
+function SetupLightlineColors() abort
+  let l:pallete = lightline#palette()
+  let l:pallete.normal.middle[0][1] = 'NONE'
+  let l:pallete.visual.middle[0][1] = 'NONE'
+  " let l:pallete.tabline.middle[0][1] = 'NONE'
+  call lightline#colorscheme()
+endfunction
 """""""""""""""""""""""""""""""""""""

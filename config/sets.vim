@@ -1,8 +1,8 @@
 set number                                              " 显示行号
 set relativenumber
-set cursorline                                          " 高亮当前行
+" set cursorline                                          " 高亮当前行
 set list listchars=extends:❯,precedes:❮,tab:▸\ ,trail:˽
-"set listchars+=eol:⏎                                    " 设置空白字符的视觉提示
+set listchars+=eol:⏎                                    " 设置空白字符的视觉提示
 syntax on                                               " 语法高亮
 filetype plugin indent on                               " 根据文件类型自动处理缩进
 filetype on
@@ -55,15 +55,28 @@ let g:gruvbox_contrast_light='soft'
 let g:gruvbox_improved_warnings=1
 let g:gruvbox_termcolors=256
 
-" reverse the color of signs, so bad!
-" let g:gruvbox_invert_signs=1
-set background=dark
-if &t_Co < 256 && has("gui_running")
-	set bg=dark
-	colorscheme default
-else 
-	colorscheme gruvbox
-	set termguicolors
-endif
+set bg=dark
+colorscheme gruvbox
+set termguicolors
+" 透明背景
+hi Normal ctermbg=None guibg=None
+hi CursorLineNr ctermbg=None guibg=None
+hi CursorLine ctermbg=None guibg=None
+hi SignColumn ctermbg=None guibg=None
+hi VertSplit ctermfg=None ctermbg=NONE cterm=NONE guibg=None guifg=None
+hi Folded ctermbg=None guibg=None
+hi GruvboxRedSign ctermbg=NONE guibg=None
+hi GruvboxYellowSign ctermbg=NONE guibg=None
+hi GruvboxOrangeSign ctermbg=NONE guibg=None
+hi GruvboxAquaSign ctermbg=NONE guibg=None
+hi GruvboxGreenSign ctermbg=NONE guibg=None
+hi GruvboxBlueSign ctermbg=NONE guibg=None
+" hi BufTabLineFill cterm=NONE guibg=None
+" hi CocUnderline cterm=NONE guibg=None
+
+set fillchars+=vert:\ 
+" 窗口的透明度
+" set winblend=20
+" autocmd User CocOpenFloat call setwinvar(g:coc_last_float_win, "&winblend", 20)
 " 开启中文规范
 " autocmd BufWritePre *.text,*.txt,*.wiki,*.cnx,*.md call PanGuSpacing()
