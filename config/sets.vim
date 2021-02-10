@@ -65,12 +65,14 @@ hi CursorLine ctermbg=None guibg=None
 hi SignColumn ctermbg=None guibg=None
 hi VertSplit ctermfg=None ctermbg=NONE cterm=NONE guibg=None guifg=None
 hi Folded ctermbg=None guibg=None
-hi GruvboxRedSign ctermbg=NONE guibg=None
-hi GruvboxYellowSign ctermbg=NONE guibg=None
-hi GruvboxOrangeSign ctermbg=NONE guibg=None
-hi GruvboxAquaSign ctermbg=NONE guibg=None
-hi GruvboxGreenSign ctermbg=NONE guibg=None
-hi GruvboxBlueSign ctermbg=NONE guibg=None
+hi GruvboxRedSign ctermbg=None guibg=None
+hi GruvboxYellowSign ctermbg=None guibg=None
+hi GruvboxOrangeSign ctermbg=None guibg=None
+hi GruvboxAquaSign ctermbg=None guibg=None
+hi GruvboxGreenSign ctermbg=None guibg=None
+hi GruvboxBlueSign ctermbg=None guibg=None
+hi Pmenu ctermbg=None guibg=None
+hi PmenuSbar ctermbg=None guibg=None
 " hi BufTabLineFill cterm=NONE guibg=None
 " hi CocUnderline cterm=NONE guibg=None
 
