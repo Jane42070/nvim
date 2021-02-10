@@ -28,11 +28,11 @@ Plug 'tpope/vim-speeddating'
 " 增强.
 Plug 'tpope/vim-repeat'
 " CSV
-Plug 'chrisbra/csv.vim', {'for': 'csv'}
+" Plug 'chrisbra/csv.vim', {'for': 'csv'}
 " vim-json
 Plug 'elzr/vim-json', {'for': 'json'}
 " vim 缩进参考线
-Plug 'Yggdroot/indentLine', {'for': ['go', 'python', 'c', 'cpp']}
+Plug 'Yggdroot/indentLine', {'for': ['rust', 'sh', 'go', 'python', 'c', 'cpp']}
 " Vim-move
 Plug 'matze/vim-move'
 " Calendar
@@ -48,7 +48,7 @@ Plug 'liuchengxu/vista.vim', {'on': 'Vista'}
 " Easy motion
 Plug 'easymotion/vim-easymotion'
 " Cursor Word
-Plug 'itchyny/vim-cursorword'
+" Plug 'itchyny/vim-cursorword'
 " Interesting words
 Plug 'lfv89/vim-interestingwords'
 " Jupyter
@@ -85,7 +85,7 @@ Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': 
 Plug 'junegunn/vim-easy-align', {'on': '<Plug>(EasyAlign)'}
 " html 插件
 " Wechat development
-Plug 'chemzqm/wxapp.vim'
+Plug 'chemzqm/wxapp.vim', {'on': 'Wxgen'}
 Plug 'mattn/emmet-vim', {'for': ['html', 'wxml', 'css', 'wxss', 'vim-plug', 'php']}
 Plug 'pangloss/vim-javascript', {'for': ['html', 'vim-plug', 'php', 'javascript']}
 " 注释
