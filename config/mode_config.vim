@@ -915,7 +915,7 @@ function SetupLightlineColors() abort
   let l:pallete = lightline#palette()
   let l:pallete.normal.middle[0][1] = 'NONE'
   let l:pallete.visual.middle[0][1] = 'NONE'
-  " let l:pallete.tabline.middle[0][1] = 'NONE'
+  let l:pallete.tabline.middle[0][1] = 'NONE'
   call lightline#colorscheme()
 endfunction
 """""""""""""""""""""""""""""""""""""
