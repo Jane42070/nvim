@@ -74,7 +74,9 @@ hi GruvboxBlueSign ctermbg=None guibg=None
 hi Pmenu ctermbg=None guibg=None
 hi PmenuSbar ctermbg=None guibg=None
 " hi BufTabLineFill cterm=NONE guibg=None
-" hi CocUnderline cterm=NONE guibg=None
+" hi TabLineFill cterm=NONE guibg=None
+" hi LightlineLeft_tabline_0_1 ctermbg=None guibg=None
+hi CocUnderline cterm=NONE guibg=None
 
 set fillchars+=vert:\ 
 " 窗口的透明度
