@@ -59,7 +59,7 @@ func! SetHeader()
 		call setline(2, "%-- coding: utf-8 --")
 		call append(line(".")+1, "")
 	elseif expand("%:e") == 'py'
-		call setline(1, "#!/usr/local/bin/python")
+		call setline(1, "#!/usr/bin/python")
 		call setline(2, "# -*- coding: utf-8 -*-")
 		call append(line(".")+1, "")
 	elseif expand("%:e") == 'cpp'
