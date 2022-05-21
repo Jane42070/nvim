@@ -1,10 +1,8 @@
 {
-	"coc.preferences.hoverTarget": "preview",
 	"coc.preferences.enableFloatHighlight": true,
 	"coc.preferences.snippetStatusText": "S",
 	"coc.preferences.extensionUpdateCheck": "weekly",
 	// use colorizer
-	"coc.preferences.colorSupport": true,
 	"suggest.detailMaxLength": 200,
 	"suggest.noselect": false,
 	"suggest.snippetIndicator": "~",
@@ -13,12 +11,9 @@
 	"suggest.triggerAfterInsertEnter": false,
 	"suggest.timeout": 10000,
 	"suggest.enablePreview":true,
-	"suggest.maxPreviewWidth": 200,
 	"suggest.floatEnable": true,
 	"suggest.minTriggerInputLength": 1,
 	"suggest.detailField": "preview",
-	"suggest.triggerCompletionWait": 100,
-	"suggest.echodocSupport": true,
 	"suggest.completionItemKindLabels": {
 		"class": "\uf0e8",
 		"color": "\ue22b",
@@ -59,10 +54,8 @@
 	"diagnostic.checkCurrentLine": true,
 	"diagnostic.virtualTextLines": 4,
 	"diagnostic.virtualTextCurrentLineOnly": true,
-	"diagnostic.maxWindowHeight":8,
-	"diagnostic.maxWindowWidth":60,
+	"diagnostic.messageDelay": 100,
 	"snippets.priority": 100,
-	"snippets.enableStatusItem": true,
 	"snippets.autoTrigger": true,
 	"snippets.ultisnips.directories": [
 		"UltiSnips",
@@ -82,7 +75,7 @@
 	"git.topRemovedSign.text": "↵",
 	"git.changeRemovedSign.text": "↹ ",
 	"git.enableGlobalStatus": true,
-	"java.home": "/Library/Java/JavaVirtualMachines/jdk-14.jdk/Contents/Home",
+	"java.home": null,
 	"java.format.enabled": true,
 	"java.completion.enabled": true,
 	"java.format.onType.enabled": true,
@@ -92,7 +85,7 @@
 		"com",
 		"org"
 	],
-	"xml.java.home": "/Library/Java/JavaVirtualMachines/jdk-14.jdk/Contents/Home",
+	"xml.java.home": null,
 	"xml.codeLens.enabled": false,
 	"xml.format.enabled": true,
 	"xml.completion.autoCloseTags": true,
@@ -157,7 +150,6 @@
 	"javascript.referencesCodeLens.enable": true,
 	"javascript.suggest.enabled": true,
 	"javascript.suggestionActions.enabled": true,
-	"latex.lint.onSave": true,
 	"signature.target":"float",
 	"coc.preferences.formatOnSaveFiletypes": [
 		"javascript",
@@ -181,7 +173,6 @@
 	"explorer.filename.colored.enable": true,
 	"explorer.focus": false,
 	"explorer.icon.enableNerdfont": true,
-	"explorer.icon.enableVimDevicons": true,
 	"translator.toLang":"zh",
 	"translator.engines": [
 		"bing",
@@ -189,7 +180,12 @@
 		"youdao"
 	],
 	"rust-analyzer.enable": true,
-	"rust-analyzer.server.path": "/usr/bin/rust-analyzer",
+	"rust-analyzer.server.path": "rust-analyzer",
+	"clangd.path": "clangd",
+	"clangd.enabled": true,
+	"clangd.inlayHints.sep": "‣",
+	"clangd.inlayHints.enable": true,
+	"clangd.showDBChangedNotification": true,
 	"languageserver": {
 		"dart": {
 			"command": "dart",
@@ -225,24 +221,6 @@
 				"storagePath": "/tmp/intelephense"
 			}
 		},
-		"ccls": {
-			"command": "ccls",
-			"filetypes": ["c", "cpp", "objc", "objcpp"],
-			"rootPatterns": [".ccls", "compile_commands.json", ".vim/", ".git/", ".hg/"],
-			"initializationOptions": {
-				"cache": {
-					"directory": "/tmp/ccls"
-				},
-				"clang": {
-					// make sure you have installed commandLineTools
-					"resourceDir": "/usr/local/llvm11/lib/clang/11.0.0",
-					"extraArgs": [
-						"-isystem",
-						"/usr/local/llvm11/include/c++/v1"
-					]
-				}
-			}
-		},
 		"cmake": {
 			"command": "cmake-language-server",
 			"filetypes": ["cmake"],
@@ -256,7 +234,6 @@
 		"golang": {
 			"command": "gopls",
 			"rootPatterns": ["go.mod"],
-			"disableWorkspaceFolders": true,
 			"filetypes": ["go"]
 		},
 		"dockerfile": {
@@ -270,7 +247,7 @@
 			"filetypes": ["sql", "mysql"]
 		},
 		"latex": {
-			"command": "/PATH/TO/texlab",
+			"command": "texlab",
 			// not start server at home directory, since it won't work.
 			"ignoredRootPaths": ["~"],
 			"filetypes": ["tex", "bib", "plaintex", "context"]

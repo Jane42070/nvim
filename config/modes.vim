@@ -32,7 +32,7 @@ Plug 'tpope/vim-repeat'
 " vim-json
 Plug 'elzr/vim-json', {'for': 'json'}
 " vim 缩进参考线
-Plug 'Yggdroot/indentLine', {'for': ['rust', 'sh', 'go', 'python', 'c', 'cpp']}
+" Plug 'Yggdroot/indentLine', {'for': ['rust', 'sh', 'go', 'python', 'c', 'cpp']}
 " Vim-move
 Plug 'matze/vim-move'
 " Calendar
@@ -91,6 +91,7 @@ Plug 'pangloss/vim-javascript', {'for': ['html', 'vim-plug', 'php', 'javascript'
 " 注释
 Plug 'scrooloose/nerdcommenter'
 " 代码片段
+Plug 'honza/vim-snippets'
 Plug 'SirVer/ultisnips'
 " 代码折叠
 Plug 'konfekt/fastfold'

@@ -197,12 +197,12 @@ let g:fzf_history_dir = '~/.local/share/fzf-history'
 
 """""""""""""""""""""""""""""""""""""
 " vim-indentLine
-let g:indentLine_char_list = ['|', '¦', '┆', '┊']
+" let g:indentLine_char_list = ['|', '¦', '┆', '┊']
 """""""""""""""""""""""""""""""""""""
 
 """""""""""""""""""""""""""""""""""""
 " autopairs
-au Filetype html,wxml let g:AutoPairs["<"]=[">"]
+" au Filetype html,wxml let g:AutoPairs["<"]=[">"]
 """""""""""""""""""""""""""""""""""""
 
 """""""""""""""""""""""""""""""""""""
@@ -243,7 +243,7 @@ nmap ga <Plug>(EasyAlign)
 
 """""""""""""""""""""""""""""""""""""
 " colorizer
-let g:colorizer_auto_filetype='css,html,wxss,wxml'
+let g:colorizer_auto_filetype='css,html,wxss,wxml,c'
 let g:colorizer_skip_comments = 1
 let g:colorizer_syntax = 1
 let g:colorizer_use_virtual_text = 1
@@ -718,10 +718,9 @@ map TT :Calendar<CR>
 
 """""""""""""""""""""""""""""""""""""
 " latex-preview
-" let g:livepreview_previewer = 'zathura'
 let g:livepreview_engine = 'xelatex'
 " autocmd Filetype tex setl updatetime=20
-autocmd Filetype tex setl updatetime=1000
+autocmd Filetype tex setl updatetime=500
 " let g:livepreview_previewer = 'evince'
 " nmap <F12> :LLPStartPreview<cr>
 let g:vimtex_compiler_latexmk = {
@@ -736,7 +735,7 @@ let g:vimtex_compiler_latexmk = {
 let g:tex_conceal='abdmg'
 " let g:livepreview_previewer = 'open -a texshop'
 " let g:livepreview_previewer = 'open -a PDF\ Expert'
-let g:livepreview_previewer = 'open -a Skim'
+let g:livepreview_previewer = 'zathura'
 " let g:livepreview_previewer = 'gv'
 " let g:livepreview_previewer = 'open -a PDF\ Reader\ Pro'
 """""""""""""""""""""""""""""""""""""
