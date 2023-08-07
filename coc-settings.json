@@ -1,5 +1,4 @@
 {
-	"coc.preferences.enableFloatHighlight": true,
 	"coc.preferences.snippetStatusText": "S",
 	"coc.preferences.extensionUpdateCheck": "weekly",
 	// use colorizer
@@ -75,16 +74,16 @@
 	"git.topRemovedSign.text": "↵",
 	"git.changeRemovedSign.text": "↹ ",
 	"git.enableGlobalStatus": true,
-	"java.home": null,
-	"java.format.enabled": true,
-	"java.completion.enabled": true,
-	"java.format.onType.enabled": true,
-	"java.completion.importOrder": [
-		"java",
-		"javax",
-		"com",
-		"org"
-	],
+//	"java.home": null,
+//	"java.format.enabled": true,
+//	"java.completion.enabled": true,
+//	"java.format.onType.enabled": true,
+//	"java.completion.importOrder": [
+//		"java",
+//		"javax",
+//		"com",
+//		"org"
+//	],
 	"xml.java.home": null,
 	"xml.codeLens.enabled": false,
 	"xml.format.enabled": true,
@@ -99,13 +98,11 @@
 	"python.linting.flake8CategorySeverity.F": "Information",
 	"python.linting.flake8CategorySeverity.W": "Warning",
 	"python.formatting.provider": "yapf",
-	"python.formatting.yapfArgs": [
-		"--style",
-		"{SPACES_AROUND_POWER_OPERATOR: True, SPACES_BEFORE_COMMENT: 4, SPLIT_BEFORE_LOGICAL_OPERATOR: True}"
-	],
+	// autopep8
+	"python.formatting.autopep8Path": "/usr/local/bin/autopep8",
+	"python.formatting.yapfPath": "/usr/local/bin/yapf",
 	"json.format.enable":true,
 	"json.enable": true,
-	"css.enable": true,
 	"tailwindCSS.htmlLanguages": [
 		"blade",
 		"edge",
@@ -162,7 +159,8 @@
 		"go",
 		"php",
 		"sh",
-		"md"
+		"md",
+		"java"
 	],
 	"cmake.cmakePath": "cmake",
 	"tsserver.trace.server":"verbose",
@@ -186,6 +184,8 @@
 	"clangd.inlayHints.sep": "‣",
 	"clangd.inlayHints.enable": true,
 	"clangd.showDBChangedNotification": true,
+	"tabnine.shortcut": "TN",
+	"tabnine.priority": 999,
 	"languageserver": {
 		"dart": {
 			"command": "dart",
@@ -252,5 +252,6 @@
 			"ignoredRootPaths": ["~"],
 			"filetypes": ["tex", "bib", "plaintex", "context"]
 		}
-	}
+  },
+  "snippets.ultisnips.pythonPrompt": false
 }

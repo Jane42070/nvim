@@ -27,7 +27,9 @@ func! CompileRun()
 	elseif &filetype == 'cpp'
 		exec "AsyncRun -rows=10 -focus=0 g++ % -o %<; ./%<"
 	elseif &filetype == 'java'
-		exec "AsyncRun -mode=term -rows=10 -focus=0 javac %; java %<"
+		exec "AsyncRun -mode=term -rows=10 -focus=0 java %"
+	elseif &filetype == 'javascript'
+		exec "AsyncRun -mode=term -rows=10 -focus=0 node %"
 	elseif &filetype == 'sh'
 		exec "AsyncRun -mode=term -rows=10 -focus=0 sh %"
 	elseif &filetype == 'fish'
@@ -37,7 +39,7 @@ func! CompileRun()
 	elseif &filetype == 'html'
 		exec "!open % &"
 	elseif &filetype == 'go'
-		exec "AsyncRun -mode=term -rows=10 -focus=0 go run %"
+		exec "AsyncRun -mode=term -rows=10 -focus=0 time go run %"
 	elseif &filetype == 'markdown'
 		exec "MarkdownPreview"
 	elseif &filetype == 'tex'
@@ -48,8 +50,19 @@ func! CompileRun()
 		echo "Unkown filetype"
 	endif
 endfunc
+func! MultipleCompileRun()
+	exec "w"
+	if &filetype == 'c'
+		exec "AsyncRun -rows=10 -focus=0 gcc % -o %<;./%<"
+	elseif &filetype == 'java'
+		" exec "AsyncRun -mode=term -rows=10 -focus=0 javac %; java %<"
+		exec "AsyncRun -mode=term -rows=10 -focus=0 java %"
+	else
+		echo "Unkown filetype"
+	endif
+endfunc
 "自动插入文件头
-autocmd BufNewFile *.cpp,*.cc,*.c,*h,*.sh,*.py,*.tex,.gitignore exec ":call SetHeader()"
+autocmd BufNewFile *.cpp,*.cc,*.c,*h,*.sh,*.py,*.java,*.tex,.gitignore exec ":call SetHeader()"
 func! SetHeader()
 	if expand("%:e") == 'sh'
 		call setline(1,"\#!/bin/sh")
@@ -62,6 +75,13 @@ func! SetHeader()
 		call setline(1, "#!/usr/bin/python")
 		call setline(2, "# -*- coding: utf-8 -*-")
 		call append(line(".")+1, "")
+	elseif expand("%:e") == 'java'
+		let line = "public class "
+		let line .= expand("%:r")
+		let line .= " {"
+		call setline(1, line)
+		call setline(2, "	")
+		call setline(3, "}")
 	elseif expand("%:e") == 'cpp'
 		call setline(1,"#include <iostream>")
 		call setline(2, "")

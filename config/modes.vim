@@ -95,4 +95,6 @@ Plug 'honza/vim-snippets'
 Plug 'SirVer/ultisnips'
 " 代码折叠
 Plug 'konfekt/fastfold'
+" JetBrains completions
+" Plug 'beeender/Comrade', {'for': 'java'}
 call plug#end()

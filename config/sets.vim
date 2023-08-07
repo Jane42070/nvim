@@ -35,6 +35,9 @@ set autoindent                                          " 设置自动缩进
 set wrap                                                " 设置折叠
 set tags=./.tags;,.tags
 
+" 命令窗口高度
+set cmdheight=2
+
 " 搜索高亮后　前后跳转：下一个 / 上一个
 " n/N
 " 高亮显示复制区域
