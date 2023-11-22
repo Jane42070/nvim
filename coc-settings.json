@@ -1,16 +1,12 @@
 {
-	"coc.preferences.snippetStatusText": "S",
 	"coc.preferences.extensionUpdateCheck": "weekly",
 	// use colorizer
-	"suggest.detailMaxLength": 200,
 	"suggest.noselect": false,
 	"suggest.snippetIndicator": "~",
 	"suggest.acceptSuggestionOnCommitCharacter": true,
 	"suggest.enablePreselect": false,
 	"suggest.triggerAfterInsertEnter": false,
 	"suggest.timeout": 10000,
-	"suggest.enablePreview":true,
-	"suggest.floatEnable": true,
 	"suggest.minTriggerInputLength": 1,
 	"suggest.detailField": "preview",
 	"suggest.completionItemKindLabels": {
@@ -130,7 +126,6 @@
 		"twig",
 		"vue"
 	],
-	"html.enable": true,
 	"html.format.indentInnerHtml": true,
 	"html.autoClosingTags": true,
 	"html.format.enable": true,
@@ -144,24 +139,9 @@
 	"javascript.showUnused": true,
 	"tsserver.npm": "npm",
 	"javascript.suggest.names": true,
-	"javascript.referencesCodeLens.enable": true,
 	"javascript.suggest.enabled": true,
 	"javascript.suggestionActions.enabled": true,
 	"signature.target":"float",
-	"coc.preferences.formatOnSaveFiletypes": [
-		"javascript",
-		"html",
-		"css",
-		"wxml",
-		"wxss",
-		"python",
-		"dart",
-		"go",
-		"php",
-		"sh",
-		"md",
-		"java"
-	],
 	"cmake.cmakePath": "cmake",
 	"tsserver.trace.server":"verbose",
 	"explorer.width": 30,
@@ -179,13 +159,6 @@
 	],
 	"rust-analyzer.enable": true,
 	"rust-analyzer.server.path": "rust-analyzer",
-	"clangd.path": "clangd",
-	"clangd.enabled": true,
-	"clangd.inlayHints.sep": "‣",
-	"clangd.inlayHints.enable": true,
-	"clangd.showDBChangedNotification": true,
-	"tabnine.shortcut": "TN",
-	"tabnine.priority": 999,
 	"languageserver": {
 		"dart": {
 			"command": "dart",

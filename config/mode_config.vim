@@ -167,7 +167,7 @@ function! RipgrepFzf(query, fullscreen)
 endfunction
 
 let $FZF_DEFAULT_COMMAND = 'rg --files --ignore-case --hidden -g "!{.git,.DS_Store,node_modules,vendor}/*"'
-let $FZF_DEFAULT_OPTS="--preview-window 'right:60%' --preview 'bat --color=always --style=header,grid --line-range:300 {}'"
+let $FZF_DEFAULT_OPTS="--preview-window 'right:60%' --preview 'bat --color=always --style=header,grid --line-range 20:300 {}'"
 
 let g:fzf_colors =
       \ { 'fg':      ['fg', 'Normal'],
