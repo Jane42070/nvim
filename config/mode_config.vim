@@ -31,7 +31,7 @@ if has('nvim-0.5.0')
 	nnoremap <silent> <leader>lg :LazyGit<CR>
 	let g:lazygit_floating_window_winblend = 0 " transparency of floating window
 	let g:lazygit_floating_window_scaling_factor = 0.85 " scaling factor for floating window
-	let g:lazygit_floating_window_corner_chars = ['╭', '╮', '╰', '╯'] " customize lazygit popup window corner characters
+	let g:lazygit_floating_window_border_chars = ['╭', '╮', '╰', '╯'] " customize lazygit popup window corner characters
 	let g:lazygit_use_neovim_remote = 1 " for neovim-remote support
 else
 	echo 'use nvim-5.0.0 to make sure lazygit.nvim works'
