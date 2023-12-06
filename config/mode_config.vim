@@ -543,7 +543,7 @@ let g:vim_markdown_frontmatter = 1
 
 """""""""""""""""""""""""""""""""""""
 " coc.nvim
-let g:coc_global_extensions = ['coc-powershell', 'coc-texlab', 'coc-pyright', 'coc-ultisnips', 'coc-snippets', 'coc-java', 'coc-omnisharp', 'coc-phpls', 'coc-vimlsp', 'coc-xml', 'coc-calc', 'coc-cmake', 'coc-html', 'coc-json', 'coc-css', 'coc-tsserver', 'coc-yank', 'coc-lists', 'coc-stylelint', 'coc-tailwindcss', 'coc-tslint', 'coc-yaml', 'coc-git', 'coc-gitignore', 'coc-explorer', 'coc-translator', 'coc-flutter', 'coc-diagnostic', 'coc-sh', 'coc-rust-analyzer']
+let g:coc_global_extensions = ['coc-powershell', 'coc-clangd', 'coc-texlab', 'coc-pyright', 'coc-ultisnips', 'coc-snippets', 'coc-java', 'coc-omnisharp', 'coc-phpls', 'coc-vimlsp', 'coc-xml', 'coc-calc', 'coc-cmake', 'coc-html', 'coc-json', 'coc-css', 'coc-tsserver', 'coc-yank', 'coc-lists', 'coc-stylelint', 'coc-tailwindcss', 'coc-tslint', 'coc-yaml', 'coc-git', 'coc-gitignore', 'coc-explorer', 'coc-translator', 'coc-flutter', 'coc-diagnostic', 'coc-sh', 'coc-rust-analyzer']
 " Some servers have issues with backup files, see #649.
 set nobackup
 set nowritebackup
