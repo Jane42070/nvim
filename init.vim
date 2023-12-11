@@ -132,6 +132,13 @@ func! SetHeader()
 endfunc
 autocmd BufNewFile * normal G
 
+augroup markdown_identify
+	autocmd! BufRead,BufNewFile *.md  set filetype=markdown
+	autocmd! BufRead,BufNewFile *.mkd set filetype=markdown
+	autocmd! BufRead,BufNewFile /tmp/calcurse* set filetype=markdown
+	autocmd! BufRead,BufNewFile ~/.calcurse/notes/* set filetype=markdown
+augroup END
+
 function! ChineseCount() range
 	let save = @z
 	silent exec 'normal! gv"zy'
