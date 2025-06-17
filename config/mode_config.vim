@@ -793,8 +793,8 @@ let g:lightline#bufferline#enable_devicons = 1
 let g:lightline#bufferline#unnamed         = '[No Name]'
 let g:lightline = {
 	\ 'tabline': {'left': [['buffers']], 'right': [['close']]},
-	\ 'separator': { 'left': '', 'right': '' },
-	\ 'subseparator': { 'left': '', 'right': '' },
+	\ 'separator': { 'left': '', 'right': '' },
+	\ 'subseparator': { 'left': '', 'right': '' },
 	\ 'component': {
 	\   'lineinfo': ' %3l:%-2v',
 	\   'relativepath': '%f',

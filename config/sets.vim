@@ -15,7 +15,6 @@ set textwidth=80
 set linebreak                                           " 不对单词折行
 " 设置文件编码
 set fileencodings=utf-8,ucs-bom,gb18030,gbk,gb2312,cp936,utf-16,big5
-set termencoding=utf-8
 set encoding=utf-8                                      " 编码
 set fenc=utf-8                                          " 编码
 set scrolloff=5
